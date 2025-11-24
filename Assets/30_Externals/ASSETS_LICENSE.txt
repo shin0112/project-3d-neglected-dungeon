@@ -1,0 +1,53 @@
+# Assets License
+
+## Fonts
+- 둥근모꼴+
+  License: SIL Open Font License (OFL)
+  Source: https://noonnu.cc/font_page/250
+
+- 갈무리9
+  License: SIL Open Font License (OFL)
+  Source: https://noonnu.cc/font_page/800
+
+- NEXON Lv1 Gothic
+  License: Nexon Free Font License (상업적 사용 가능, 출처 표기 불필요, 폰트 파일 판매 금지)
+  Source: https://brand.nexon.com/ko/ci-brand-guidelines/typeface
+
+Note: All font assets (SDF/bitmap) are generated within Unity for rendering purposes only.
+Original font files are not modified or redistributed.
+
+---
+
+## Icons
+- Fire Ray Icon
+  Author: Lorc
+  License: CC BY 3.0
+  Source: https://game-icons.net/1x1/lorc/fire-ray.html
+
+- Knapsack icon
+  Author: Lorc
+  License: CC BY 3.0
+  Source: https://game-icons.net/1x1/lorc/knapsack.html
+
+- Coins & Gems & Chests & More (coins-chests-etc-2-0-noborders)
+  License: CC0
+  Source: https://greatdocbrown.itch.io/coins-gems-etc
+
+---
+
+## KayKit
+- KayKit Adventurers 2.0 FREE
+  License: CC0
+  Source: https://kaylousberg.itch.io/kaykit-adventurers
+
+- KayKit Character Animations
+  License: CC0
+  Source: https://kaylousberg.itch.io/kaykit-character-animations
+
+- KayKit Dungeon Remastered
+  License: CC0
+  Source: https://kaylousberg.itch.io/kaykit-dungeon-remastered
+
+- KayKit Skeletons
+  License: CC0
+  Source: https://kaylousberg.itch.io/kaykit-skeletons
