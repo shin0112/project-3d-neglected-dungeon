@@ -18,7 +18,6 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-
         if (this.showInitialOnStart && this.initialView != null)
         {
             UIView root = this.initialView;
@@ -113,13 +112,11 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ClosePopup()
     {
-
         if (this.viewStack.Count == 0)
             return;
 
         UIView top = this.viewStack.Pop();
         top?.Hide();
-
     }
 
     /// <summary>
@@ -225,7 +222,6 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-
         // 현재 상단 처리(일반 화면 전환일 때만 Hide)
         if (hideCurrent && this.viewStack.Count > 0)
         {
@@ -248,7 +244,6 @@ public class UIManager : MonoBehaviour
             view.transform.SetParent(uiRoot, false);
         }
 
-
         NormalizeForCanvas(view);
 
         this.viewStack.Push(view);
@@ -259,7 +254,6 @@ public class UIManager : MonoBehaviour
         }
         view.Show();
     }
-
 
     private void NormalizeForCanvas(UIView uiView)
     {
@@ -296,8 +290,8 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        var arr = this.viewStack.ToArray();   
-        System.Array.Reverse(arr);           
+        var arr = this.viewStack.ToArray();
+        System.Array.Reverse(arr);
 
         StringBuilder sb = new StringBuilder();
         sb.AppendLine($"[UIManager] ViewStack count = {arr.Length}");
@@ -316,7 +310,6 @@ public class UIManager : MonoBehaviour
                 sb.Append("  <-- TOP");
             }
         }
-
         Debug.Log(sb.ToString());
     }
 
@@ -339,7 +332,6 @@ public class UIManager : MonoBehaviour
 
     private void Reset()
     {
-
         uiRoot = GetComponent<RectTransform>();
         ResetToDefaults();
     }
