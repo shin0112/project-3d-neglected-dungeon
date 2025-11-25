@@ -7,7 +7,7 @@ using UnityEngine;
 #region Transform
 public static class TransformExtenstion
 {
-    public static T GetChild<T>(this Transform t, string name) where T : Component
+    public static T FindChild<T>(this Transform t, string name) where T : Component
     {
         T[] children = t.gameObject.GetComponentsInChildren<T>(true);
         foreach (T child in children)
