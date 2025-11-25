@@ -20,6 +20,9 @@ public class Player : MonoBehaviour
     [field: Header("Animations")]
     [field: SerializeField] public PlayerAnimationData AnimationData { get; private set; }
     private PlayerStateMachine _stateMachine;
+
+    [field: Header("AI")]
+    [field: SerializeField] private TargetingController _targeting;
     #endregion
 
     #region Initialize
@@ -57,6 +60,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        _targeting.Update(Time.deltaTime);
         _stateMachine.HandleInput();
         _stateMachine.Update();
     }
