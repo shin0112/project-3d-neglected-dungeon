@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     #region Initialize
     private void Reset()
     {
-        Animator = transform.FindChild<Animator>("Player");
+        Animator = transform.FindChild<Animator>("Model");
         Input = transform.FindChild<PlayerController>("Player");
         Controller = transform.FindChild<CharacterController>("Player");
     }

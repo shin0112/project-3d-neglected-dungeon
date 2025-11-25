@@ -7,6 +7,9 @@ public interface IState
     public void PhysicsUpdate();
 }
 
+/// <summary>
+/// 상태 머신을 적용한 클래스
+/// </summary>
 public abstract class StateMachine
 {
     protected IState curState;
