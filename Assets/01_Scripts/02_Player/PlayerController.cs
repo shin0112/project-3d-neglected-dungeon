@@ -20,6 +20,9 @@ public class PlayerController
     public PlayerController(Player player)
     {
         _player = player;
+
+        MovementSpeed = _player.State.GroundData.BaseSpeed;
+        RotationDamping = _player.State.GroundData.BaseRotationDamping;
     }
 
     #region 움직임 구현

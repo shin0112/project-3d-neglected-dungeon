@@ -5,12 +5,12 @@ public class PlayerBaseState : IState
 {
     #region Fields
     protected PlayerStateMachine stateMachine;
-    protected readonly PlayerGroundData groundData;
+    protected readonly NavigationController navigation;
 
     public PlayerBaseState(PlayerStateMachine stateMachine)
     {
         this.stateMachine = stateMachine;
-        this.groundData = stateMachine.Player.State.GroundData;
+        this.navigation = new();
     }
     #endregion
 

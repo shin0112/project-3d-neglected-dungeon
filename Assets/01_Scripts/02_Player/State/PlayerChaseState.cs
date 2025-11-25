@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class PlayerChaseState : PlayerGroundState
 {
     public PlayerChaseState(PlayerStateMachine stateMachine) : base(stateMachine)
@@ -15,5 +17,20 @@ public class PlayerChaseState : PlayerGroundState
     {
         base.Exit();
         StopAnimation(stateMachine.Player.AnimationData.WalkParameterHash);
+    }
+
+    public override void Update()
+    {
+        Monster target = stateMachine.Player.Targeting.CurTarget;
+
+        if (target == null)
+        {
+            Logger.Log("타겟 없음");
+            stateMachine.ChangeState(stateMachine.IdleState);
+            return;
+        }
+
+        Vector3 direction = navigation.GetDirectionTo(target.transform.position);
+        stateMachine.Player.MovementController.MovementDirection = direction;
     }
 }

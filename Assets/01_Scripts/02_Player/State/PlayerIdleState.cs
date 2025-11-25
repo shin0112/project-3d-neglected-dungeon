@@ -19,10 +19,12 @@ public class PlayerIdleState : PlayerGroundState
 
     public override void Update()
     {
-        Monster target = stateMachine.Player.Targeting.CurTarget;
+        TargetingController targeting = stateMachine.Player.Targeting;
 
-        if (target != null)
+        if (targeting.ScanTarget != null)
         {
+            Logger.Log("타겟 탐색");
+            targeting.FixCurrentTarget();
             stateMachine.ChangeState(stateMachine.ChaseState);
             return;
         }
