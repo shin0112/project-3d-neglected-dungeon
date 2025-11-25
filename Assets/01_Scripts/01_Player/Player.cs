@@ -12,7 +12,8 @@ public class Player : MonoBehaviour
     [field: SerializeField] public PlayerController Input { get; private set; }
 
     [field: Header("Data")]
-    [field: SerializeField] public PlayerStateData PlayerState { get; private set; }
+    [field: SerializeField] public PlayerStateData State { get; private set; }
+    [field: SerializeField] public PlayerStatData Stat { get; private set; }
 
     [field: Header("Animations")]
     [field: SerializeField] public PlayerAnimationData AnimationData { get; private set; }

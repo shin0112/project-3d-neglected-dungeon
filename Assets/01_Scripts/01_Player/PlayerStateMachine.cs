@@ -27,8 +27,8 @@ public class PlayerStateMachine : StateMachine
 
         this.MainCameraTransform = Camera.main.transform;
 
-        this.MovementSpeed = player.PlayerState.GroundData.BaseSpeed;
-        this.RotationDamping = player.PlayerState.GroundData.BaseRotationDamping;
+        this.MovementSpeed = player.State.GroundData.BaseSpeed;
+        this.RotationDamping = player.State.GroundData.BaseRotationDamping;
 
         this.IdleState = new PlayerIdleState(this);
     }

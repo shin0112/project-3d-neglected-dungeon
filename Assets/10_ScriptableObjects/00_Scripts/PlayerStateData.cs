@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 /// <summary>
-/// 플레이어의 상태 값을 저장하기 위한 SO
+/// 플레이어의 움직임 정보를 저장하기 위한 SO
 /// </summary>
 [Serializable]
 public class PlayerGroundData

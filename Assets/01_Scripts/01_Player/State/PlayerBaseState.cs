@@ -1,6 +1,9 @@
 
 using UnityEngine;
 
+/// <summary>
+/// 플레이어 상태 기본 스크립트
+/// </summary>
 public class PlayerBaseState : IState
 {
     #region Fields
@@ -10,7 +13,7 @@ public class PlayerBaseState : IState
     public PlayerBaseState(PlayerStateMachine stateMachine)
     {
         this.stateMachine = stateMachine;
-        this.groundData = stateMachine.Player.PlayerState.GroundData;
+        this.groundData = stateMachine.Player.State.GroundData;
     }
     #endregion
 
