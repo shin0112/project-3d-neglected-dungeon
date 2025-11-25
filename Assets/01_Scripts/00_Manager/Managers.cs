@@ -12,6 +12,7 @@ public partial class Managers : MonoBehaviour
     public static Managers Instance => _instance;
 
     // Managers
+    public MonsterManager Monster { get; } = new();
     #endregion
 
     #region 초기화
@@ -31,7 +32,8 @@ public partial class Managers : MonoBehaviour
 
     private void Initialize()
     {
-
+        Monster monster = FindObjectOfType<Monster>();
+        Monster.Register(monster);
     }
     #endregion
 }
