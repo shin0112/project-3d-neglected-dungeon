@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Entity의 스탯과 값을 저장하기 위한 SO
+/// </summary>
 public enum StatType
 {
     Health,
@@ -9,10 +12,17 @@ public enum StatType
     DetectDistance,
 }
 
-[CreateAssetMenu(fileName = "New StatData", menuName = "Stats/Entity Stats")]
-public class StatData : ScriptableObject
+[CreateAssetMenu(fileName = "New PlayerStatData", menuName = "Stats/Player Stats")]
+public class PlayerStatData : ScriptableObject
 {
     [field: SerializeField] public string PlayerName { get; private set; }
+    [field: SerializeField] public List<StatEntry> Stats { get; private set; }
+}
+
+[CreateAssetMenu(fileName = "New MonsterStatData", menuName = "Stats/Monster Stats")]
+public class MonsterStatData : ScriptableObject
+{
+    [field: SerializeField] public string MonsterName { get; private set; }
     [field: SerializeField] public List<StatEntry> Stats { get; private set; }
 }
 
