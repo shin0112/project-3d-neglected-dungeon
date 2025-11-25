@@ -1,34 +1,25 @@
+using System;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+[Serializable]
+public class PlayerController
 {
     #region Fields
     // Components
-    [SerializeField] private Player _player;
-    [SerializeField] private CharacterController _controller;
-    public Transform MainCameraTransform { get; set; }
+    [field: SerializeField] private Player _player;
 
     // Movement Fields
-    public Vector2 MovementInput { get; set; }
-    public float MovementSpeed { get; private set; }
-    public float MovementSpeedModifier { get; set; } = 1f;
-    public float RotationDamping { get; private set; }
+    [field: SerializeField] public Vector3 MovementDirection { get; set; }
+    [field: SerializeField] public float MovementSpeed { get; private set; }
+    [field: SerializeField] public float MovementSpeedModifier { get; set; } = 1f;
+    [field: SerializeField] public float RotationDamping { get; private set; }
 
-    public float JumpForce { get; set; }
-
-    // AI Nav
-    private Vector3 _target;
+    [field: SerializeField] public float JumpForce { get; set; }
     #endregion
 
-    private void Reset()
+    public PlayerController(Player player)
     {
-        _player = transform.FindChild<Player>("Player");
-        _controller = transform.FindChild<CharacterController>("Player");
-    }
-
-    private void Awake()
-    {
-        this.MainCameraTransform = Camera.main.transform;
+        _player = player;
     }
 
     #region 움직임 구현
@@ -39,25 +30,7 @@ public class PlayerController : MonoBehaviour
     public void Move(Vector3 direction)
     {
         Rotate(direction);
-        _controller.Move(direction * GetMovementSpeed());
-    }
-
-    /// <summary>
-    /// 이동 방향 가져오기
-    /// </summary>
-    /// <returns></returns>
-    private Vector3 GetMovementDirection()
-    {
-        Vector3 forward = MainCameraTransform.forward;
-        Vector3 right = MainCameraTransform.right;
-
-        forward.y = 0;
-        right.y = 0;
-
-        forward.Normalize();
-        right.Normalize();
-
-        return forward * MovementInput.y + right * MovementInput.x;
+        _player.Controller.Move(direction * GetMovementSpeed());
     }
 
     /// <summary>
@@ -87,5 +60,4 @@ public class PlayerController : MonoBehaviour
         }
     }
     #endregion
-
 }

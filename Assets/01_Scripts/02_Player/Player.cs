@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     [field: Header("Component")]
     [field: SerializeField] public Animator Animator { get; private set; }
     [field: SerializeField] public CharacterController Controller { get; private set; }
-    [field: SerializeField] public PlayerController Input { get; private set; }
+    public Transform MainCameraTransform { get; set; }
 
     [field: Header("Data")]
     [field: SerializeField] public PlayerStateData State { get; private set; }
@@ -21,15 +21,15 @@ public class Player : MonoBehaviour
     [field: SerializeField] public PlayerAnimationData AnimationData { get; private set; }
     private PlayerStateMachine _stateMachine;
 
-    [field: Header("AI")]
-    [field: SerializeField] private TargetingController _targeting;
+    [field: Header("AI Nav")]
+    [field: SerializeField] public PlayerController MovementController { get; private set; }
+    [field: SerializeField] public TargetingController Targeting { get; private set; }
     #endregion
 
     #region Initialize
     private void Reset()
     {
         Animator = transform.FindChild<Animator>("Model");
-        Input = transform.FindChild<PlayerController>("Player");
         Controller = transform.FindChild<CharacterController>("Player");
     }
 
@@ -37,11 +37,14 @@ public class Player : MonoBehaviour
     {
         ConvertStatListToDict();
 
+        // animations
         AnimationData.Initialize();
         _stateMachine = new PlayerStateMachine(this);
         _stateMachine.ChangeState(_stateMachine.IdleState);
 
-        _targeting = new(this);
+        // ai nav
+        MovementController = new(this);
+        Targeting = new(this);
     }
 
     /// <summary>
@@ -60,9 +63,9 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        _targeting.Update(Time.deltaTime);
-        _stateMachine.HandleInput();
+        Targeting.Update(Time.deltaTime);
         _stateMachine.Update();
+        MovementController.Move(MovementController.MovementDirection);
     }
 
     private void FixedUpdate()
