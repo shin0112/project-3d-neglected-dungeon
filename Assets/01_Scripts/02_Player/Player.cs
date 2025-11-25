@@ -65,7 +65,11 @@ public class Player : MonoBehaviour
     {
         Targeting.Update(Time.deltaTime);
         _stateMachine.Update();
-        MovementController.Move(MovementController.MovementDirection);
+
+        if (Targeting.CurTarget != null)
+        {
+            MovementController.Move(Targeting.CurTarget);
+        }
     }
 
     private void FixedUpdate()

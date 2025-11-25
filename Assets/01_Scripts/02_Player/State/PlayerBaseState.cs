@@ -5,12 +5,10 @@ public class PlayerBaseState : IState
 {
     #region Fields
     protected PlayerStateMachine stateMachine;
-    protected readonly NavigationController navigation;
 
     public PlayerBaseState(PlayerStateMachine stateMachine)
     {
         this.stateMachine = stateMachine;
-        this.navigation = new();
     }
     #endregion
 

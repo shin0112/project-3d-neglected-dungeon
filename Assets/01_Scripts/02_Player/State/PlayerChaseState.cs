@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class PlayerChaseState : PlayerGroundState
 {
     public PlayerChaseState(PlayerStateMachine stateMachine) : base(stateMachine)
@@ -29,8 +27,5 @@ public class PlayerChaseState : PlayerGroundState
             stateMachine.ChangeState(stateMachine.IdleState);
             return;
         }
-
-        Vector3 direction = navigation.GetDirectionTo(target.transform.position);
-        stateMachine.Player.MovementController.MovementDirection = direction;
     }
 }

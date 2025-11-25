@@ -7,11 +7,13 @@ public class PlayerController
     #region Fields
     // Components
     [field: SerializeField] private Player _player;
+    [field: SerializeField] private NavigationController _navigation;
 
     // Movement Fields
-    [field: SerializeField] public Vector3 MovementDirection { get; set; }
     [field: SerializeField] public float MovementSpeed { get; private set; }
     [field: SerializeField] public float MovementSpeedModifier { get; set; } = 1f;
+    [field: SerializeField] private Vector3 _movementDirection;
+
     [field: SerializeField] public float RotationDamping { get; private set; }
 
     [field: SerializeField] public float JumpForce { get; set; }
@@ -20,6 +22,7 @@ public class PlayerController
     public PlayerController(Player player)
     {
         _player = player;
+        _navigation = new();
 
         MovementSpeed = _player.State.GroundData.BaseSpeed;
         RotationDamping = _player.State.GroundData.BaseRotationDamping;
@@ -27,13 +30,15 @@ public class PlayerController
 
     #region 움직임 구현
     /// <summary>
-    /// [Public] 이동 방향을 받아 이동 및 회전
+    /// [Public] 타겟의 위치를 확인한 후 경로를 구해 회전 및 이동
     /// </summary>
-    /// <param name="direction"></param>
-    public void Move(Vector3 direction)
+    /// <param name="target"></param>
+    public void Move(Monster target)
     {
-        Rotate(direction);
-        _player.Controller.Move(direction * GetMovementSpeed());
+        _navigation.UpdatePosition(_player.transform.position);
+        _movementDirection = _navigation.GetDirectionTo(target.transform.position);
+        Rotate(_movementDirection);
+        _player.Controller.Move(_movementDirection * GetMovementSpeed() * Time.deltaTime);
     }
 
     /// <summary>
