@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// 플레이어 애니메이션에 적용할 데이터
+/// </summary>
 [System.Serializable]
 public class PlayerAnimationData
 {
