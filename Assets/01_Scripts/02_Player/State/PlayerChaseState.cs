@@ -21,6 +21,7 @@ public class PlayerChaseState : PlayerGroundState
     {
         Monster target = stateMachine.Player.Targeting.CurTarget;
 
+        // todo: target 리셋 로직 추가 (몬스터 or 플레이어 사망)
         if (target == null)
         {
             Logger.Log("타겟 없음");

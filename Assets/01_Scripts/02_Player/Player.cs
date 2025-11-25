@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     [field: SerializeField] public TargetingController Targeting { get; private set; }
     #endregion
 
-    #region Initialize
+    #region Initialization
     private void Reset()
     {
         Animator = transform.FindChild<Animator>("Model");
@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        Targeting.Update(Time.deltaTime);
+        Targeting.Update();
         _stateMachine.Update();
 
         if (Targeting.CurTarget != null)

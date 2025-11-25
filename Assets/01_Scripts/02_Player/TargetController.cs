@@ -19,9 +19,9 @@ public class TargetingController
         _squreDetectDistance = detectDistance * detectDistance;
     }
 
-    public void Update(float deltaTime)
+    public void Update()
     {
-        _timer += deltaTime;
+        _timer += Time.deltaTime;
         if (_timer < 0.2f) return;
         Logger.Log("타겟 탐색");
         _timer = 0f;

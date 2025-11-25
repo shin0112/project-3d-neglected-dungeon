@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public class PlayerController
 {
-    #region Fields
+    #region 필드
     // Components
     [field: SerializeField] private Player _player;
     [field: SerializeField] private NavigationController _navigation;
@@ -52,7 +52,7 @@ public class PlayerController
     }
 
     /// <summary>
-    /// 바라보고 있는 방향으로 회전하기
+    /// 방향대로 회전하기
     /// </summary>
     /// <param name="direction"></param>
     private void Rotate(Vector3 direction)

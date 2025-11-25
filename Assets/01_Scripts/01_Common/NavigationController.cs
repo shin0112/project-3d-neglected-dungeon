@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class NavigationController
 {
-    private NavMeshPath _path = new NavMeshPath();
+    private NavMeshPath _path = new();
     private Vector3 _curPosition = Vector3.zero;
 
     public Vector3 GetDirectionTo(Vector3 targetPos)

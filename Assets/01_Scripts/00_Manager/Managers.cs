@@ -6,14 +6,12 @@ using UnityEngine;
 /// </summary>
 public partial class Managers : MonoBehaviour
 {
-    #region 필드
     // Singleton
     private static Managers _instance;
     public static Managers Instance => _instance;
 
     // Managers
     public MonsterManager Monster { get; } = new();
-    #endregion
 
     #region 초기화
     private void Awake()

@@ -3,9 +3,11 @@
 /// </summary>
 public class PlayerBaseState : IState
 {
-    #region Fields
+    #region 필드
     protected PlayerStateMachine stateMachine;
+    #endregion
 
+    #region 생성자
     public PlayerBaseState(PlayerStateMachine stateMachine)
     {
         this.stateMachine = stateMachine;
