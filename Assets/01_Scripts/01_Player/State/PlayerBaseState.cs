@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 /// <summary>
@@ -14,68 +13,6 @@ public class PlayerBaseState : IState
     {
         this.stateMachine = stateMachine;
         this.groundData = stateMachine.Player.State.GroundData;
-    }
-    #endregion
-
-    #region 움직임 구현
-    private void Move()
-    {
-        Vector3 movementDiretion = GetMovementDirection();
-
-        Move(movementDiretion);
-        Rotate(movementDiretion);
-    }
-
-    private void Move(Vector3 direction)
-    {
-        float movementSpeed = GetMovementSpeed();
-
-        stateMachine.Player.Controller.Move(direction * movementSpeed);
-    }
-
-    /// <summary>
-    /// 이동 방향 가져오기
-    /// </summary>
-    /// <returns></returns>
-    private Vector3 GetMovementDirection()
-    {
-        Vector3 forward = stateMachine.MainCameraTransform.forward;
-        Vector3 right = stateMachine.MainCameraTransform.right;
-
-        forward.y = 0;
-        right.y = 0;
-
-        forward.Normalize();
-        right.Normalize();
-
-        return forward * stateMachine.MovementInput.y + right * stateMachine.MovementInput.x;
-    }
-
-    /// <summary>
-    /// 이동 속도 가져오기
-    /// </summary>
-    /// <returns></returns>
-    private float GetMovementSpeed()
-    {
-        float moveSpeed = stateMachine.MovementSpeed * stateMachine.MovementSpeedModifier;
-        return moveSpeed;
-    }
-
-    /// <summary>
-    /// 바라보고 있는 방향으로 회전하기
-    /// </summary>
-    /// <param name="direction"></param>
-    private void Rotate(Vector3 direction)
-    {
-        if (direction != Vector3.zero)
-        {
-            Transform playerTransform = stateMachine.Player.transform;
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            playerTransform.rotation = Quaternion.Slerp(
-                playerTransform.rotation,
-                targetRotation,
-                stateMachine.RotationDamping * Time.deltaTime);
-        }
     }
     #endregion
 
@@ -118,7 +55,7 @@ public class PlayerBaseState : IState
 
     public virtual void Update()
     {
-        Move();
+        stateMachine.Player.Input.Move(Vector3.zero);
     }
     #endregion
 }
