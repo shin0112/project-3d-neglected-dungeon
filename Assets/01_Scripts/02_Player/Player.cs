@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
     [field: Header("Data")]
     [field: SerializeField] public PlayerStateData State { get; private set; }
     [field: SerializeField] public PlayerStatData Stat { get; private set; }
+    public Dictionary<StatType, float> StatDict { get; private set; }
 
     [field: Header("Animations")]
     [field: SerializeField] public PlayerAnimationData AnimationData { get; private set; }
@@ -30,9 +32,26 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        ConvertStatListToDict();
+
         AnimationData.Initialize();
         _stateMachine = new PlayerStateMachine(this);
         _stateMachine.ChangeState(_stateMachine.IdleState);
+
+        _targeting = new(this);
+    }
+
+    /// <summary>
+    /// 스텟 타입과 값을 딕셔너리로 관리하기 위해 초기화
+    /// </summary>
+    private void ConvertStatListToDict()
+    {
+        StatDict = new();
+
+        foreach (StatEntry statEntry in Stat.Stats)
+        {
+            StatDict[statEntry.StatType] = statEntry.BaseValue;
+        }
     }
     #endregion
 
