@@ -7,11 +7,14 @@ public class PlayerStateMachine : StateMachine
 
     // Animation State
     public PlayerIdleState IdleState { get; private set; }
+    public PlayerChaseState ChaseState { get; private set; }
 
     public PlayerStateMachine(Player player)
     {
         this.Player = player;
 
+        // Ground State
         this.IdleState = new PlayerIdleState(this);
+        this.ChaseState = new PlayerChaseState(this);
     }
 }

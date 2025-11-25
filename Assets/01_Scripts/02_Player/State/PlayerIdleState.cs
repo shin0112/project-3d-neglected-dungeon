@@ -6,7 +6,7 @@ public class PlayerIdleState : PlayerGroundState
 
     public override void Enter()
     {
-        stateMachine.Player.Input.MovementSpeedModifier = 0f;
+        stateMachine.Player.MovementController.MovementSpeedModifier = 0f;
         base.Enter();
         StartAnimation(stateMachine.Player.AnimationData.IdleParameterHash);
     }
@@ -15,5 +15,16 @@ public class PlayerIdleState : PlayerGroundState
     {
         base.Exit();
         StopAnimation(stateMachine.Player.AnimationData.IdleParameterHash);
+    }
+
+    public override void Update()
+    {
+        Monster target = stateMachine.Player.Targeting.CurTarget;
+
+        if (target != null)
+        {
+            stateMachine.ChangeState(stateMachine.ChaseState);
+            return;
+        }
     }
 }

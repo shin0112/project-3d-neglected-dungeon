@@ -1,5 +1,3 @@
-using UnityEngine;
-
 /// <summary>
 /// 플레이어 상태 기본 스크립트
 /// </summary>
@@ -55,7 +53,6 @@ public class PlayerBaseState : IState
 
     public virtual void Update()
     {
-        stateMachine.Player.Input.Move(Vector3.zero);
     }
     #endregion
 }
