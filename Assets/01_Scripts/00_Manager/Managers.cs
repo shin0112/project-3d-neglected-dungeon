@@ -32,8 +32,11 @@ public partial class Managers : MonoBehaviour
 
     private void Initialize()
     {
-        Monster monster = FindObjectOfType<Monster>();
-        Monster.Register(monster);
+        Monster[] monsters = FindObjectsOfType<Monster>();
+        foreach (var m in monsters)
+        {
+            Monster.Register(m);
+        }
     }
     #endregion
 }
