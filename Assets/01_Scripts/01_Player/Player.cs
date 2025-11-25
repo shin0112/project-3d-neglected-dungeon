@@ -5,14 +5,21 @@ using UnityEngine;
 /// </summary>
 public class Player : MonoBehaviour
 {
+    #region Fields
+    [field: Header("Component")]
+    [field: SerializeField] public Animator Animator { get; private set; }
+    [field: SerializeField] public CharacterController Controller { get; private set; }
+    [field: SerializeField] public PlayerController Input { get; private set; }
+
+    [field: Header("Data")]
+    [field: SerializeField] public PlayerStateData PlayerState { get; private set; }
+
     [field: Header("Animations")]
     [field: SerializeField] public PlayerAnimationData AnimationData { get; private set; }
+    private PlayerStateMachine _stateMachine;
+    #endregion
 
-    [field: Header("Info")]
-    [field: SerializeField] public Animator Animator { get; private set; }
-    [field: SerializeField] public PlayerController Input { get; private set; }
-    [field: SerializeField] public CharacterController Controller { get; private set; }
-
+    #region Initialize
     private void Reset()
     {
         Animator = transform.FindChild<Animator>("Player");
@@ -23,5 +30,18 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         AnimationData.Initialize();
+        _stateMachine = new PlayerStateMachine(this);
+    }
+    #endregion
+
+    private void Update()
+    {
+        _stateMachine.HandleInput();
+        _stateMachine.Update();
+    }
+
+    private void FixedUpdate()
+    {
+        _stateMachine.PhysicsUpdate();
     }
 }
