@@ -29,6 +29,46 @@ Original font files are not modified or redistributed.
   License: CC BY 3.0
   Source: https://game-icons.net/1x1/lorc/knapsack.html
 
+- Treasure map icon
+  Author: Lorc
+  License: CC BY 3.0
+  Source: https://game-icons.net/1x1/lorc/treasure-map.html
+
+- Splash icon
+  Author: Lorc
+  License: CC BY 3.0
+  Source: https://game-icons.net/1x1/lorc/splash.html
+
+- Armor vest icon
+  Author: Lorc
+  License: CC BY 3.0
+  Source: https://game-icons.net/1x1/lorc/armor-vest.html
+
+- Spartan helmet icon
+  Author: Delapouite
+  License: CC BY 3.0
+  Source: https://game-icons.net/1x1/delapouite/spartan-helmet.html
+
+- Price tag icon
+  Author: Delapouite
+  License: CC BY 3.0
+  Source: https://game-icons.net/1x1/delapouite/price-tag.html
+
+- Dungeon gate icon
+  Author: Delapouite
+  License: CC BY 3.0
+  Source: https://game-icons.net/1x1/delapouite/dungeon-gate.html
+
+- Gladius icon
+  Author: Skoll
+  License: CC BY 3.0
+  Source: https://game-icons.net/1x1/skoll/gladius.html
+
+- Hearts icon
+  Author: Skoll
+  License: CC BY 3.0
+  Source: https://game-icons.net/1x1/skoll/hearts.html
+
 - Coins & Gems & Chests & More (coins-chests-etc-2-0-noborders)
   License: CC0
   Source: https://greatdocbrown.itch.io/coins-gems-etc
