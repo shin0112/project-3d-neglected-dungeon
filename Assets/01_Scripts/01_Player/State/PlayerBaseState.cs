@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerBaseState : IState
 {
+    #region Fields
     protected PlayerStateMachine stateMachine;
     protected readonly PlayerGroundData groundData;
 
@@ -11,6 +12,7 @@ public class PlayerBaseState : IState
         this.stateMachine = stateMachine;
         this.groundData = stateMachine.Player.PlayerState.GroundData;
     }
+    #endregion
 
     #region 움직임 구현
     private void Move()
@@ -97,27 +99,23 @@ public class PlayerBaseState : IState
     #region 인터페이스 구현
     public virtual void Enter()
     {
-        throw new System.NotImplementedException();
     }
 
     public virtual void Exit()
     {
-        throw new System.NotImplementedException();
     }
 
     public virtual void HandleInput()
     {
-        throw new System.NotImplementedException();
     }
 
     public virtual void PhysicsUpdate()
     {
-        throw new System.NotImplementedException();
     }
 
     public virtual void Update()
     {
-        throw new System.NotImplementedException();
+        Move();
     }
     #endregion
 }
