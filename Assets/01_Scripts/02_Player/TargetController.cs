@@ -9,6 +9,7 @@ public class TargetingController
 
     // 몬스터 탐지
     [field: SerializeField] public Monster CurTarget { get; private set; }
+    [field: SerializeField] public Monster ScanTarget { get; private set; }
     [SerializeField] private float _squreDetectDistance;
 
     public TargetingController(Player player)
@@ -22,13 +23,36 @@ public class TargetingController
     {
         _timer += deltaTime;
         if (_timer < 0.2f) return;
-        Logger.Log("타겟 업데이트");
+        Logger.Log("타겟 탐색");
         _timer = 0f;
 
-        CurTarget = GetClosestTarget();
+        ScanNearestTarget();
     }
 
-    private Monster GetClosestTarget()
+    #region [public] 현재 타겟 관리
+    /// <summary>
+    /// [public] 현재 타겟을 스캔한 몬스터로 지정
+    /// </summary>
+    public void FixCurrentTarget()
+    {
+        CurTarget = ScanTarget;
+    }
+
+    /// <summary>
+    /// [public] 현재 타겟 리셋
+    /// </summary>
+    public void ClearCurrentTarget()
+    {
+        CurTarget = null;
+    }
+    #endregion
+
+    #region 타겟 탐색 내부 로직
+    /// <summary>
+    /// 근처의 타겟 몬스터를 탐색해서 반환
+    /// </summary>
+    /// <returns></returns>
+    private void ScanNearestTarget()
     {
         Monster closest = null;
         float bestDist = float.MaxValue;
@@ -51,6 +75,7 @@ public class TargetingController
             }
         }
 
-        return closest;
+        ScanTarget = closest;
     }
+    #endregion
 }
