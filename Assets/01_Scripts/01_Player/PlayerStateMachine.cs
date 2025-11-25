@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// 플레이어 상태를 관리합니다.
+/// </summary>
 public class PlayerStateMachine : StateMachine
 {
     public Player Player { get; }
@@ -12,6 +15,10 @@ public class PlayerStateMachine : StateMachine
 
     public float JumpForce { get; set; }
 
+    // Animation State
+    public PlayerIdleState IdleState { get; private set; }
+
+    // Camera
     public Transform MainCameraTransform { get; set; }
 
     public PlayerStateMachine(Player player)
@@ -22,5 +29,7 @@ public class PlayerStateMachine : StateMachine
 
         this.MovementSpeed = player.PlayerState.GroundData.BaseSpeed;
         this.RotationDamping = player.PlayerState.GroundData.BaseRotationDamping;
+
+        this.IdleState = new PlayerIdleState(this);
     }
 }

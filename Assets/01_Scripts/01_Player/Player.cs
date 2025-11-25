@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     {
         AnimationData.Initialize();
         _stateMachine = new PlayerStateMachine(this);
+        _stateMachine.ChangeState(_stateMachine.IdleState);
     }
     #endregion
 
