@@ -55,6 +55,9 @@ public class Player : MonoBehaviour
     {
         if (Animator == null) Animator = GetComponent<Animator>();
         if (Controller == null) Controller = GetComponent<CharacterController>();
+
+        PlayerAnimationEventRelay relay = GetComponentInChildren<PlayerAnimationEventRelay>();
+        relay.Player = this;
     }
 
     /// <summary>
@@ -86,4 +89,24 @@ public class Player : MonoBehaviour
     {
         _stateMachine.PhysicsUpdate();
     }
+
+    #region 공격 이벤트
+    public void OnAttackHit()
+    {
+        AttackInfoData attackInfoData = State.AttackData.AttackInfoDatas[0];
+
+        foreach (Collider col in Physics.OverlapSphere(
+            transform.position,
+            attackInfoData.AttackRadius))
+        {
+            if (col.TryGetComponent(out IAttackable attackable))
+            {
+                if (Targeting.CheckTargetInAttackRange(attackable))
+                {
+                    attackable.TakeDamage(attackInfoData.Damage);
+                }
+            }
+        }
+    }
+    #endregion
 }
