@@ -12,6 +12,7 @@ public partial class Managers : MonoBehaviour
 
     // Managers
     public MonsterManager Monster { get; } = new();
+    public ObjectPoolManager ObjectPool { get; } = new();
 
     // Player
     [field: SerializeField] public Player Player { get; private set; }
@@ -35,11 +36,15 @@ public partial class Managers : MonoBehaviour
     {
         Player = FindObjectOfType<Player>();
 
+        // Monster Manager
         Monster[] monsters = FindObjectsOfType<Monster>();
         foreach (var m in monsters)
         {
             Monster.Register(m);
         }
+
+        // Object Pool Manager
+        ObjectPool.Initialize(new GameObject[] { });
     }
     #endregion
 }
