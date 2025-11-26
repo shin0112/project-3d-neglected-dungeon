@@ -52,11 +52,11 @@ public class TargetingController
     /// <returns></returns>
     public bool CheckTargetInAttackRange()
     {
-        float sqrDist = GetDistanceFromTarget();
+        float sqrDist = (_player.transform.position - CurTarget.transform.position).sqrMagnitude;
         float attackRadius = _player.State.AttackData.AttackInfoDatas[0].AttackRadius;
-        if (sqrDist <= attackRadius * attackRadius)
+        if (sqrDist > attackRadius * attackRadius)
         {
-            Logger.Log("공격 범위 내 타겟 존재");
+            Logger.Log("공격 범위 내 타겟 존재하지 않음");
             return false;
         }
 
@@ -93,15 +93,6 @@ public class TargetingController
         }
 
         ScanTarget = closest;
-    }
-
-    /// <summary>
-    /// 타겟과 플레이어 사이의 거리 반환
-    /// </summary>
-    /// <returns></returns>
-    private float GetDistanceFromTarget()
-    {
-        return (_player.transform.position - CurTarget.transform.position).sqrMagnitude;
     }
     #endregion
 }

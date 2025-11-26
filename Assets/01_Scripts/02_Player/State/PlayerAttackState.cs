@@ -21,12 +21,9 @@ public class PlayerAttackState : PlayerBaseState
     {
         TargetingController targeting = stateMachine.Player.Targeting;
 
-        if (targeting.CheckTargetInAttackRange())
+        if (!targeting.CheckTargetInAttackRange())
         {
             stateMachine.ChangeState(stateMachine.ChaseState);
-        }
-        else
-        {
             return;
         }
     }

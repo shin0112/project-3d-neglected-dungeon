@@ -24,9 +24,6 @@ public class PlayerChaseState : PlayerGroundState
         if (targeting.CheckTargetInAttackRange())
         {
             stateMachine.ChangeState(stateMachine.AttackState);
-        }
-        else
-        {
             return;
         }
 
