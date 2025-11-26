@@ -13,6 +13,9 @@ public partial class Managers : MonoBehaviour
     // Managers
     public MonsterManager Monster { get; } = new();
 
+    // Player
+    [field: SerializeField] public Player Player { get; private set; }
+
     #region 초기화
     private void Awake()
     {
@@ -30,6 +33,8 @@ public partial class Managers : MonoBehaviour
 
     private void Initialize()
     {
+        Player = FindObjectOfType<Player>();
+
         Monster[] monsters = FindObjectsOfType<Monster>();
         foreach (var m in monsters)
         {
