@@ -1,3 +1,6 @@
+/// <summary>
+/// 던전 정보 및 흐름을 관리하는 매니저
+/// </summary>
 public partial class Managers
 {
     public class DungeonManager
@@ -20,7 +23,6 @@ public partial class Managers
         public void Initialize()
         {
             Spawner = new();
-            // todo: 맵 자동 생성
         }
         #endregion
 

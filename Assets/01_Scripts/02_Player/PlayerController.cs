@@ -1,7 +1,9 @@
-using System;
 using UnityEngine;
 
-[Serializable]
+/// <summary>
+/// CharacterController를 사용해 플레이어의 이동 및 회전을 관리하는 클래스
+/// </summary>
+[System.Serializable]
 public class PlayerController
 {
     #region 필드

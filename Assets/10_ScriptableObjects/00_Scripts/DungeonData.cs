@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 던전에 등장하는 몬스터와 스테이지와 관련된 정보를 저장합니다.
+/// 던전에 포함되는 스테이지와 그 스테이지에 소환될 Entity와 관련된 정보
 /// </summary
 [CreateAssetMenu(fileName = "new Dungeon Data", menuName = "Scriptable Object/Dungeon/Dungeon Data")]
 public class DungeonData : ScriptableObject

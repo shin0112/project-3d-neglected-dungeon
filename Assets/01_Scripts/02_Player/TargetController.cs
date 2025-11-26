@@ -1,7 +1,9 @@
-using System;
 using UnityEngine;
 
-[Serializable]
+/// <summary>
+/// 플레이어가 공격할 타겟을 스캔 및 계산해 지정하는 클래스
+/// </summary>
+[System.Serializable]
 public class TargetingController
 {
     private readonly Player _player;

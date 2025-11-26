@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 몬스터 풀 관리하기
+/// 몬스터 풀을 관리하는 스포너
 /// </summary>
 public class MonsterSpawner
 {

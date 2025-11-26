@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 몬스터의 기본이 되는 Base 클래스
+/// </summary>
 public abstract class Monster : MonoBehaviour, IAttackable, IPoolable
 {
     [field: Header("Data")]
