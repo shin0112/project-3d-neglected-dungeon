@@ -81,7 +81,8 @@ public class MapGenerator
 
         for (int i = 0; i < count; i++)
         {
-            _roomInfos[i] = CreateRoomInfo(stage.MapPrefabs.Random());
+            int random = Random.Range(0, stage.MapPrefabs.Length);
+            _roomInfos[i] = CreateRoomInfo(stage.MapPrefabs[random], random);
 
             if (i == 0)
             {
@@ -102,13 +103,15 @@ public class MapGenerator
     /// prefab을 바탕으로 RoomInfo 생성하기
     /// </summary>
     /// <param name="prefab"></param>
+    /// <param name="index"></param>
     /// <returns></returns>
-    private RoomInfo CreateRoomInfo(GameObject prefab)
+    private RoomInfo CreateRoomInfo(GameObject prefab, int index)
     {
-        RoomInfo info = new();
-
-        info.OriginalPrefabIndex = prefab.transform.GetSiblingIndex();
-        info.LocalBounds = CalcLocalBounds(prefab);
+        RoomInfo info = new()
+        {
+            OriginalPrefabIndex = index,
+            LocalBounds = CalcLocalBounds(prefab)
+        };
 
         // Door
         var connectors = prefab.GetComponentInChildren<RoomConnectors>();
@@ -160,13 +163,14 @@ public class MapGenerator
             Vector3 doorPos = DoorWorldPos(prev, doorIndex);
             Vector3 doorDir = DoorWorldFoward(prev, doorIndex);
 
-            float corridorLength = 12f;
+            float corridorLength = Random.Range(12f, 30f);
             Vector3 corridorEnd = doorPos + doorDir * corridorLength;
 
             foreach (float rotation in _rotatioins)
             {
                 Quaternion roomRot = Quaternion.Euler(0, rotation, 0);
                 Vector3 roomPos = corridorEnd;
+                roomPos.y = 0f;
 
                 if (!IsOverlap(roomPos, roomRot, next.LocalBounds, index))
                 {
