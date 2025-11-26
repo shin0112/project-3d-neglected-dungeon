@@ -17,6 +17,7 @@ public class StageData
 {
     [field: Header("Map")]
     [field: SerializeField] public GameObject[] MapPrefabs { get; private set; }
+    [field: SerializeField] public int RoomCount { get; private set; }
 
     [field: Header("Spawn Settings")]
     [field: SerializeField] public MonsterSpawnData[] MonsterPool { get; private set; }
