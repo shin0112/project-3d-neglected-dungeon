@@ -14,7 +14,7 @@ public abstract class Monster : MonoBehaviour, IAttackable, IPoolable
     protected MonsterStateMachine monsterStateMachine;
 
     private float _hp;
-    private event Action<GameObject> _returnAction;
+    private event Action<GameObject> OnReturnToPool;
     public bool IsAlive => _hp > 0;
 
     public event Action<Monster> OnDead;
@@ -85,7 +85,7 @@ public abstract class Monster : MonoBehaviour, IAttackable, IPoolable
     #region IPoolable 구현
     public void Initialize(Action<GameObject> returnAction)
     {
-        _returnAction = returnAction;
+        OnReturnToPool = returnAction;
     }
 
     public void OnSpawn()
@@ -95,7 +95,7 @@ public abstract class Monster : MonoBehaviour, IAttackable, IPoolable
 
     public void ReturnToPool()
     {
-        _returnAction?.Invoke(gameObject);
+        OnReturnToPool?.Invoke(gameObject);
     }
     #endregion
 }
