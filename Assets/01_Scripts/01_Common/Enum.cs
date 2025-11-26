@@ -8,7 +8,15 @@ public enum StatType
 }
 #endregion
 
-#region 던전
+#region 던전: 맵
+public enum CorridorType
+{
+    Straight,
+    Corner,
+}
+#endregion
+
+#region 던전: 몬스터
 public enum MonsterType
 {
     Skeleton,
