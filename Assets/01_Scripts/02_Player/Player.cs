@@ -108,5 +108,25 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// 공격 범위 및 각도 확인하기
+    /// </summary>
+    private void OnDrawGizmosSelected()
+    {
+        AttackInfoData attackInfoData = State.AttackData.AttackInfoDatas[0];
+
+        float radius = attackInfoData.AttackRadius;
+        float angle = attackInfoData.AttackAngle;
+
+        Vector3 pos = transform.position;
+        Vector3 left = Quaternion.Euler(0, -angle / 2f, 0) * transform.forward;
+        Vector3 right = Quaternion.Euler(0, angle / 2f, 0) * transform.forward;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(pos, pos + left * radius);
+        Gizmos.DrawLine(pos, pos + right * radius);
+        Gizmos.DrawWireSphere(pos, radius);
+    }
     #endregion
 }
