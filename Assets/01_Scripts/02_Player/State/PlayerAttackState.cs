@@ -21,6 +21,7 @@ public class PlayerAttackState : PlayerBaseState
     {
         TargetingController targeting = stateMachine.Player.Targeting;
 
+        // 타겟 범위에 몬스터가 있는지 확인
         if (!targeting.CheckTargetInAttackRange())
         {
             stateMachine.ChangeState(stateMachine.ChaseState);

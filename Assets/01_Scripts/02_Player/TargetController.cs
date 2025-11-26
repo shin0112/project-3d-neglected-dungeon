@@ -47,7 +47,7 @@ public class TargetingController
     }
 
     /// <summary>
-    /// [public] 타겟이 공격 범위 내에 있는지 확인
+    /// [public] 현재 타겟이 공격 범위 내에 있는지 확인
     /// </summary>
     /// <returns></returns>
     public bool CheckTargetInAttackRange()

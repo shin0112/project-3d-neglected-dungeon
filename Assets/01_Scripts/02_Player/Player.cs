@@ -35,16 +35,26 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        // Component
+        GetComponents();
+
+        // Data
         ConvertStatListToDict();
 
-        // animations
+        // Animation
         AnimationData.Initialize();
         _stateMachine = new PlayerStateMachine(this);
         _stateMachine.ChangeState(_stateMachine.IdleState);
 
-        // ai nav
+        // Ai nav
         MovementController = new(this);
         Targeting = new(this);
+    }
+
+    private void GetComponents()
+    {
+        if (Animator == null) Animator = GetComponent<Animator>();
+        if (Controller == null) Controller = GetComponent<CharacterController>();
     }
 
     /// <summary>
