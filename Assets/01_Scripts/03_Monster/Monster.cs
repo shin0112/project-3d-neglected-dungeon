@@ -14,6 +14,9 @@ public abstract class Monster : MonoBehaviour, IAttackable
     [field: SerializeField] public MonsterAnimationData AnimationData { get; private set; }
     protected MonsterStateMachine monsterStateMachine;
 
+    // IAttackable
+    public Transform Transform => transform;
+
     #region 초기화
     private void Reset()
     {

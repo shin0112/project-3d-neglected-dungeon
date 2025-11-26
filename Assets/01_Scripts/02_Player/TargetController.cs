@@ -53,25 +53,26 @@ public class TargetingController
     public bool CheckTargetInAttackRange()
     {
         AttackInfoData defaultAttackInfo = _player.State.AttackData.AttackInfoDatas[0];
+        return IsInFanArea(
+            _player.transform,
+            CurTarget.transform,
+            defaultAttackInfo.AttackRadius,
+            defaultAttackInfo.AttackAngle);
+    }
 
-        // 거리 확인
-        Vector3 toTarget = (_player.transform.position - CurTarget.transform.position);
-        float sqrDist = toTarget.sqrMagnitude;
-        float attackRadius = defaultAttackInfo.AttackRadius;
-        if (sqrDist > attackRadius * attackRadius)
-        {
-            Logger.Log("공격 범위 내 타겟 존재하지 않음");
-            return false;
-        }
-
-        // 각도 확인
-        Vector3 forward = _player.transform.forward;
-        Vector3 direction = toTarget.normalized;
-
-        float dot = Vector3.Dot(forward, direction);
-        float cos = MathF.Cos(defaultAttackInfo.AttackAngle * 0.5f * Mathf.Deg2Rad);
-
-        return dot >= cos;
+    /// <summary>
+    /// [public] 공격 타겟이 공격 범위 내에 있는지 확인
+    /// </summary>
+    /// <param name="target"></param>
+    /// <returns></returns>
+    public bool CheckTargetInAttackRange(IAttackable target)
+    {
+        AttackInfoData defaultAttackInfo = _player.State.AttackData.AttackInfoDatas[0];
+        return IsInFanArea(
+            _player.transform,
+            target.Transform,
+            defaultAttackInfo.AttackRadius,
+            defaultAttackInfo.AttackAngle);
     }
     #endregion
 
@@ -104,6 +105,24 @@ public class TargetingController
         }
 
         ScanTarget = closest;
+    }
+
+    bool IsInFanArea(Transform attacker, Transform target, float radius, float angle)
+    {
+        // 1) 거리 체크
+        Vector3 toTarget = target.position - attacker.position;
+        float sqrDist = toTarget.sqrMagnitude;
+        if (sqrDist > radius * radius)
+            return false;
+
+        // 2) 각도 체크 
+        Vector3 forward = attacker.forward;
+        Vector3 direction = toTarget.normalized;
+
+        float dot = Vector3.Dot(forward, direction);
+        float cos = Mathf.Cos(angle * 0.5f * Mathf.Deg2Rad);
+
+        return dot >= cos;
     }
     #endregion
 }
