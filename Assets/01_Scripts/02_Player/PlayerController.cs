@@ -8,6 +8,8 @@ public class PlayerController
     // Components
     [field: SerializeField] private Player _player;
     [field: SerializeField] private NavigationController _navigation;
+    [field: SerializeField] private CharacterController _controller;
+    [field: SerializeField] private Transform _mainCameraTransform;
 
     // Movement Fields
     [field: SerializeField] public float MovementSpeed { get; private set; }
@@ -19,10 +21,12 @@ public class PlayerController
     [field: SerializeField] public float JumpForce { get; set; }
     #endregion
 
-    public PlayerController(Player player)
+    public PlayerController(Player player, CharacterController controller)
     {
         _player = player;
         _navigation = new();
+        _controller = controller;
+        _mainCameraTransform = Camera.main.transform;
 
         MovementSpeed = _player.State.GroundData.BaseSpeed;
         RotationDamping = _player.State.GroundData.BaseRotationDamping;
@@ -38,7 +42,7 @@ public class PlayerController
         _navigation.UpdatePosition(_player.transform.position);
         _movementDirection = _navigation.GetDirectionTo(target.transform.position);
         Rotate(_movementDirection);
-        _player.Controller.Move(_movementDirection * GetMovementSpeed() * Time.deltaTime);
+        _controller.Move(_movementDirection * GetMovementSpeed() * Time.deltaTime);
     }
 
     /// <summary>

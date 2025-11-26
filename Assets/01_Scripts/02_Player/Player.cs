@@ -9,8 +9,6 @@ public class Player : MonoBehaviour
     #region 필드
     [field: Header("Component")]
     [field: SerializeField] public Animator Animator { get; private set; }
-    [field: SerializeField] public CharacterController Controller { get; private set; }
-    public Transform MainCameraTransform { get; set; }
 
     [field: Header("Data")]
     [field: SerializeField] public PlayerStateData State { get; private set; }
@@ -30,7 +28,6 @@ public class Player : MonoBehaviour
     private void Reset()
     {
         Animator = transform.FindChild<Animator>("Model");
-        Controller = transform.FindChild<CharacterController>("Player");
     }
 
     private void Awake()
@@ -47,14 +44,17 @@ public class Player : MonoBehaviour
         _stateMachine.ChangeState(_stateMachine.IdleState);
 
         // Ai nav
-        MovementController = new(this);
+        if (!TryGetComponent<CharacterController>(out var controller))
+        {
+            Logger.Log("CharacterController is null");
+        }
+        MovementController = new(this, controller);
         Targeting = new(this);
     }
 
     private void GetComponents()
     {
         if (Animator == null) Animator = GetComponent<Animator>();
-        if (Controller == null) Controller = GetComponent<CharacterController>();
 
         PlayerAnimationEventRelay relay = GetComponentInChildren<PlayerAnimationEventRelay>();
         relay.Player = this;
