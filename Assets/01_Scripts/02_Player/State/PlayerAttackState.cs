@@ -21,10 +21,13 @@ public class PlayerAttackState : PlayerBaseState
     {
         TargetingController targeting = stateMachine.Player.Targeting;
 
-        // 타겟 범위에 몬스터가 있는지 확인
-        if (!targeting.CheckTargetInAttackRange())
+        // Idle 상태로 변경
+        // 1) 타겟 범위에 몬스터가 있는지 확인
+        // 2) 타겟팅한 몬스터가 사망했을 경우
+        if (!targeting.CheckTargetInAttackRange() || !targeting.CurTarget.IsAlive)
         {
-            stateMachine.ChangeState(stateMachine.ChaseState);
+            targeting.ClearCurrentTarget();
+            stateMachine.ChangeState(stateMachine.IdleState);
             return;
         }
     }
