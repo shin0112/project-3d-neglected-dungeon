@@ -52,15 +52,26 @@ public class TargetingController
     /// <returns></returns>
     public bool CheckTargetInAttackRange()
     {
-        float sqrDist = (_player.transform.position - CurTarget.transform.position).sqrMagnitude;
-        float attackRadius = _player.State.AttackData.AttackInfoDatas[0].AttackRadius;
+        AttackInfoData defaultAttackInfo = _player.State.AttackData.AttackInfoDatas[0];
+
+        // 거리 확인
+        Vector3 toTarget = (_player.transform.position - CurTarget.transform.position);
+        float sqrDist = toTarget.sqrMagnitude;
+        float attackRadius = defaultAttackInfo.AttackRadius;
         if (sqrDist > attackRadius * attackRadius)
         {
             Logger.Log("공격 범위 내 타겟 존재하지 않음");
             return false;
         }
 
-        return true;
+        // 각도 확인
+        Vector3 forward = _player.transform.forward;
+        Vector3 direction = toTarget.normalized;
+
+        float dot = Vector3.Dot(forward, direction);
+        float cos = MathF.Cos(defaultAttackInfo.AttackAngle * 0.5f * Mathf.Deg2Rad);
+
+        return dot >= cos;
     }
     #endregion
 
