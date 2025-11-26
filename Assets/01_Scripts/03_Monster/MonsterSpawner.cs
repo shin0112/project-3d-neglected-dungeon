@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -8,13 +9,18 @@ public class MonsterSpawner
 {
     #region 필드
     private StageData _stageData;
-    private int _alive = 0;
+
+    // 현재 몬스터 상태
+    private List<Monster> _alives = new();
     private int _killCount = 0;
     private bool _bossSpawned = false;
     private bool _bossDead = false;
+
+    // 코루틴
     private Coroutine _spawnCoroutine;
     private WaitForSeconds _spawnDelay = new WaitForSeconds(Define.RespawnDelay);
 
+    public IReadOnlyList<Monster> AliveMonsters => _alives;
     public bool StageClear => _bossSpawned && _bossDead;
     #endregion
 
@@ -23,7 +29,7 @@ public class MonsterSpawner
     {
         _stageData = stageData;
 
-        _alive = 0;
+        _alives.Clear();
         _killCount = 0;
         _bossSpawned = false;
         _bossDead = false;
@@ -50,11 +56,11 @@ public class MonsterSpawner
 
         GameObject obj = Managers.Instance.ObjectPool.GetObject(data, data.Prefab, position, Quaternion.identity);
 
-        Monster m = obj.GetComponent<Monster>();
+        Monster monster = obj.GetComponent<Monster>();
 
-        m.OnDead += OnMonsterDead;
+        monster.OnDead += OnMonsterDead;
 
-        _alive++;
+        _alives.Add(monster);
     }
 
     /// <summary>
@@ -79,7 +85,7 @@ public class MonsterSpawner
     /// <param name="monster"></param>
     private void OnMonsterDead(Monster monster)
     {
-        _alive--;
+        _alives.Remove(monster);
         _killCount++;
 
         monster.OnDead -= OnMonsterDead;
@@ -117,7 +123,7 @@ public class MonsterSpawner
     {
         yield return _spawnDelay;
 
-        if (_alive < _stageData.MaxEnemyCount)
+        if (_alives.Count < _stageData.MaxEnemyCount)
         {
             SpawnOneEnemy();
         }

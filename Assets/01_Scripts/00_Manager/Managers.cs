@@ -11,7 +11,7 @@ public partial class Managers : MonoBehaviour
     public static Managers Instance => _instance;
 
     // Managers
-    public MonsterManager Monster { get; } = new();
+    public DungeonManager Dungeon { get; } = new();
     public ObjectPoolManager ObjectPool { get; } = new();
 
     // Player
@@ -36,14 +36,8 @@ public partial class Managers : MonoBehaviour
     {
         Player = FindObjectOfType<Player>();
 
-        // Monster Manager
-        Monster[] monsters = FindObjectsOfType<Monster>();
-        foreach (var m in monsters)
-        {
-            Monster.Register(m);
-        }
-
-        // Object Pool Manager
+        // Managers
+        this.Dungeon.Initialize();
     }
     #endregion
 }

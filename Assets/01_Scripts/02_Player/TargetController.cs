@@ -86,7 +86,7 @@ public class TargetingController
         Monster closest = null;
         float bestDist = float.MaxValue;
 
-        foreach (var m in Managers.Instance.Monster.Monsters)
+        foreach (var m in Managers.Instance.Dungeon.Spawner.AliveMonsters)
         {
             if (!m.IsAlive) continue;
 
