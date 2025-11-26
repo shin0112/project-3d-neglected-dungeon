@@ -16,4 +16,18 @@ public class PlayerAttackState : PlayerBaseState
         base.Exit();
         StopAnimation(stateMachine.Player.AnimationData.AttackParameterHash);
     }
+
+    public override void Update()
+    {
+        TargetingController targeting = stateMachine.Player.Targeting;
+
+        if (targeting.CheckTargetInAttackRange())
+        {
+            stateMachine.ChangeState(stateMachine.ChaseState);
+        }
+        else
+        {
+            return;
+        }
+    }
 }
