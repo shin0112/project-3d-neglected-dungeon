@@ -56,7 +56,7 @@ public class PlayerAttackData
     public AttackInfoData GetAttackInfo(int index) { return AttackInfoDatas[index]; }
 }
 
-[CreateAssetMenu(fileName = "PlayerState", menuName = "Entites/Player")]
+[CreateAssetMenu(fileName = "PlayerState", menuName = "Scriptable Object/State/Player")]
 public class PlayerStateData : ScriptableObject
 {
     [field: SerializeField] public PlayerGroundData GroundData { get; private set; }
