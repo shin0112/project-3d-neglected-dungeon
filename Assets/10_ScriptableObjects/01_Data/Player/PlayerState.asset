@@ -22,7 +22,7 @@ MonoBehaviour:
   <AttackData>k__BackingField:
     <AttackInfoDatas>k__BackingField:
     - <AttackName>k__BackingField: Attack
-      <AttakRadius>k__BackingField: 5
+      <AttackRadius>k__BackingField: 2.5
       IsAreaAttack: 1
       <ComboStateIndex>k__BackingField: 1
       <ComboTransitionTime>k__BackingField: 0.8
