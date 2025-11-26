@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 /// <summary>
-/// 스켈레톤 전사에 적용할 애니메이션 데이터
+/// 몬스터 애니메이션 컨트롤 시 필요한 Parameter 및 Hash 관리
 /// </summary>
 [Serializable]
 public class MonsterAnimationData

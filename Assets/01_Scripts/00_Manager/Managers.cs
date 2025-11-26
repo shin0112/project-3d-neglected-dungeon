@@ -44,7 +44,6 @@ public partial class Managers : MonoBehaviour
         }
 
         // Object Pool Manager
-        ObjectPool.Initialize(new GameObject[] { });
     }
     #endregion
 }
