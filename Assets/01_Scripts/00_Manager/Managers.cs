@@ -17,6 +17,9 @@ public partial class Managers : MonoBehaviour
     // Player
     [field: SerializeField] public Player Player { get; private set; }
 
+    // Dungeon Map
+    [SerializeField] private CorridorSetData[] Corridors;
+
     #region 초기화
     private void Awake()
     {
@@ -37,7 +40,8 @@ public partial class Managers : MonoBehaviour
         Player = FindObjectOfType<Player>();
 
         // Managers
-        this.Dungeon.Initialize();
+        this.Dungeon.Initialize(Corridors);
+    }
     }
     #endregion
 }

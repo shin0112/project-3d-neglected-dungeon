@@ -4,14 +4,15 @@ using UnityEngine;
 [System.Serializable]
 public class MapGenerator
 {
-    [Header("Corridor")]
-    [SerializeField] private GameObject _corridorStraightPrefab;
-    [SerializeField] private GameObject _corridorCornerPrefab;
-    [SerializeField] private float _corridorTileSize = 1f;
+    private float _corridorTileSize = 1f;
+    private Dictionary<CorridorType, GameObject[]> _corridorsDict = new();
 
-    public MapGenerator(CorridorSetData corridorData)
+    public MapGenerator(CorridorSetData[] corridors)
     {
-
+        foreach (CorridorSetData corridor in corridors)
+        {
+            _corridorsDict[corridor.CorridorType] = corridor.CorridorPrefabs;
+        }
     }
 
     /// <summary>
@@ -35,8 +36,8 @@ public class MapGenerator
         // 2) 방 연결
         for (int i = 0; i < rooms.Count - 1; i++)
         {
-            RoomConnectors a = rooms[i].GetComponent<RoomConnectors>();
-            RoomConnectors b = rooms[i + 1].GetComponent<RoomConnectors>();
+            RoomConnectors a = rooms[i].GetComponentInChildren<RoomConnectors>();
+            RoomConnectors b = rooms[i + 1].GetComponentInChildren<RoomConnectors>();
 
             Transform doorA = a.DoorPoints.Random();
             Transform doorB = b.DoorPoints.Random();
@@ -63,7 +64,20 @@ public class MapGenerator
         {
             // todo: 일직선이 아닌 코너로 배치
             Vector3 position = from.position + direction * (i * _corridorTileSize);
-            Object.Instantiate(_corridorStraightPrefab, position, Quaternion.LookRotation(direction));
+            Object.Instantiate(
+                GetCorridorPrefab(CorridorType.Straight),
+                position,
+                Quaternion.LookRotation(direction));
         }
+    }
+
+    private GameObject GetCorridorPrefab(CorridorType type)
+    {
+        if (!_corridorsDict.TryGetValue(type, out var corridors))
+        {
+            Logger.Log($"{type} corridor 없음");
+        }
+
+        return corridors.Random();
     }
 }

@@ -16,13 +16,15 @@ public partial class Managers
         public MonsterSpawner Spawner { get; private set; }
 
         // todo: 맵 자동 생성
+        private MapGenerator _mapGenerator;
 
         #endregion
 
         #region 초기화
-        public void Initialize()
+        public void Initialize(CorridorSetData[] corridors)
         {
             Spawner = new();
+            _mapGenerator = new(corridors);
         }
         #endregion
 
@@ -50,6 +52,8 @@ public partial class Managers
 
             // todo: 맵
             // 1) 맵 자동 생성
+            _mapGenerator.CreateRandomMap(stage);
+
             // 2) Nav Bake
 
             RegisterStagePools(stage);       // stage go pool에 등록
