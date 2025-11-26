@@ -3,5 +3,8 @@
 /// </summary>
 public static class Define
 {
-
+    #region 던전
+    public static int KillCountForMidBossSpawn = 100;
+    public static float RespawnDelay = 10f;
+    #endregion
 }

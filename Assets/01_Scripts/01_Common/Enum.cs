@@ -9,9 +9,23 @@ public enum StatType
 #endregion
 
 #region 던전
+public enum MonsterType
+{
+    Skeleton,
+}
+
+public enum MonsterVariant
+{
+    Mage,
+    Minion,
+    Rogue,
+    Warrior
+}
+
 public enum BossType
 {
-
+    Middle,
+    Final
 }
 #endregion
 
