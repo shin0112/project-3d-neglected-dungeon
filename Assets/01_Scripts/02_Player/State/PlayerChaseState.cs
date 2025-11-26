@@ -26,7 +26,7 @@ public class PlayerChaseState : PlayerGroundState
         float attackRange = stateMachine.Player.State.AttackData.AttackInfoDatas[0].AttackRadius;
         if (sqrDist <= attackRange * attackRange)
         {
-            Logger.Log("공격");
+            Logger.Log("공격 시작");
             stateMachine.ChangeState(stateMachine.AttackState);
             return;
         }

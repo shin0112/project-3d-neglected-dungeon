@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// AI Nav 컨트롤
+/// </summary>
 public class NavigationController
 {
     private NavMeshPath _path = new();
