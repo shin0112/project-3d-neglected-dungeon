@@ -22,8 +22,8 @@ public class TargetingController
     public void Update()
     {
         _timer += Time.deltaTime;
-        if (_timer < 0.2f) return;
-        Logger.Log("타겟 탐색");
+        if (_timer < 0.5f) return;
+        //Logger.Log("타겟 탐색");
         _timer = 0f;
 
         ScanNearestTarget();
@@ -44,6 +44,15 @@ public class TargetingController
     public void ClearCurrentTarget()
     {
         CurTarget = null;
+    }
+
+    /// <summary>
+    /// [public] 타겟과 플레이어 사이의 거리 반환
+    /// </summary>
+    /// <returns></returns>
+    public float GetDistanceFromTarget()
+    {
+        return (_player.transform.position - CurTarget.transform.position).sqrMagnitude;
     }
     #endregion
 
