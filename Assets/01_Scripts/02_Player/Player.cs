@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class Player : MonoBehaviour
 {
-    #region Fields
+    #region 필드
     [field: Header("Component")]
     [field: SerializeField] public Animator Animator { get; private set; }
     [field: SerializeField] public CharacterController Controller { get; private set; }
@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     [field: SerializeField] public TargetingController Targeting { get; private set; }
     #endregion
 
-    #region Initialization
+    #region 초기화
     private void Reset()
     {
         Animator = transform.FindChild<Animator>("Model");

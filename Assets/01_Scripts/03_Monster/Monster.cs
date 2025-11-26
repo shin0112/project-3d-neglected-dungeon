@@ -64,6 +64,7 @@ public abstract class Monster : MonoBehaviour, IAttackable
     #region IAttackable 구현
     public void TakeDamage(float damage)
     {
+        Logger.Log($"{damage}의 데미지");
         _hp -= damage;
         if (_hp <= 0) Die();
     }
