@@ -21,13 +21,12 @@ public class PlayerChaseState : PlayerGroundState
     {
         TargetingController targeting = stateMachine.Player.Targeting;
 
-        // todo: target이 일정 범위 내에 있을 경우 공격상태로 변경
-        float sqrDist = targeting.GetDistanceFromTarget();
-        float attackRange = stateMachine.Player.State.AttackData.AttackInfoDatas[0].AttackRadius;
-        if (sqrDist <= attackRange * attackRange)
+        if (CheckTargetInAttackRadius(targeting))
         {
-            Logger.Log("공격 시작");
             stateMachine.ChangeState(stateMachine.AttackState);
+        }
+        else
+        {
             return;
         }
 
@@ -38,5 +37,23 @@ public class PlayerChaseState : PlayerGroundState
             stateMachine.ChangeState(stateMachine.IdleState);
             return;
         }
+    }
+
+    /// <summary>
+    /// 타겟이 공격 범위 내에 있는지 확인
+    /// </summary>
+    /// <param name="targeting"></param>
+    /// <returns></returns>
+    private bool CheckTargetInAttackRadius(TargetingController targeting)
+    {
+        float sqrDist = targeting.GetDistanceFromTarget();
+        float attackRadius = stateMachine.Player.State.AttackData.AttackInfoDatas[0].AttackRadius;
+        if (sqrDist <= attackRadius * attackRadius)
+        {
+            Logger.Log("공격 범위 내 타겟 존재");
+            return false;
+        }
+
+        return true;
     }
 }
