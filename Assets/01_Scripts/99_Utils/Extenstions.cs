@@ -24,13 +24,11 @@ public static class TransformExtension
 
 public static class ArrayExtension
 {
-    private static readonly System.Random random = new System.Random();
-
     public static T Random<T>(this T[] array)
     {
         if (array == null || array.Length == 0)
             return default;
 
-        return array[random.Next(array.Length)];
+        return array[UnityEngine.Random.Range(0, array.Length)];
     }
 }

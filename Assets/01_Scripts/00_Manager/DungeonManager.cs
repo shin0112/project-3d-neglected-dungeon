@@ -52,7 +52,7 @@ public partial class Managers
 
             // todo: 맵
             // 1) 맵 자동 생성
-            _mapGenerator.CreateRandomMap(stage);
+            _mapGenerator.Generate(stage);
 
             // 2) Nav Bake
 
