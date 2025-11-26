@@ -19,10 +19,20 @@ public class PlayerChaseState : PlayerGroundState
 
     public override void Update()
     {
-        Monster target = stateMachine.Player.Targeting.CurTarget;
+        TargetingController targeting = stateMachine.Player.Targeting;
+
+        // todo: target이 일정 범위 내에 있을 경우 공격상태로 변경
+        float sqrDist = targeting.GetDistanceFromTarget();
+        float attackRange = stateMachine.Player.State.AttackData.AttackInfoDatas[0].AttackRadius;
+        if (sqrDist <= attackRange * attackRange)
+        {
+            Logger.Log("공격");
+            stateMachine.ChangeState(stateMachine.AttackState);
+            return;
+        }
 
         // todo: target 리셋 로직 추가 (몬스터 or 플레이어 사망)
-        if (target == null)
+        if (targeting.CurTarget == null)
         {
             Logger.Log("타겟 없음");
             stateMachine.ChangeState(stateMachine.IdleState);

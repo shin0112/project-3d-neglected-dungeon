@@ -17,6 +17,9 @@ public class PlayerController
     [field: SerializeField] public float RotationDamping { get; private set; }
 
     [field: SerializeField] public float JumpForce { get; set; }
+
+    // Attack Fields
+    [field: SerializeField] public bool IsAttacking { get; set; }
     #endregion
 
     public PlayerController(Player player)

@@ -6,8 +6,12 @@ public class PlayerStateMachine : StateMachine
     public Player Player { get; }
 
     // Animation State
+    // Ground
     public PlayerIdleState IdleState { get; private set; }
     public PlayerChaseState ChaseState { get; private set; }
+
+    // Attack
+    public PlayerAttackState AttackState { get; private set; }
 
     public PlayerStateMachine(Player player)
     {
@@ -16,5 +20,8 @@ public class PlayerStateMachine : StateMachine
         // Ground State
         this.IdleState = new PlayerIdleState(this);
         this.ChaseState = new PlayerChaseState(this);
+
+        // Attack State
+        this.AttackState = new PlayerAttackState(this);
     }
 }
