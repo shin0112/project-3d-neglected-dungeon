@@ -34,6 +34,7 @@ public class AttackInfoData
 
     [field: Header("Area Attack")]
     [field: SerializeField][field: Range(0f, 5f)] public float AttackRadius { get; private set; }
+    [field: SerializeField][field: Range(0f, 360f)] public float AttackAngle { get; private set; }
     [field: SerializeField] bool IsAreaAttack = true;
 
     [field: Header("Combo")]
