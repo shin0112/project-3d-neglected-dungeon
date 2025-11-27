@@ -54,6 +54,8 @@ public class TargetingController
     /// <returns></returns>
     public bool CheckTargetInAttackRange()
     {
+        if (CurTarget == null) return false;
+
         AttackInfoData defaultAttackInfo = _player.State.AttackData.AttackInfoDatas[0];
         return IsInFanArea(
             _player.transform,

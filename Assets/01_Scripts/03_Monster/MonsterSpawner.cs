@@ -175,6 +175,7 @@ public class MonsterSpawner
             if (_alives.Count < _stageData.MaxEnemyCount)
             {
                 SpawnOneEnemy();
+                Managers.Instance.Player.Targeting.ClearCurrentTarget();
             }
         }
     }

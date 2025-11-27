@@ -21,17 +21,17 @@ public class PlayerChaseState : PlayerGroundState
     {
         TargetingController targeting = stateMachine.Player.Targeting;
 
-        if (targeting.CheckTargetInAttackRange())
-        {
-            stateMachine.ChangeState(stateMachine.AttackState);
-            return;
-        }
-
         // todo: target 리셋 로직 추가 (몬스터 or 플레이어 사망)
         if (targeting.CurTarget == null)
         {
             Logger.Log("타겟 없음");
             stateMachine.ChangeState(stateMachine.IdleState);
+            return;
+        }
+
+        if (targeting.CheckTargetInAttackRange())
+        {
+            stateMachine.ChangeState(stateMachine.AttackState);
             return;
         }
     }

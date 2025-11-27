@@ -28,6 +28,7 @@ public class CurDungeonView : UIView, ICurDungeonView
 
     private void OnEnable()
     {
+        UpdateProgress(0f);
         _battleBossButton.gameObject.SetActive(false);
     }
 
