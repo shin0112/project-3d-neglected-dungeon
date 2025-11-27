@@ -118,7 +118,7 @@ public class UIView : MonoBehaviour
 
     public void Show()
     {
-     
+
 
         if (!gameObject.activeSelf)
         {
@@ -294,7 +294,7 @@ public class UIView : MonoBehaviour
 #endif
     }
 
-    private void Reset()
+    protected virtual void Reset()
     {
         ResetToDefaults();
     }
