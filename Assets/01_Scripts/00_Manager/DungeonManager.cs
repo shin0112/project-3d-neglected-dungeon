@@ -1,3 +1,6 @@
+using Unity.AI.Navigation;
+using UnityEngine;
+
 /// <summary>
 /// 던전 정보 및 흐름을 관리하는 매니저
 /// </summary>
@@ -15,16 +18,34 @@ public partial class Managers
         // Pool 관리
         public MonsterSpawner Spawner { get; private set; }
 
-        // todo: 맵 자동 생성
+        // Dungeon 생성
         private MapGenerator _mapGenerator;
+        private Transform _dungeonRoot;
+        private NavMeshSurface _surface;
 
         #endregion
 
         #region 초기화
         public void Initialize(CorridorSetData[] corridors)
         {
+            // Dungeon 생성
+            GameObject dungeonObj = new GameObject("DungeonRoot");
+            _dungeonRoot = dungeonObj.transform;
+            SetNavMeshSurface(dungeonObj);
+
             Spawner = new();
             _mapGenerator = new(corridors);
+        }
+
+        private void SetNavMeshSurface(GameObject dungeonObj)
+        {
+            _surface = dungeonObj.AddComponent<NavMeshSurface>();
+
+            // settings
+            _surface.collectObjects = CollectObjects.Children;
+            _surface.layerMask = Define.FloorLayer;
+            _surface.useGeometry = UnityEngine.AI.NavMeshCollectGeometry.PhysicsColliders;
+            _surface.buildHeightMesh = true;
         }
         #endregion
 
@@ -50,13 +71,14 @@ public partial class Managers
         {
             StageData stage = _dungeonData.stages[stageIndex];
 
-            // todo: 맵
             // 1) 맵 자동 생성
-            _mapGenerator.Generate(stage);
+            _mapGenerator.Generate(_dungeonRoot, stage);
 
             // 2) Nav Bake
+            _surface.RemoveData();
+            _surface.BuildNavMesh();
 
-            RegisterStagePools(stage);       // stage go pool에 등록
+            RegisterStagePools(stage);                  // stage go pool에 등록
             Spawner.Initialize(stage);                 // monster pool 초기화
         }
 

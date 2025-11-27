@@ -29,7 +29,7 @@ public class MapGenerator
     /// </summary>
     /// <param name="stage"></param>
     /// <returns></returns>
-    public GameObject Generate(StageData stage)
+    public GameObject Generate(Transform root, StageData stage)
     {
         // 시뮬레이션
         bool success = false;
@@ -46,7 +46,7 @@ public class MapGenerator
             return null;
         }
 
-        return CreateRooms(stage);
+        return CreateRooms(root, stage);
     }
     #endregion
 
@@ -66,6 +66,7 @@ public class MapGenerator
         public Vector3[] DoorLocalPositions;    // 문 로컬 위치 (배열)
         public Vector3[] DoorLocalForwards;     // 문 로컬 forward (배열)
 
+        public bool[] DoorConnected;            // 문 사용되었는지 확인
         public int ChosenDoor;                  // 선택된 문 인덱스
     }
 
@@ -119,6 +120,7 @@ public class MapGenerator
 
         info.DoorLocalPositions = new Vector3[count];
         info.DoorLocalForwards = new Vector3[count];
+        info.DoorConnected = new bool[count];
 
         for (int i = 0; i < count; i++)
         {
@@ -158,7 +160,21 @@ public class MapGenerator
 
         while (attempts-- > 0)
         {
-            int doorIndex = Random.Range(0, prev.DoorLocalPositions.Length);
+            List<int> availableDoors = new();
+            for (int i = 0; i < prev.DoorConnected.Length; i++)
+            {
+                if (!prev.DoorConnected[i])
+                {
+                    availableDoors.Add(i);
+                }
+            }
+
+            if (availableDoors.Count == 0)
+            {
+                return false;
+            }
+
+            int doorIndex = availableDoors[Random.Range(0, availableDoors.Count)];
 
             Vector3 doorPos = DoorWorldPos(prev, doorIndex);
             Vector3 doorDir = DoorWorldFoward(prev, doorIndex);
@@ -178,7 +194,11 @@ public class MapGenerator
                     next.RotationY = rotation;
                     next.ChosenDoor = 0;
 
+                    prev.DoorConnected[doorIndex] = true;
+
+                    _roomInfos[index - 1] = prev;
                     _roomInfos[index] = next;
+
                     return true;
                 }
             }
@@ -220,22 +240,22 @@ public class MapGenerator
     /// </summary>
     /// <param name="stage"></param>
     /// <returns></returns>
-    private GameObject CreateRooms(StageData stage)
+    private GameObject CreateRooms(Transform root, StageData stage)
     {
-        GameObject root = null;
+        GameObject roomRoot = null;
 
         for (int i = 0; i < _roomInfos.Length; i++)
         {
             RoomInfo info = _roomInfos[i];
             GameObject prefab = stage.MapPrefabs[info.OriginalPrefabIndex];
 
-            GameObject room = Object.Instantiate(prefab);
+            GameObject room = Object.Instantiate(prefab, root);
             room.transform.position = info.Position;
             room.transform.rotation = Quaternion.Euler(0, info.RotationY, 0);
 
             if (i == 0)
             {
-                root = room;
+                roomRoot = room;
             }
         }
 
@@ -247,10 +267,10 @@ public class MapGenerator
             Vector3 from = DoorWorldPos(fromInfo, fromInfo.ChosenDoor);
             Vector3 to = DoorWorldPos(toInfo, toInfo.ChosenDoor);
 
-            CreateCorridor(from, to, _roomInfos[i], _roomInfos[i + 1]);
+            CreateCorridor(root, from, to);
         }
 
-        return root;
+        return roomRoot;
     }
     #endregion
 
@@ -260,7 +280,7 @@ public class MapGenerator
     /// </summary>
     /// <param name="from"></param>
     /// <param name="to"></param>
-    private void CreateCorridor(Vector3 from, Vector3 to, RoomInfo cur, RoomInfo next)
+    private void CreateCorridor(Transform root, Vector3 from, Vector3 to)
     {
         Vector3 dir = (to - from).normalized;
         float dist = Vector3.Distance(from, to);
@@ -274,10 +294,10 @@ public class MapGenerator
             Object.Instantiate(
                 GetCorridorPrefab(CorridorType.Straight),
                 pos,
-                Quaternion.LookRotation(dir));
+                Quaternion.LookRotation(dir),
+                root);
         }
     }
-
 
     /// <summary>
     /// 통로 타입에 해당하는 랜덤 통로 오브젝트 얻기
