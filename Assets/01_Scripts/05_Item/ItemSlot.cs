@@ -46,6 +46,7 @@ public abstract class ItemSlot : MonoBehaviour
 
     protected void Awake()
     {
+        SetSlot(data, data.EquipmentLevel.ToString());
     }
     #endregion
 

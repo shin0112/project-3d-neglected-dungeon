@@ -54,8 +54,7 @@ public class EquipmentItemView : UIView, IEquipmentItemView
     public void UpdateEquipmentItemText(ItemData data)
     {
         CacheItemData(data);
-
-        _name.text = $"{data.Name} {(data.UpgradeLevel > 0 ? "+" + data.UpgradeLevel : "")}";
+        UpdateNameText(data);
         _class.text = data.ItemClass.ToString();
         _description.text = data.Description;
 
@@ -67,6 +66,11 @@ public class EquipmentItemView : UIView, IEquipmentItemView
         _statNValue.text = statNValue;
 
         _upgrade.text = $"강화\n(비용: {CalcUpgradeGold()})";
+    }
+
+    private void UpdateNameText(ItemData data)
+    {
+        _name.text = $"{data.Name} {(data.UpgradeLevel > 0 ? "+" + data.UpgradeLevel : "")}";
     }
 
     /// <summary>
@@ -83,6 +87,12 @@ public class EquipmentItemView : UIView, IEquipmentItemView
     /// </summary>
     public void OnClickUpgradeButton()
     {
+        if (_data == null)
+        {
+            Logger.Log("데이터 없음");
+            return;
+        }
+
         bool canUse = Managers.Instance.Player.Wallet[WalletType.Gold].TryUse(_upgradeGold);
 
         if (canUse)
@@ -93,6 +103,8 @@ public class EquipmentItemView : UIView, IEquipmentItemView
 
             _upgradeGold = nextUpgradeGold;
             _upgrade.text = $"강화\n(비용: {nextUpgradeGold})";
+
+            UpdateNameText(_data);
         }
     }
 
