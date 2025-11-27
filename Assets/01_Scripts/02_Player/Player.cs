@@ -60,9 +60,9 @@ public class Player : MonoBehaviour
         PlayerAnimationEventRelay relay = GetComponentInChildren<PlayerAnimationEventRelay>();
         relay.Player = this;
     }
-
     #endregion
 
+    #region Unity API
     private void Update()
     {
         Targeting.Update();
@@ -78,6 +78,12 @@ public class Player : MonoBehaviour
     {
         _stateMachine.PhysicsUpdate();
     }
+
+    private void OnDestroy()
+    {
+        Condition.OnDestroy();
+    }
+    #endregion
 
     #region 공격 이벤트
     public void OnAttackHit()

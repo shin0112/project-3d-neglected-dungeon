@@ -1,12 +1,19 @@
+using System;
 using System.Collections.Generic;
 
 public class PlayerCondition
 {
+    #region 필드
     public Dictionary<StatType, float> StatDict { get; private set; }
 
     public float Hp => StatDict[StatType.Health];
-    public float Stmina => StatDict[StatType.Stamina];
+    public float Stamina => StatDict[StatType.Stamina];
 
+    // 이벤트
+    public event Action<float> OnStaminaChanged;
+    #endregion
+
+    #region 초기화
     public PlayerCondition(PlayerStatData data)
     {
         ConvertStatListToDict(data.Stats);
@@ -35,4 +42,36 @@ public class PlayerCondition
             StatDict[StatType.Stamina] = Define.DefaultStamina;
         }
     }
+    #endregion
+
+    #region Destroy
+    /// <summary>
+    /// Player가 파괴될 때 수행
+    /// </summary>
+    public void OnDestroy()
+    {
+        OnStaminaChanged = null;
+    }
+    #endregion
+
+    #region 스테미나 사용
+    /// <summary>
+    /// 스테미나를 사용 가능한지 확인하고, 사용할 경우 OnStaminaChanged 수행
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <returns></returns>
+    public bool TryUseStamina(float amount)
+    {
+        if (Stamina < amount)
+        {
+            Logger.Log("스테미나 부족");
+            return false;
+        }
+
+        StatDict[StatType.Stamina] -= amount;
+        OnStaminaChanged?.Invoke(Stamina);
+
+        return true;
+    }
+    #endregion
 }
