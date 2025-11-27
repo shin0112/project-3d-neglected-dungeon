@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HeaderView : UIView
+public class HeaderView : UIView, IHeaderView
 {
     [Header("레벨")]
     [SerializeField] private Image _levelProgress;
