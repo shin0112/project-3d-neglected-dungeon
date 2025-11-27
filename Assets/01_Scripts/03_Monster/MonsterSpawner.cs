@@ -88,6 +88,8 @@ public class MonsterSpawner
         _alives.Remove(monster);
         _killCount++;
 
+        Managers.Instance.Player.Wallet[WalletType.Gold].Add(monster.Data.DropGold);
+
         monster.OnDead -= OnMonsterDead;
         monster.ReturnToPool();
 
@@ -108,6 +110,8 @@ public class MonsterSpawner
     /// <param name="boss"></param>
     private void OnBossMonsterDead(Monster boss)
     {
+        Managers.Instance.Player.Wallet[WalletType.Gold].Add(boss.Data.DropGold);
+
         boss.OnDead -= OnBossMonsterDead;
         boss.ReturnToPool();
 
