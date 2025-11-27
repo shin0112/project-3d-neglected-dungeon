@@ -1,5 +1,5 @@
 /// <summary>
-/// Stat View와 스탯 관련 데이터를 연결하는 Presenter
+/// StatView와 스탯 관련 데이터를 연결하는 Presenter
 /// </summary>
 public class StatPresenter
 {

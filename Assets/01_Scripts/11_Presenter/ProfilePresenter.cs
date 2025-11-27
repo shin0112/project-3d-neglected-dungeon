@@ -1,3 +1,6 @@
+/// <summary>
+/// ProfileView와 관련 데이터를 연결하는 Presenter
+/// </summary>
 public class ProfilePresenter
 {
     IProfileView _view;

@@ -1,5 +1,5 @@
 /// <summary>
-/// UI 상단 재화 바와 관련된 데이터를 연결하는 Presenter
+/// UI 상단 재화 뷰(HeaderView)와 관련된 데이터를 연결하는 Presenter
 /// </summary>
 public class HeaderPresenter
 {
