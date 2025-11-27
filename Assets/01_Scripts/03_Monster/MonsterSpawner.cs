@@ -87,9 +87,9 @@ public class MonsterSpawner
     }
 
     /// <summary>
-    /// 보스 몬스터 스폰
+    /// [public] 보스 몬스터 스폰
     /// </summary>
-    private void SpawnBoss()
+    public void SpawnBoss()
     {
         Vector3 position = GetRandomPosition();
         GameObject bossPrefab = _stageData.BossData.Prefab;

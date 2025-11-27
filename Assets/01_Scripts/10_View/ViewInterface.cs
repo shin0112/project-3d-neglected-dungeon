@@ -30,4 +30,5 @@ public interface ICurDungeonView
 {
     public void UpdateProgress(float progress);
     public void UpdateCurDungeonText(string name);
+    public void OnClickBattleBossButton();
 }

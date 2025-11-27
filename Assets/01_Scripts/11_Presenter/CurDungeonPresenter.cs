@@ -19,4 +19,10 @@ public class CurDungeonPresenter
     {
         _view.UpdateCurDungeonText(name);
     }
+
+    public void OnClickBattleBossButton()
+    {
+        // 보스 소환
+        Managers.Instance.Dungeon.Spawner.SpawnBoss();
+    }
 }
