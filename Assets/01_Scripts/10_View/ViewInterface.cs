@@ -15,7 +15,7 @@ public interface IHeaderView
 public interface IProfileView
 {
     public void UpdateNameText(string name);
-    public void UpdateAttackPowerText(int atk);
-    public void UpdateDefensePowerText(int def);
-    public void UpdateMaxHealthText(int health);
+    public void UpdateAttackText(int attack);
+    public void UpdateDefenseText(int defense);
+    public void UpdateTotalHealthText(int health);
 }

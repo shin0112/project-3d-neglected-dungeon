@@ -7,19 +7,19 @@ public class ProfilePresenter
         _view = view;
 
         PlayerCondition condition = Managers.Instance.Player.Condition;
-        condition.OnTotalAttackChanged += OnTotalAttackPowerChanged;
-        condition.OnTotalDefenseChanged += OnTotalDefensePowerChanged;
+        condition.OnTotalAttackChanged += OnTotalAttackChanged;
+        condition.OnTotalDefenseChanged += OnTotalDefenseChanged;
 
         condition.InitProfileView();
     }
 
-    public void OnTotalAttackPowerChanged(float value)
+    public void OnTotalAttackChanged(float value)
     {
-        _view.UpdateAttackPowerText((int)value);
+        _view.UpdateAttackText((int)value);
     }
 
-    public void OnTotalDefensePowerChanged(float value)
+    public void OnTotalDefenseChanged(float value)
     {
-        _view.UpdateDefensePowerText((int)value);
+        _view.UpdateDefenseText((int)value);
     }
 }

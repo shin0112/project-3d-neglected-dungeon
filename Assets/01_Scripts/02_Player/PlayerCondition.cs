@@ -23,7 +23,9 @@ public class PlayerCondition
     // 이벤트
     public event Action<int> OnLevelChanged;
     public event Action<float> OnExpChanged;
+
     public event Action<float> OnStaminaChanged;
+
     public event Action<float> OnTotalAttackChanged;
     public event Action<float> OnTotalDefenseChanged;
     #endregion
@@ -37,9 +39,9 @@ public class PlayerCondition
         Level = 1;
         CurrentExp = 0f;
 
-        // 공격력 / 방어력 초기화
-        UpdateTotalAttackPower();
-        UpdateTotalDefensePower();
+        // 최종 계산 스탯
+        UpdateTotalAttack();
+        UpdateTotalDefense();
     }
 
     /// <summary>
@@ -152,9 +154,9 @@ public class PlayerCondition
     /// 총합 공격력을 구하는 로직
     /// 장비를 장착 / 해제할 경우 호출
     /// </summary>
-    private void UpdateTotalAttackPower()
+    private void UpdateTotalAttack()
     {
-        TotalAttack = StatDict[StatType.Attack] + GetEquipmentAttackPower();
+        TotalAttack = StatDict[StatType.Attack] + GetEquipmentAttack();
         OnTotalAttackChanged?.Invoke(TotalAttack);
     }
 
@@ -162,20 +164,25 @@ public class PlayerCondition
     /// 총합 방어력을 구하는 로직
     /// 장비를 장착 / 해제할 경우 호출
     /// </summary>
-    private void UpdateTotalDefensePower()
+    private void UpdateTotalDefense()
     {
-        TotalDefense = StatDict[StatType.Defense] + GetEquipmentDefensePower();
+        TotalDefense = StatDict[StatType.Defense] + GetEquipmentDefense();
         OnTotalDefenseChanged?.Invoke(TotalDefense);
     }
     #endregion
 
     #region 장비 계산 // todo: 장비 확장 시 로직 추가
-    private float GetEquipmentAttackPower()
+    private float GetEquipmentAttack()
     {
         return 0f;
     }
 
-    private float GetEquipmentDefensePower()
+    private float GetEquipmentDefense()
+    {
+        return 0f;
+    }
+
+    private float GetEquipmentHealth()
     {
         return 0f;
     }

@@ -11,7 +11,7 @@ public class ProfileView : UIView, IProfileView
     [Header("스탯")]
     [SerializeField] private TextMeshProUGUI _attakPowerText;
     [SerializeField] private TextMeshProUGUI _defensePowerText;
-    [SerializeField] private TextMeshProUGUI _maxHealthText;
+    [SerializeField] private TextMeshProUGUI _totalHealthText;
 
     // todo: 장비창
 
@@ -22,7 +22,7 @@ public class ProfileView : UIView, IProfileView
         _nameText = transform.FindChild<TextMeshProUGUI>("Text - Name");
         _attakPowerText = transform.FindChild<TextMeshProUGUI>("Text - Attak Power");
         _defensePowerText = transform.FindChild<TextMeshProUGUI>("Text - Defense Power");
-        _maxHealthText = transform.FindChild<TextMeshProUGUI>("Text - Heath");
+        _totalHealthText = transform.FindChild<TextMeshProUGUI>("Text - Heath");
     }
 
     private void Start()
@@ -36,19 +36,19 @@ public class ProfileView : UIView, IProfileView
     }
 
     #region 프로필 스텟 텍스트 관리
-    public void UpdateAttackPowerText(int atk)
+    public void UpdateAttackText(int attack)
     {
-        _attakPowerText.text = atk.ToString();
+        _attakPowerText.text = attack.ToString();
     }
 
-    public void UpdateDefensePowerText(int def)
+    public void UpdateDefenseText(int defense)
     {
-        _defensePowerText.text = def.ToString();
+        _defensePowerText.text = defense.ToString();
     }
 
-    public void UpdateMaxHealthText(int health)
+    public void UpdateTotalHealthText(int health)
     {
-        throw new System.NotImplementedException();
+        _totalHealthText.text = health.ToString();
     }
     #endregion
 }
