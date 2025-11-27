@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 
+/// <summary>
+/// 플레이어 상태를 관리하기 위한 컨테이너
+/// </summary>
 [System.Serializable]
 public class PlayerCondition
 {
@@ -21,6 +24,8 @@ public class PlayerCondition
     public event Action<int> OnLevelChanged;
     public event Action<float> OnExpChanged;
     public event Action<float> OnStaminaChanged;
+    public event Action<float> OnTotalAttackChanged;
+    public event Action<float> OnTotalDefenseChanged;
     #endregion
 
     #region 초기화
@@ -41,6 +46,8 @@ public class PlayerCondition
     /// 스텟 타입과 값을 딕셔너리로 관리하기 위해 초기화
     /// 반드시 사용하는 값일 경우 기본값 추가
     /// </summary>
+    /// <param name="stats"></param>
+    /// <exception cref="StatNegativeValueException"></exception>
     private void ConvertStatListToDict(List<StatEntry> stats)
     {
         StatDict = new();
@@ -93,6 +100,15 @@ public class PlayerCondition
     {
         OnStaminaChanged?.Invoke(CurrentStamina);
     }
+
+    /// <summary>
+    /// Profile View에서 초기화할 때 사용
+    /// </summary>
+    public void InitProfileView()
+    {
+        OnTotalAttackChanged?.Invoke(TotalAttack);
+        OnTotalDefenseChanged?.Invoke(TotalDefense);
+    }
     #endregion
 
     #region Destroy
@@ -101,9 +117,12 @@ public class PlayerCondition
     /// </summary>
     public void OnDestroy()
     {
+        // 이벤트 초기화
         OnLevelChanged = null;
         OnExpChanged = null;
         OnStaminaChanged = null;
+        OnTotalAttackChanged = null;
+        OnTotalDefenseChanged = null;
     }
     #endregion
 
@@ -136,6 +155,7 @@ public class PlayerCondition
     private void UpdateTotalAttackPower()
     {
         TotalAttack = StatDict[StatType.Attack] + GetEquipmentAttackPower();
+        OnTotalAttackChanged?.Invoke(TotalAttack);
     }
 
     /// <summary>
@@ -145,6 +165,7 @@ public class PlayerCondition
     private void UpdateTotalDefensePower()
     {
         TotalDefense = StatDict[StatType.Defense] + GetEquipmentDefensePower();
+        OnTotalDefenseChanged?.Invoke(TotalDefense);
     }
     #endregion
 
