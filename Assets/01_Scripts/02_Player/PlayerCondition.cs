@@ -19,6 +19,7 @@ public class PlayerCondition
     public float CurrentStamina => StatDict[StatType.Stamina];
     public float TotalAttack { get; private set; }
     public float TotalDefense { get; private set; }
+    public float TotalHealth { get; private set; }
 
     // 이벤트
     public event Action<int> OnLevelChanged;
@@ -28,6 +29,7 @@ public class PlayerCondition
 
     public event Action<float> OnTotalAttackChanged;
     public event Action<float> OnTotalDefenseChanged;
+    public event Action<float> OnTotalHealthChanged;
     #endregion
 
     #region 초기화
@@ -42,6 +44,7 @@ public class PlayerCondition
         // 최종 계산 스탯
         UpdateTotalAttack();
         UpdateTotalDefense();
+        UpdateTotalHealth();
     }
 
     /// <summary>
@@ -110,6 +113,7 @@ public class PlayerCondition
     {
         OnTotalAttackChanged?.Invoke(TotalAttack);
         OnTotalDefenseChanged?.Invoke(TotalDefense);
+        OnTotalHealthChanged?.Invoke(TotalHealth);
     }
     #endregion
 
@@ -122,9 +126,12 @@ public class PlayerCondition
         // 이벤트 초기화
         OnLevelChanged = null;
         OnExpChanged = null;
+
         OnStaminaChanged = null;
+
         OnTotalAttackChanged = null;
         OnTotalDefenseChanged = null;
+        OnTotalHealthChanged = null;
     }
     #endregion
 
@@ -168,6 +175,16 @@ public class PlayerCondition
     {
         TotalDefense = StatDict[StatType.Defense] + GetEquipmentDefense();
         OnTotalDefenseChanged?.Invoke(TotalDefense);
+    }
+
+    /// <summary>
+    /// 총합 체력을 구하는 로직
+    /// 장비를 장착 / 해제할 경우 호출
+    /// </summary>
+    private void UpdateTotalHealth()
+    {
+        TotalHealth = StatDict[StatType.Health] + GetEquipmentHealth();
+        OnTotalHealthChanged?.Invoke(TotalHealth);
     }
     #endregion
 

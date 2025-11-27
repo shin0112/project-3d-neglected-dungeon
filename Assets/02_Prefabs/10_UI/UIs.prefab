@@ -5503,7 +5503,7 @@ MonoBehaviour:
   _nameText: {fileID: 8999032836162926898}
   _attakPowerText: {fileID: 2066031784069804895}
   _defensePowerText: {fileID: 3774053962384248259}
-  _maxHealthText: {fileID: 7262039436225189314}
+  _totalHealthText: {fileID: 7262039436225189314}
 --- !u!1 &9088849520290732310
 GameObject:
   m_ObjectHideFlags: 0

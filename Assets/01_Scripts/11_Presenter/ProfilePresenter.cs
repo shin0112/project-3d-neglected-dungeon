@@ -7,8 +7,10 @@ public class ProfilePresenter
         _view = view;
 
         PlayerCondition condition = Managers.Instance.Player.Condition;
+
         condition.OnTotalAttackChanged += OnTotalAttackChanged;
         condition.OnTotalDefenseChanged += OnTotalDefenseChanged;
+        condition.OnTotalHealthChanged += OnTotalHealthChanged;
 
         condition.InitProfileView();
     }
@@ -21,5 +23,10 @@ public class ProfilePresenter
     public void OnTotalDefenseChanged(float value)
     {
         _view.UpdateDefenseText((int)value);
+    }
+
+    public void OnTotalHealthChanged(float value)
+    {
+        _view.UpdateTotalHealthText((int)value);
     }
 }
