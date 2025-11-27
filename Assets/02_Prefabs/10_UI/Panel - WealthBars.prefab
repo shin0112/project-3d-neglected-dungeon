@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1948929576904599460}
   - component: {fileID: 9215344362427799986}
   m_Layer: 5
-  m_Name: Text (TMP) - Text
+  m_Name: Text (TMP) - Gem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -444,7 +444,7 @@ GameObject:
   - component: {fileID: 3694478922992511873}
   - component: {fileID: 2158392582964536110}
   m_Layer: 5
-  m_Name: Text (TMP) - Text
+  m_Name: Text (TMP) - Key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -578,7 +578,7 @@ GameObject:
   - component: {fileID: 830265058406853827}
   - component: {fileID: 4194821593098673273}
   m_Layer: 5
-  m_Name: Text (TMP) - Text
+  m_Name: Text (TMP) - Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -714,7 +714,7 @@ GameObject:
   - component: {fileID: 6911032429293535409}
   - component: {fileID: 8297973649750010533}
   m_Layer: 5
-  m_Name: Image - Icon
+  m_Name: Image - LevelProgress
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -895,7 +895,7 @@ GameObject:
   - component: {fileID: 8935494760059996105}
   - component: {fileID: 1671683713830265434}
   m_Layer: 5
-  m_Name: Text (TMP) - Text
+  m_Name: Text (TMP) - Gold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1521,6 +1521,8 @@ GameObject:
   - component: {fileID: 872478637887973997}
   - component: {fileID: 3546000095287477642}
   - component: {fileID: 4937039901419329502}
+  - component: {fileID: 3171098251176758272}
+  - component: {fileID: 8621386831763422264}
   m_Layer: 5
   m_Name: Panel - WealthBars
   m_TagString: Untagged
@@ -1615,3 +1617,55 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!225 &3171098251176758272
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9153294401439170226}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &8621386831763422264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9153294401439170226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 048d348ec8e578e43b47fbe9368231e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overrideTransition: 0
+  profile: {fileID: 11400000, guid: 744fd363d80d28f4fa99620d93ff8f84, type: 2}
+  entryAnim: 1
+  entryDir: 1
+  entrySpeed: 2
+  exitAnim: 1
+  exitDir: 0
+  exitSpeed: 2
+  lifecycle: 1
+  onPreShow:
+    m_PersistentCalls:
+      m_Calls: []
+  onPostShow:
+    m_PersistentCalls:
+      m_Calls: []
+  onPreHide:
+    m_PersistentCalls:
+      m_Calls: []
+  onPostHide:
+    m_PersistentCalls:
+      m_Calls: []
+  rectTransform: {fileID: 773986007448941058}
+  canvasGroup: {fileID: 3171098251176758272}
+  _levelProgress: {fileID: 8297973649750010533}
+  _levelText: {fileID: 4194821593098673273}
+  _keyText: {fileID: 2158392582964536110}
+  _goldText: {fileID: 1671683713830265434}
+  _gemText: {fileID: 9215344362427799986}

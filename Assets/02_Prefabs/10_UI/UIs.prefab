@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3068317376142261027}
   - component: {fileID: 3355480007454798167}
   m_Layer: 5
-  m_Name: SlatSlot_Skill_Value
+  m_Name: SlatSlot_DefensePower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,9 +33,9 @@ RectTransform:
   - {fileID: 6164963254396422937}
   m_Father: {fileID: 556103043526380968}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 203.706, y: -75}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3355480007454798167
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 4443364523761925533}
   - component: {fileID: 7830678425721048680}
   m_Layer: 5
-  m_Name: SlatSlot_Heath_Value
+  m_Name: SlatSlot_Heath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,9 +130,9 @@ RectTransform:
   - {fileID: 3132852310512011727}
   m_Father: {fileID: 556103043526380968}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 339.51, y: -75}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7830678425721048680
@@ -520,7 +520,7 @@ GameObject:
   - component: {fileID: 5400432747294286529}
   - component: {fileID: 5152049962104116590}
   m_Layer: 0
-  m_Name: Image - BarBg
+  m_Name: Image - Stamina BarBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -538,7 +538,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7747879743872533049}
+  m_Father: {fileID: 1563871237261369672}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -595,7 +595,7 @@ GameObject:
   - component: {fileID: 8459378342105155703}
   - component: {fileID: 8084544118222851010}
   m_Layer: 0
-  m_Name: Image - Progress
+  m_Name: Image - Stamina Progress
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -613,7 +613,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7747879743872533049}
+  m_Father: {fileID: 1563871237261369672}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -670,7 +670,7 @@ GameObject:
   - component: {fileID: 415873945487642839}
   - component: {fileID: 1592601330473022133}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: Text (TMP) - BossInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -803,8 +803,10 @@ GameObject:
   - component: {fileID: 7747879743872533049}
   - component: {fileID: 5070234539958801150}
   - component: {fileID: 3320280264730061054}
+  - component: {fileID: 5741746703580410081}
+  - component: {fileID: 633116350502259792}
   m_Layer: 5
-  m_Name: Panel - Stamina
+  m_Name: Panel - Stat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -822,9 +824,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2827691862111488133}
-  - {fileID: 6529352594435782927}
-  - {fileID: 4042442431013049507}
+  - {fileID: 1563871237261369672}
   m_Father: {fileID: 2243854102264375340}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -870,6 +870,54 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &5741746703580410081
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160865390389419395}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &633116350502259792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160865390389419395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c0a3ed67794c3b4398c4a9464b32599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overrideTransition: 0
+  profile: {fileID: 11400000, guid: 744fd363d80d28f4fa99620d93ff8f84, type: 2}
+  entryAnim: 1
+  entryDir: 1
+  entrySpeed: 2
+  exitAnim: 1
+  exitDir: 0
+  exitSpeed: 2
+  lifecycle: 1
+  onPreShow:
+    m_PersistentCalls:
+      m_Calls: []
+  onPostShow:
+    m_PersistentCalls:
+      m_Calls: []
+  onPreHide:
+    m_PersistentCalls:
+      m_Calls: []
+  onPostHide:
+    m_PersistentCalls:
+      m_Calls: []
+  rectTransform: {fileID: 7747879743872533049}
+  canvasGroup: {fileID: 5741746703580410081}
+  _staminaProgress: {fileID: 8084544118222851010}
 --- !u!1 &1164257976452422641
 GameObject:
   m_ObjectHideFlags: 0
@@ -882,7 +930,7 @@ GameObject:
   - component: {fileID: 4076175551646137313}
   - component: {fileID: 7630411987015714028}
   m_Layer: 0
-  m_Name: Image - Progress
+  m_Name: Image - CurDungeon Progress
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1108,7 +1156,7 @@ GameObject:
   - component: {fileID: 3458121103696857943}
   - component: {fileID: 5840225209302983408}
   m_Layer: 0
-  m_Name: Image - BarBg
+  m_Name: Image - BossHealth BarBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1183,7 +1231,7 @@ GameObject:
   - component: {fileID: 1386846063446278656}
   - component: {fileID: 1836757432816547860}
   m_Layer: 0
-  m_Name: Panel - CurDungeonProgress
+  m_Name: Panel - CurDungeon Info
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1599,7 +1647,7 @@ GameObject:
   - component: {fileID: 7902358743436961671}
   - component: {fileID: 7262039436225189314}
   m_Layer: 5
-  m_Name: Text - Value
+  m_Name: Text - Heath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1619,9 +1667,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4443364523761925533}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -125}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7902358743436961671
@@ -2282,7 +2330,7 @@ GameObject:
   - component: {fileID: 59429878451252321}
   - component: {fileID: 2066031784069804895}
   m_Layer: 5
-  m_Name: Text - Value
+  m_Name: Text - Attak Power
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2302,9 +2350,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6728070951670958408}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -125}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &59429878451252321
@@ -2945,7 +2993,7 @@ GameObject:
   - component: {fileID: 4341562555873370784}
   - component: {fileID: 8728346437948528360}
   m_Layer: 0
-  m_Name: Image - BarBg
+  m_Name: Image - CurDungeon BarBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3178,7 +3226,7 @@ GameObject:
   - component: {fileID: 1460430593413245958}
   - component: {fileID: 3774053962384248259}
   m_Layer: 5
-  m_Name: Text - Value
+  m_Name: Text - Defense Power
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3198,9 +3246,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 3068317376142261027}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -125}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1460430593413245958
@@ -3962,7 +4010,7 @@ GameObject:
   - component: {fileID: 1704882340639266468}
   - component: {fileID: 2247177747513902674}
   m_Layer: 0
-  m_Name: Image - Progress
+  m_Name: Image - BossHealth Progress
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4036,7 +4084,7 @@ GameObject:
   - component: {fileID: 6728070951670958408}
   - component: {fileID: 4437976991444014488}
   m_Layer: 5
-  m_Name: SlatSlot_Weapon_Value
+  m_Name: SlatSlot_AttakPower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4058,9 +4106,9 @@ RectTransform:
   - {fileID: 4021187438448804245}
   m_Father: {fileID: 556103043526380968}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 67.902, y: -75}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4437976991444014488
@@ -4102,7 +4150,7 @@ GameObject:
   - component: {fileID: 833160418767938612}
   - component: {fileID: 5835380759618785388}
   m_Layer: 5
-  m_Name: Button - SkillSlot
+  m_Name: Button - SkillSlot_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4148,15 +4196,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e4ba187f35aa81b43a6c0a9d6c8bcf79, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: -5177388603050735206, guid: 71ebafeef3c03457483266a33ab2b270, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -4279,9 +4327,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6728070951670958408}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1988781596924230983
@@ -4610,7 +4658,7 @@ GameObject:
   - component: {fileID: 2618918678777268102}
   - component: {fileID: 4941853271133806944}
   - component: {fileID: 1194313738742439975}
-  - component: {fileID: 7422455468929819917}
+  - component: {fileID: 6551206863148090153}
   m_Layer: 5
   m_Name: Panel - DugeonBottom
   m_TagString: Untagged
@@ -4689,7 +4737,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &7422455468929819917
+--- !u!114 &6551206863148090153
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4698,7 +4746,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7247512280648627344}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ffc1e726b528694293515ad782611b4, type: 3}
+  m_Script: {fileID: 11500000, guid: 83161013149a0534f9b9061b69d4f69e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   overrideTransition: 0
@@ -4724,6 +4772,11 @@ MonoBehaviour:
       m_Calls: []
   rectTransform: {fileID: 764706419616907909}
   canvasGroup: {fileID: 1194313738742439975}
+  _skillButtons:
+  - {fileID: 5835380759618785388}
+  - {fileID: 5728231120556127599}
+  - {fileID: 7183881387152880850}
+  _inventoryButton: {fileID: 581967775363668085}
 --- !u!1 &7631061227432265914
 GameObject:
   m_ObjectHideFlags: 0
@@ -4736,7 +4789,7 @@ GameObject:
   - component: {fileID: 8865627498945544319}
   - component: {fileID: 929697414165034284}
   m_Layer: 5
-  m_Name: Image - Icon
+  m_Name: Image - Stamina Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4749,12 +4802,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7631061227432265914}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7747879743872533049}
+  m_Father: {fileID: 1563871237261369672}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4831,9 +4884,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 3068317376142261027}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8230913930296561467
@@ -4970,7 +5023,7 @@ GameObject:
   - component: {fileID: 3837992126048787670}
   - component: {fileID: 7537937952692385733}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: Text (TMP) - CurDungeon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5180,7 +5233,7 @@ GameObject:
   - component: {fileID: 5419335759647194584}
   - component: {fileID: 5173183289164285284}
   m_Layer: 0
-  m_Name: Panel - BossHealth
+  m_Name: Panel - Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5278,9 +5331,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4443364523761925533}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &947309588120490890
@@ -5332,13 +5385,15 @@ GameObject:
   - component: {fileID: 7250920790914109757}
   - component: {fileID: 3161207323156389462}
   - component: {fileID: 2436047990155972160}
+  - component: {fileID: 3374685035184260906}
+  - component: {fileID: 5378964272746635499}
   m_Layer: 5
   m_Name: Panel - Profile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7250920790914109757
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5398,6 +5453,95 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &3374685035184260906
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8827242146857360398}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &5378964272746635499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8827242146857360398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f952d38e5d7d434da15e2e30ae169cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overrideTransition: 0
+  profile: {fileID: 11400000, guid: 744fd363d80d28f4fa99620d93ff8f84, type: 2}
+  entryAnim: 1
+  entryDir: 1
+  entrySpeed: 2
+  exitAnim: 1
+  exitDir: 0
+  exitSpeed: 2
+  lifecycle: 1
+  onPreShow:
+    m_PersistentCalls:
+      m_Calls: []
+  onPostShow:
+    m_PersistentCalls:
+      m_Calls: []
+  onPreHide:
+    m_PersistentCalls:
+      m_Calls: []
+  onPostHide:
+    m_PersistentCalls:
+      m_Calls: []
+  rectTransform: {fileID: 7250920790914109757}
+  canvasGroup: {fileID: 3374685035184260906}
+  _nameText: {fileID: 8999032836162926898}
+  _attakPowerText: {fileID: 2066031784069804895}
+  _defensePowerText: {fileID: 3774053962384248259}
+  _maxHealthText: {fileID: 7262039436225189314}
+--- !u!1 &9088849520290732310
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1563871237261369672}
+  m_Layer: 5
+  m_Name: Stamina
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1563871237261369672
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9088849520290732310}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2827691862111488133}
+  - {fileID: 6529352594435782927}
+  - {fileID: 4042442431013049507}
+  m_Father: {fileID: 7747879743872533049}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &3428079842172314066
 PrefabInstance:
   m_ObjectHideFlags: 0
