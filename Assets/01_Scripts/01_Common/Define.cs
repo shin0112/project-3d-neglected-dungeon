@@ -37,5 +37,9 @@ public static class Define
     public static Color ColorRare = Color.blue;
     public static Color ColorElite = Color.magenta;
     public static Color ColorUnique = Color.yellow;
+
+    // 강화
+    public static int UpgradeDefaultGold = 20;
+    public static float UpgradeProbability = 0.5f;
     #endregion
 }
