@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -10,12 +9,14 @@ public class Player : MonoBehaviour
     [field: Header("Component")]
     [field: SerializeField] public Animator Animator { get; private set; }
 
+    [field: Header("Condition")]
+    [field: SerializeField] public PlayerCondition Condition { get; private set; }
+
     [field: Header("Data")]
     [field: SerializeField] public PlayerStateData State { get; private set; }
-    [field: SerializeField] public PlayerStatData Stat { get; private set; }
-    public Dictionary<StatType, float> StatDict { get; private set; }
+    [field: SerializeField] private PlayerStatData Stat { get; set; }
 
-    [field: Header("Animations")]
+    [field: Header("Animation")]
     [field: SerializeField] public PlayerAnimationData AnimationData { get; private set; }
     private PlayerStateMachine _stateMachine;
 
@@ -35,8 +36,8 @@ public class Player : MonoBehaviour
         // Component
         GetComponents();
 
-        // Data
-        ConvertStatListToDict();
+        // Condition
+        Condition = new PlayerCondition(Stat);
 
         // Animation
         AnimationData.Initialize();
@@ -60,18 +61,6 @@ public class Player : MonoBehaviour
         relay.Player = this;
     }
 
-    /// <summary>
-    /// 스텟 타입과 값을 딕셔너리로 관리하기 위해 초기화
-    /// </summary>
-    private void ConvertStatListToDict()
-    {
-        StatDict = new();
-
-        foreach (StatEntry statEntry in Stat.Stats)
-        {
-            StatDict[statEntry.StatType] = statEntry.BaseValue;
-        }
-    }
     #endregion
 
     private void Update()

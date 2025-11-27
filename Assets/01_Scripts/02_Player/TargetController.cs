@@ -17,7 +17,7 @@ public class TargetingController
     public TargetingController(Player player)
     {
         this._player = player;
-        _player.StatDict.TryGetValue(StatType.DetectDistance, out float detectDistance);
+        _player.Condition.StatDict.TryGetValue(StatType.DetectDistance, out float detectDistance);
         _squreDetectDistance = detectDistance * detectDistance;
     }
 

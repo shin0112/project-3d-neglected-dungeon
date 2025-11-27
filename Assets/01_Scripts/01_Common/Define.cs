@@ -16,7 +16,14 @@ public static class Define
     public static int MaxKeyCount = 5;
     #endregion
 
-    #region 스킬
+    #region 캐릭터 정보
+    // 스텟
+    public static float DefaultHealth = 100f;
+    public static float DefaultStamina = 100f;
+
+    public static float MaxStamina = 100f;
+
+    // 스킬
     public static int MaxDisplaySkills = 3;
     #endregion
 }
