@@ -28,4 +28,13 @@ public static class Define
     // 스킬
     public static int MaxDisplaySkills = 3;
     #endregion
+
+    #region 아이템 정보
+    // 아이템 클래스 색상
+    public static Color ColorNone = Color.gray;
+    public static Color ColorNormal = Color.green;
+    public static Color ColorRare = Color.blue;
+    public static Color ColorElite = Color.magenta;
+    public static Color ColorUnique = Color.yellow;
+    #endregion
 }
