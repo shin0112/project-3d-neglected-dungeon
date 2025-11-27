@@ -52,25 +52,10 @@ public class MapGenerator
     /// <summary>
     /// 시뮬레이션에 사용할 클래스
     /// </summary>
-    public class RoomInfo
+    private class RoomInfo
     {
         public RoomData Data;
         public Vector2Int GridPos;
-    }
-
-    /// <summary>
-    /// prefab을 바탕으로 RoomInfo 생성하기
-    /// </summary>
-    /// <param name="prefab"></param>
-    /// <param name="index"></param>
-    /// <returns></returns>
-    private RoomInfo CreateRoomInfo(RoomData data)
-    {
-        return new RoomInfo()
-        {
-            Data = data,
-            GridPos = Vector2Int.zero
-        };
     }
 
     /// <summary>
@@ -94,21 +79,25 @@ public class MapGenerator
     }
 
     /// <summary>
-    /// 첫 번째 방 마킹
+    /// 첫 번째 방 랜덤 선택 후 (0, 0)에 배치
     /// </summary>
     /// <param name="rooms"></param>
     private void PlaceFirstRoom(RoomData[] rooms)
     {
         RoomData rand = rooms.Random();
 
-        RoomInfo info = CreateRoomInfo(rand);
+        RoomInfo info = new RoomInfo()
+        {
+            Data = rand,
+            GridPos = Vector2Int.zero
+        };
 
         _rooms.Add(info);
         MarkFootprint(info);
     }
 
     /// <summary>
-    /// 두 번째 방부터 Count 번째 방까지 마킹
+    /// 직전 방에서 4방향 검사 후 겹치지 않는 곳에 배치
     /// </summary>
     /// <param name="rooms"></param>
     /// <returns></returns>
@@ -148,6 +137,12 @@ public class MapGenerator
         return false;
     }
 
+    /// <summary>
+    /// 위치와 크기로 _occupied에 겹치는지 확인
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <param name="size"></param>
+    /// <returns></returns>
     private bool IsFootprintOccupied(Vector2Int pos, Vector2Int size)
     {
         for (int x = 0; x < size.x; x++)
@@ -163,7 +158,7 @@ public class MapGenerator
     }
 
     /// <summary>
-    /// 
+    /// 방이 위치할 grid 좌표 _occupied에 추가
     /// </summary>
     /// <param name="info"></param>
     private void MarkFootprint(RoomInfo info)
@@ -182,6 +177,7 @@ public class MapGenerator
     /// <summary>
     /// 시뮬레이션으로 만든 스테이지 정보 사용해서 맵 실제 배치
     /// </summary>
+    /// <param name="root"></param>
     /// <param name="stage"></param>
     /// <returns></returns>
     private GameObject CreateRooms(Transform root, StageData stage)
@@ -218,20 +214,23 @@ public class MapGenerator
         return roomRoot;
     }
 
+    /// <summary>
+    /// 문 설치
+    /// </summary>
+    /// <param name="root"></param>
+    /// <param name="from"></param>
+    /// <param name="to"></param>
     private void PlaceDoor(Transform root, Vector3 from, Vector3 to)
     {
-        // 사용하고 싶은 doorPrefab으로 바꿔라
-        // 예시:
-        // Object.Instantiate(doorPrefab, position, rotation, root);
-
-        // 문 설치는 필요에 따라 구현.
+        // to do: 문 프리팹 받아서 설치하기
     }
     #endregion
 
     #region 통로 연결
     /// <summary>
-    /// From에서 To로 corridor 연결하기
+    /// root 아래에 From에서 To로 corridor 연결하기
     /// </summary>
+    /// <param name="root"></param>
     /// <param name="from"></param>
     /// <param name="to"></param>
     private void CreateCorridor(Transform root, Vector3 from, Vector3 to)
