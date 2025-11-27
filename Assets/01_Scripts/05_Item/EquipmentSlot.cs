@@ -1,6 +1,8 @@
+using UnityEngine;
+
 public class EquipmentSlot : ItemSlot
 {
-    public EquipmentType Type { get; private set; }
+    [field: SerializeField] public EquipmentType Type { get; private set; }
 
     #region 버튼
     protected override void OnClickButton()

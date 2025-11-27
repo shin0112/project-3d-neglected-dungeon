@@ -7,6 +7,7 @@ using UnityEngine.UI;
 /// 아이템 슬롯 추상 클래스
 /// </summary>
 [RequireComponent(typeof(Button))]
+[System.Serializable]
 public abstract class ItemSlot : MonoBehaviour
 {
     [Header("컴포넌트")]
