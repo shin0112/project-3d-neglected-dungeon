@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class HeaderView : UIView, IHeaderView
 {
+    private HeaderPresenter _presenter;
+
     [Header("레벨")]
     [SerializeField] private Image _levelProgress;
     [SerializeField] private TextMeshProUGUI _levelText;
@@ -14,6 +16,11 @@ public class HeaderView : UIView, IHeaderView
     [Header("재화")]
     [SerializeField] private TextMeshProUGUI _goldText;
     [SerializeField] private TextMeshProUGUI _gemText;
+
+    private void Start()
+    {
+        _presenter = new HeaderPresenter(this);
+    }
 
     protected override void Reset()
     {

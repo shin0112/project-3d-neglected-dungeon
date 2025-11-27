@@ -25,6 +25,10 @@ public class PlayerCondition
     public PlayerCondition(PlayerStatData data)
     {
         ConvertStatListToDict(data.Stats);
+
+        // todo: 데이터 연동
+        Level = 1;
+        CurrentExp = 0f;
     }
 
     /// <summary>
@@ -49,6 +53,23 @@ public class PlayerCondition
         {
             StatDict[StatType.Stamina] = Define.DefaultStamina;
         }
+    }
+
+    /// <summary>
+    /// Header View에서 초기화할 때 사용
+    /// </summary>
+    public void InitHeaderView()
+    {
+        OnLevelChanged?.Invoke(Level);
+        OnExpChanged?.Invoke(CurrentExp);
+    }
+
+    /// <summary>
+    /// Stat View에서 초기화할 때 사용
+    /// </summary>
+    public void InitStatView()
+    {
+        OnStaminaChanged?.Invoke(CurrentStamina);
     }
     #endregion
 
