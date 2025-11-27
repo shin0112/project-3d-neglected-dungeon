@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -9,6 +10,8 @@ public class MonsterSpawner
 {
     #region 필드
     private StageData _stageData;
+    private Transform _dungeonRoot;
+    private List<Room> _rooms = new();
 
     // 현재 몬스터 상태
     private List<Monster> _alives = new();
@@ -22,12 +25,21 @@ public class MonsterSpawner
 
     public IReadOnlyList<Monster> AliveMonsters => _alives;
     public bool StageClear => _bossSpawned && _bossDead;
+
+    public MonsterSpawner(Transform dungeonRoot)
+    {
+        _dungeonRoot = dungeonRoot;
+    }
     #endregion
 
     #region 초기화
     public void Initialize(StageData stageData)
     {
         _stageData = stageData;
+
+        _rooms.Clear();
+        Room[] romms = _dungeonRoot.GetComponentsInChildren<Room>(true);
+        _rooms.AddRange(romms);
 
         _alives.Clear();
         _killCount = 0;
@@ -38,6 +50,8 @@ public class MonsterSpawner
         {
             SpawnOneEnemy();
         }
+
+        _spawnCoroutine = CoroutineRunner.instance.StartCoroutine(RespawnCoroutine());
     }
     #endregion
 
@@ -50,14 +64,15 @@ public class MonsterSpawner
         MonsterData data = _stageData
             .MonsterPool[Random.Range(0, _stageData.MonsterPool.Length)]
             .MonsterData;
+        Vector3 position = GetRandomPosition();
 
-        // todo: 스폰 포인트 만들어서 지정
-        Vector3 position = Vector3.right * -10f;
-
-        GameObject obj = Managers.Instance.ObjectPool.GetObject(data, data.Prefab, position, Quaternion.identity);
+        GameObject obj = Managers.Instance.ObjectPool.GetObject(
+            data,
+            data.Prefab,
+            position,
+            Quaternion.Euler(0, Random.Range(0, 360), 0));
 
         Monster monster = obj.GetComponent<Monster>();
-
         monster.OnDead += OnMonsterDead;
 
         _alives.Add(monster);
@@ -68,8 +83,7 @@ public class MonsterSpawner
     /// </summary>
     private void SpawnBoss()
     {
-        // todo: 보스 스폰 위치 지정
-        Vector3 position = Vector3.zero;
+        Vector3 position = GetRandomPosition();
         GameObject bossPrefab = _stageData.BossData.Prefab;
 
         GameObject obj = Object.Instantiate(bossPrefab, position, Quaternion.identity);
@@ -119,17 +133,28 @@ public class MonsterSpawner
         // todo: 보스 처지 시 클리어 로직
     }
 
+    private Vector3 GetRandomPosition()
+    {
+        Room room = _rooms.Random();
+        Transform spawnPoint = room.GetRandomMonsterSpawnPoint();
+        Vector3 position = spawnPoint != null ? spawnPoint.position : Vector3.zero;
+        return position;
+    }
+
     /// <summary>
     /// 스테이지에 소환될 수 있는 최대 숫자가 될 때까지 리스폰
     /// </summary>
     /// <returns></returns>
     private IEnumerator RespawnCoroutine()
     {
-        yield return _spawnDelay;
-
-        if (_alives.Count < _stageData.MaxEnemyCount)
+        while (true)
         {
-            SpawnOneEnemy();
+            yield return _spawnDelay;
+
+            if (_alives.Count < _stageData.MaxEnemyCount)
+            {
+                SpawnOneEnemy();
+            }
         }
     }
     #endregion

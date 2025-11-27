@@ -33,7 +33,7 @@ public partial class Managers
             _dungeonRoot = dungeonObj.transform;
             SetNavMeshSurface(dungeonObj);
 
-            Spawner = new();
+            Spawner = new(_dungeonRoot);
             _mapGenerator = new(corridors);
         }
 
@@ -79,7 +79,7 @@ public partial class Managers
             _surface.BuildNavMesh();
 
             RegisterStagePools(stage);                  // stage go pool에 등록
-            Spawner.Initialize(stage);                 // monster pool 초기화
+            Spawner.Initialize(stage);                  // monster pool 초기화
         }
 
         private void NextStage()

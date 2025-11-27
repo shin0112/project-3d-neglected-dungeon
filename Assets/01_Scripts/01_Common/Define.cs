@@ -8,7 +8,7 @@ public static class Define
     #region 던전
     // 몬스터
     public static int KillCountForMidBossSpawn = 100;
-    public static float RespawnDelay = 10f;
+    public static float RespawnDelay = 3f;
 
     // 던전 맵
     public static float TileSize = 1f;

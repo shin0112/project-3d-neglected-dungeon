@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -40,5 +41,15 @@ public static class ArrayExtension
             (array[i], array[r]) = (array[r], array[i]);
         }
         return array;
+    }
+}
+
+public static class ListExtension
+{
+    public static T Random<T>(this List<T> list)
+    {
+        if (list == null || list.Count == 0) { return default; }
+
+        return list[UnityEngine.Random.Range(0, list.Count)];
     }
 }
