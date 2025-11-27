@@ -1,13 +1,19 @@
 using System;
 using System.Collections.Generic;
 
+[System.Serializable]
 public class PlayerCondition
 {
     #region 필드
+    // 레벨
+    public int Level { get; private set; }
+    public float CurrentExp { get; private set; }
+
+    // 스탯
     public Dictionary<StatType, float> StatDict { get; private set; }
 
-    public float Hp => StatDict[StatType.Health];
-    public float Stamina => StatDict[StatType.Stamina];
+    public float CurrentHealth => StatDict[StatType.Health];
+    public float CurrentStamina => StatDict[StatType.Stamina];
 
     // 이벤트
     public event Action<float> OnStaminaChanged;
@@ -62,14 +68,14 @@ public class PlayerCondition
     /// <returns></returns>
     public bool TryUseStamina(float amount)
     {
-        if (Stamina < amount)
+        if (CurrentStamina < amount)
         {
             Logger.Log("스테미나 부족");
             return false;
         }
 
         StatDict[StatType.Stamina] -= amount;
-        OnStaminaChanged?.Invoke(Stamina);
+        OnStaminaChanged?.Invoke(CurrentStamina);
 
         return true;
     }
