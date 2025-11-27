@@ -6,6 +6,7 @@ using UnityEngine;
 /// <summary>
 /// 몬스터 풀을 관리하는 스포너
 /// </summary>
+[System.Serializable]
 public class MonsterSpawner
 {
     #region 필드
@@ -60,6 +61,9 @@ public class MonsterSpawner
     public void OnDestroy()
     {
         OnCurDungeonProgress = null;
+
+        CoroutineRunner.instance.StopAllCoroutines();
+        _spawnCoroutine = null;
     }
     #endregion
 
