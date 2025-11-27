@@ -22,14 +22,15 @@ public abstract class ItemSlot : MonoBehaviour
 
     protected void Reset()
     {
-        button = GetComponent<Button>();
-
         itemClass = transform.FindChild<Image>("Image - Class");
         icon = transform.FindChild<Image>("Image - Icon");
         text = transform.FindChild<TextMeshProUGUI>("Text");
 
         itemClass.color = Define.ColorNone;
         icon.sprite = null;
+
+        button = GetComponent<Button>();
+        button.targetGraphic = itemClass;
     }
 
     protected void OnEnable()

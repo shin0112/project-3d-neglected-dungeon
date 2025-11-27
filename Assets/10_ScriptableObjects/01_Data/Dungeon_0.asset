@@ -20,7 +20,7 @@ MonoBehaviour:
       Size: {x: 17, y: 17}
     - Prefab: {fileID: 5357474371702904535, guid: 2ff1f7a9cf550844f9e51e84ff68ad97, type: 3}
       Size: {x: 13, y: 25}
-    <RoomCount>k__BackingField: 4
+    <RoomCount>k__BackingField: 5
     <MonsterPool>k__BackingField:
     - <MonsterData>k__BackingField: {fileID: 11400000, guid: bdf98975260b2af46bb03d251f61127c, type: 2}
       <SpawnCount>k__BackingField: 10

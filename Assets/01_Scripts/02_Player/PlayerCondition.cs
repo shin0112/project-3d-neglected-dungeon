@@ -34,7 +34,7 @@ public class PlayerCondition
     public event Action<float> OnTotalHealthChanged;
     #endregion
 
-    #region 초기화
+    #region 초기화 & 파괴
     public PlayerCondition(PlayerStatData data)
     {
         Name = data.PlayerName;
@@ -90,6 +90,22 @@ public class PlayerCondition
             throw new StatMissingKeyException(type);
         }
     }
+
+    /// <summary>
+    /// Player가 파괴될 때 수행
+    /// </summary>
+    public void OnDestroy()
+    {
+        // 이벤트 초기화
+        OnLevelChanged = null;
+        OnExpChanged = null;
+
+        OnStaminaChanged = null;
+
+        OnTotalAttackChanged = null;
+        OnTotalDefenseChanged = null;
+        OnTotalHealthChanged = null;
+    }
     #endregion
 
     #region [public] 초기화 - View 용
@@ -118,24 +134,6 @@ public class PlayerCondition
         OnTotalAttackChanged?.Invoke(TotalAttack);
         OnTotalDefenseChanged?.Invoke(TotalDefense);
         OnTotalHealthChanged?.Invoke(TotalHealth);
-    }
-    #endregion
-
-    #region Destroy
-    /// <summary>
-    /// Player가 파괴될 때 수행
-    /// </summary>
-    public void OnDestroy()
-    {
-        // 이벤트 초기화
-        OnLevelChanged = null;
-        OnExpChanged = null;
-
-        OnStaminaChanged = null;
-
-        OnTotalAttackChanged = null;
-        OnTotalDefenseChanged = null;
-        OnTotalHealthChanged = null;
     }
     #endregion
 
