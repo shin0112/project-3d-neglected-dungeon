@@ -25,3 +25,9 @@ public interface IEquipmentItemView
     public void UpdateEquipmentItemText(ItemData data);
     public void OnClickUpgradeButton();
 }
+
+public interface ICurDungeonView
+{
+    public void UpdateProgress(float progress);
+    public void UpdateCurDungeonText(string name);
+}

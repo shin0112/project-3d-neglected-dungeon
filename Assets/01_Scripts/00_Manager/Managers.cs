@@ -21,7 +21,7 @@ public partial class Managers : MonoBehaviour
     // Dungeon Map
     [SerializeField] private CorridorSetData[] Corridors;
 
-    #region 초기화
+    #region 초기화 & 파괴
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -50,6 +50,11 @@ public partial class Managers : MonoBehaviour
         this.Inventory.Initialize(Player.Condition, equipment);
 
         Test();
+    }
+
+    private void OnDestroy()
+    {
+        Dungeon.OnDestroy();
     }
     #endregion
 

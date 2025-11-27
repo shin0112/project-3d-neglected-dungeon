@@ -1,3 +1,4 @@
+using System;
 using Unity.AI.Navigation;
 using UnityEngine;
 
@@ -23,9 +24,11 @@ public partial class Managers
         private Transform _dungeonRoot;
         private NavMeshSurface _surface;
 
+        // 이벤트
+        public Action<string> OnDungeonNameFixed;
         #endregion
 
-        #region 초기화
+        #region 초기화 & 파괴
         public void Initialize(CorridorSetData[] corridors)
         {
             // Dungeon 생성
@@ -47,6 +50,12 @@ public partial class Managers
             _surface.useGeometry = UnityEngine.AI.NavMeshCollectGeometry.PhysicsColliders;
             _surface.buildHeightMesh = true;
         }
+
+        public void OnDestroy()
+        {
+            OnDungeonNameFixed = null;
+            Spawner.OnDestroy();
+        }
         #endregion
 
         #region [public] 던전 시작
@@ -59,6 +68,8 @@ public partial class Managers
             _dungeonData = dungeon;
             _curStageIndex = 0;
             StartStage(_curStageIndex);
+
+            OnDungeonNameFixed?.Invoke($"{_dungeonData.dungeonName} {_curStageIndex}");
         }
         #endregion
 

@@ -19,6 +19,9 @@ public class MonsterSpawner
     private bool _bossSpawned = false;
     private bool _bossDead = false;
 
+    // 이벤트
+    public event System.Action<float> OnCurDungeonProgress;
+
     // 코루틴
     private Coroutine _spawnCoroutine;
     private WaitForSeconds _spawnDelay = new WaitForSeconds(Define.RespawnDelay);
@@ -32,7 +35,7 @@ public class MonsterSpawner
     }
     #endregion
 
-    #region 초기화
+    #region 초기화 & 파괴
     public void Initialize(StageData stageData)
     {
         _stageData = stageData;
@@ -52,6 +55,11 @@ public class MonsterSpawner
         }
 
         _spawnCoroutine = CoroutineRunner.instance.StartCoroutine(RespawnCoroutine());
+    }
+
+    public void OnDestroy()
+    {
+        OnCurDungeonProgress = null;
     }
     #endregion
 
@@ -99,12 +107,14 @@ public class MonsterSpawner
     /// <param name="monster"></param>
     private void OnMonsterDead(Monster monster)
     {
-        _alives.Remove(monster);
-        _killCount++;
+        _alives.Remove(monster);            // 탐색에서 제외
 
-        GerReward(monster);
+        _killCount++;                       // 진행 상황 저장
+        OnCurDungeonProgress?.Invoke((float)_killCount / Define.KillCountForMidBossSpawn);
 
-        monster.OnDead -= OnMonsterDead;
+        GerReward(monster);                 // 보상 획득
+
+        monster.OnDead -= OnMonsterDead;    // 풀에 반환
         monster.ReturnToPool();
 
         if (_bossSpawned) return;
