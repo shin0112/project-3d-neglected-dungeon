@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -9,14 +8,14 @@ public class DungeonData : ScriptableObject
 {
     public int dungeonKey;
     public string dungeonName;
-    public List<StageData> stages;
+    public StageData[] stages;
 }
 
 [System.Serializable]
 public class StageData
 {
-    [field: Header("Map")]
-    [field: SerializeField] public GameObject[] MapPrefabs { get; private set; }
+    [field: Header("Room")]
+    [field: SerializeField] public RoomData[] RoomPrefabs { get; private set; }
     [field: SerializeField] public int RoomCount { get; private set; }
 
     [field: Header("Spawn Settings")]
@@ -29,6 +28,13 @@ public class StageData
 
     [field: Header("Optional")]
     [field: SerializeField] public ObstacleData[] ObstacleDatas { get; private set; }
+}
+
+[System.Serializable]
+public class RoomData
+{
+    [field: SerializeField] public GameObject Prefab;
+    [field: SerializeField] public Vector2Int Size;
 }
 
 [System.Serializable]
