@@ -31,4 +31,14 @@ public static class ArrayExtension
 
         return array[UnityEngine.Random.Range(0, array.Length)];
     }
+
+    public static T[] Shuffle<T>(this T[] array)
+    {
+        for (int i = 0; i < array.Length; i++)
+        {
+            int r = UnityEngine.Random.Range(i, array.Length);
+            (array[i], array[r]) = (array[r], array[i]);
+        }
+        return array;
+    }
 }
