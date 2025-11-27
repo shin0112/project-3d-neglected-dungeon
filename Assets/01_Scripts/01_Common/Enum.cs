@@ -1,4 +1,4 @@
-#region 스텟
+#region 캐릭터
 public enum StatType
 {
     Health,
@@ -9,6 +9,13 @@ public enum StatType
 
     AttackDistance,
     DetectDistance,
+}
+
+public enum WalletType
+{
+    DungeonKey,
+    Gold,
+    Gem
 }
 #endregion
 

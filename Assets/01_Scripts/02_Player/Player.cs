@@ -10,9 +10,10 @@ public class Player : MonoBehaviour
     [field: SerializeField] public Animator Animator { get; private set; }
 
     [field: Header("Condition")]
-    [field: SerializeField] public PlayerCondition Condition { get; private set; }
+    public PlayerCondition Condition { get; private set; }
+    public PlayerWallet Wallet { get; private set; }
 
-    [field: Header("Data")]
+    [field: Header("SO Data")]
     [field: SerializeField] public PlayerStateData State { get; private set; }
     [field: SerializeField] private PlayerStatData Stat { get; set; }
 
@@ -47,6 +48,7 @@ public class Player : MonoBehaviour
             Logger.LogError(ex.Message);
             throw;
         }
+        Wallet = new();
 
         // Animation
         AnimationData.Initialize();
@@ -82,7 +84,7 @@ public class Player : MonoBehaviour
             MovementController.Move(Targeting.CurTarget);
         }
 
-        Condition.TryUseStamina(1f * Time.deltaTime);
+        //Condition.TryUseStamina(1f * Time.deltaTime);
     }
 
     private void FixedUpdate()
@@ -93,6 +95,7 @@ public class Player : MonoBehaviour
     private void OnDestroy()
     {
         Condition.OnDestroy();
+        Wallet.OnDestroy();
     }
     #endregion
 
