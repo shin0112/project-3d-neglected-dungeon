@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d437987dc44f3894fb62322277fbf432, type: 3}
-  m_Name: Dungeon_0
+  m_Name: Dungeon_3
   m_EditorClassIdentifier: 
   dungeonKey: 0
-  dungeonName: "\uD5C8\uB984\uD55C \uC694\uC0C8 1"
+  dungeonName: "\uD5C8\uB984\uD55C \uC694\uC0C8 4"
   stages:
   - <RoomPrefabs>k__BackingField:
     - Prefab: {fileID: 5894173519441459865, guid: a67d29380fdc55347910460258836e8d, type: 3}
       Size: {x: 17, y: 17}
     - Prefab: {fileID: 5357474371702904535, guid: 2ff1f7a9cf550844f9e51e84ff68ad97, type: 3}
       Size: {x: 15, y: 25}
-    <RoomCount>k__BackingField: 4
+    <RoomCount>k__BackingField: 7
     <MonsterPool>k__BackingField:
     - <MonsterData>k__BackingField: {fileID: 11400000, guid: bdf98975260b2af46bb03d251f61127c, type: 2}
       <SpawnCount>k__BackingField: 10
-    <MaxEnemyCount>k__BackingField: 10
+    <MaxEnemyCount>k__BackingField: 40
     <BossData>k__BackingField: {fileID: 11400000, guid: bdf98975260b2af46bb03d251f61127c, type: 2}
     <IsFinalStage>k__BackingField: 0
     <ObstacleDatas>k__BackingField: []
