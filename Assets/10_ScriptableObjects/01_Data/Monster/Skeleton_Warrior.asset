@@ -16,4 +16,7 @@ MonoBehaviour:
   <Variant>k__BackingField: 3
   <Prefab>k__BackingField: {fileID: 4749711954063615578, guid: ae5d680d56bba774d8a5b3a0590a9c75, type: 3}
   <Stat>k__BackingField: {fileID: 11400000, guid: 25f1cd7f8c63a284abcc76a6493bc962, type: 2}
-  <DropGold>k__BackingField: 5
+  <DropReward>k__BackingField:
+    <Gold>k__BackingField: 5
+    <Exp>k__BackingField: 5
+    <Item>k__BackingField: []

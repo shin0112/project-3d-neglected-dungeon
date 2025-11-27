@@ -7,5 +7,13 @@ public class MonsterData : ScriptableObject
     [field: SerializeField] public MonsterVariant Variant { get; private set; }
     [field: SerializeField] public GameObject Prefab { get; private set; }
     [field: SerializeField] public MonsterStatData Stat { get; private set; }
-    [field: SerializeField] public int DropGold { get; private set; }
+    [field: SerializeField] public DropReward DropReward { get; private set; }
+}
+
+[System.Serializable]
+public class DropReward
+{
+    [field: SerializeField] public int Gold { get; private set; }
+    [field: SerializeField] public int Exp { get; private set; }
+    [field: SerializeField] public ItemData[] Item { get; private set; }
 }

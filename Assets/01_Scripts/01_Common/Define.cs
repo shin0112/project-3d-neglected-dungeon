@@ -7,7 +7,7 @@ public static class Define
 {
     #region 던전
     // 몬스터
-    public static int KillCountForMidBossSpawn = 100;
+    public static int KillCountForMidBossSpawn = 10;
     public static float RespawnDelay = 3f;
 
     // 던전 맵

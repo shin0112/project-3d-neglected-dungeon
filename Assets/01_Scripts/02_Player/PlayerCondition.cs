@@ -14,6 +14,7 @@ public class PlayerCondition
     // 레벨
     public int Level { get; private set; }
     public float CurrentExp { get; private set; }
+    public float RequiredExp { get; private set; }
 
     // 스탯
     private Dictionary<StatType, Stat> _statDict;
@@ -37,6 +38,7 @@ public class PlayerCondition
         // todo: 데이터 연동
         Level = 1;
         CurrentExp = 0f;
+        RequiredExp = GetRequiredExp(Level);
     }
 
     /// <summary>
@@ -124,7 +126,7 @@ public class PlayerCondition
     }
     #endregion
 
-    #region [public] 스텟 사용
+    #region [public] 스텟 관리
     /// <summary>
     /// StatType의 값을 amount 만큼 사용하기
     /// </summary>
@@ -132,9 +134,17 @@ public class PlayerCondition
     /// <param name="amount"></param>
     /// <returns></returns>
     public bool TryUse(StatType type, float amount) => _statDict[type].TryUse(amount);
-    #endregion
 
-    #region 장비 계산 
+    public void AddExp(int exp)
+    {
+        CurrentExp += exp;
+        while (CurrentExp > RequiredExp)
+        {
+            LevelUp();
+        }
+        OnExpChanged?.Invoke(CurrentExp / RequiredExp);
+    }
+
     /// <summary>
     /// [public] 장비 장착 시 호출
     /// 장비 아이템에서 변경하는 StatType의 value만큼을 적용
@@ -144,6 +154,30 @@ public class PlayerCondition
     public void OnEquipmentChanged(StatType type, float value)
     {
         _statDict[type].UpdateEquipmentValue(value);
+    }
+    #endregion
+
+    #region 레벨 관리
+    /// <summary>
+    /// 레벨업 경험치 받아오기
+    /// </summary>
+    /// <param name="level"></param>
+    /// <returns></returns>
+    private float GetRequiredExp(int level)
+    {
+        float baseExp = 100f;
+        float quad = 20f * level * level;
+        float expo = Mathf.Pow(1.05f, level);
+
+        return (baseExp + quad) * expo;
+    }
+
+    private void LevelUp()
+    {
+        CurrentExp -= RequiredExp;
+        Level++;
+        OnLevelChanged?.Invoke(Level);
+        RequiredExp = GetRequiredExp(Level);
     }
     #endregion
 }

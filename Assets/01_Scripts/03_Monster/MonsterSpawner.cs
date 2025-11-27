@@ -102,7 +102,7 @@ public class MonsterSpawner
         _alives.Remove(monster);
         _killCount++;
 
-        Managers.Instance.Player.Wallet[WalletType.Gold].Add(monster.Data.DropGold);
+        GerReward(monster);
 
         monster.OnDead -= OnMonsterDead;
         monster.ReturnToPool();
@@ -124,13 +124,24 @@ public class MonsterSpawner
     /// <param name="boss"></param>
     private void OnBossMonsterDead(Monster boss)
     {
-        Managers.Instance.Player.Wallet[WalletType.Gold].Add(boss.Data.DropGold);
+        GerReward(boss);
 
         boss.OnDead -= OnBossMonsterDead;
         boss.ReturnToPool();
 
         _bossDead = true;
         // todo: 보스 처지 시 클리어 로직
+    }
+
+    /// <summary>
+    /// 몬스터 처치 시 보상 획득
+    /// </summary>
+    /// <param name="monster"></param>
+    private void GerReward(Monster monster)
+    {
+        Player player = Managers.Instance.Player;
+        player.Wallet[WalletType.Gold].Add(monster.Data.DropReward.Gold);
+        player.Condition.AddExp(monster.Data.DropReward.Exp);
     }
 
     private Vector3 GetRandomPosition()
