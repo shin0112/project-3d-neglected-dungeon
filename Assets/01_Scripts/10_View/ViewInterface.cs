@@ -19,3 +19,9 @@ public interface IProfileView
     public void UpdateDefenseText(int defense);
     public void UpdateTotalHealthText(int health);
 }
+
+public interface IEquipmentItemView
+{
+    public void UpdateEquipmentItemText(ItemData data);
+    public void OnClickUpgradeButton();
+}
