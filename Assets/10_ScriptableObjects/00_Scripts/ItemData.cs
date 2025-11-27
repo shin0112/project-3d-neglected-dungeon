@@ -18,6 +18,17 @@ public class ItemData : ScriptableObject
 
     [field: Header("Consumable")]
     [field: SerializeField] public ConsumableItemData[] Consumables { get; private set; }
+
+    [field: SerializeField] public int UpgradeLevel { get; private set; }
+
+    public void Upgrade()
+    {
+        if (Random.value < Define.UpgradeProbability)
+        {
+            Logger.Log("강화 성공");
+            UpgradeLevel++;
+        }
+    }
 }
 
 [System.Serializable]
