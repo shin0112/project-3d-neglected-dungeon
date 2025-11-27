@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class EquipmentItemView : UIView, IEquipmentItemView
 {
+    EquipmentItemPresenter _presenter;
+
     [Header("아이템 정보")]
     [SerializeField] private TextMeshProUGUI _name;
     [SerializeField] private TextMeshProUGUI _class;
@@ -27,6 +29,11 @@ public class EquipmentItemView : UIView, IEquipmentItemView
 
         _upgradeButton = transform.FindChild<Button>("Button - Upgrade");
         _upgrade = transform.FindChild<TextMeshProUGUI>("Text - UpgradeText");
+    }
+
+    private void Start()
+    {
+        _presenter = new(this);
     }
 
     private void OnEnable()
@@ -71,6 +78,9 @@ public class EquipmentItemView : UIView, IEquipmentItemView
         _data = data;
     }
 
+    /// <summary>
+    /// 장비 강화하기. 강화 버튼에 연결할 이벤트 함수
+    /// </summary>
     public void OnClickUpgradeButton()
     {
         bool canUse = Managers.Instance.Player.Wallet[WalletType.Gold].TryUse(_upgradeGold);

@@ -6,6 +6,7 @@ public partial class Managers
 
         private PlayerCondition _condition;
         private EquipmentController _equipment;
+        public EquipmentController Equipment => _equipment;
 
         #region 초기화
         public void Initialize(PlayerCondition condition, EquipmentController equipment)

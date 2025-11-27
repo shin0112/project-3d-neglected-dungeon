@@ -2533,7 +2533,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4418722642178158554}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3444956007750281934}
+        m_TargetAssemblyTypeName: UIView, Assembly-CSharp
+        m_MethodName: Show
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2832154703761212139
 GameObject:
   m_ObjectHideFlags: 0
@@ -3306,7 +3318,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3080975486992221943}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3444956007750281934}
+        m_TargetAssemblyTypeName: UIView, Assembly-CSharp
+        m_MethodName: Show
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3693667527587859630
 GameObject:
   m_ObjectHideFlags: 0
@@ -6898,7 +6922,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1688983930180537928
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7011,7 +7035,7 @@ MonoBehaviour:
   _name: {fileID: 5611355222995433653}
   _class: {fileID: 6580405882723558346}
   _description: {fileID: 8847663015697903898}
-  _statValue: {fileID: 7500665595288575758}
+  _statNValue: {fileID: 0}
   _upgradeButton: {fileID: 2930116404689793113}
   _upgrade: {fileID: 7318371456810368849}
 --- !u!1001 &3428079842172314066
