@@ -29,5 +29,18 @@ public static class Logger
         string className = System.IO.Path.GetFileNameWithoutExtension(filePath);
         Debug.LogWarning($"[{className}.{memberName}:{lineNumber}] {message}");
     }
+
+    [System.Diagnostics.Conditional("UNITY_EDITOR")]
+    [System.Diagnostics.DebuggerStepThrough]
+    public static void LogError(
+        string message,
+        [CallerFilePath] string filePath = "",
+        [CallerMemberName] string memberName = "",
+        [CallerLineNumber] int lineNumber = 0
+        )
+    {
+        string className = System.IO.Path.GetFileNameWithoutExtension(filePath);
+        Debug.LogError($"[{className}.{memberName}:{lineNumber}] {message}");
+    }
 #endif
 }

@@ -37,7 +37,16 @@ public class Player : MonoBehaviour
         GetComponents();
 
         // Condition
-        Condition = new PlayerCondition(Stat);
+        // 스텟 데이터 변환 시 예외 처리
+        try
+        {
+            Condition = new PlayerCondition(Stat);
+        }
+        catch (StatDataException ex)
+        {
+            Logger.LogError(ex.Message);
+            throw;
+        }
 
         // Animation
         AnimationData.Initialize();

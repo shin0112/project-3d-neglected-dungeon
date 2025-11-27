@@ -33,25 +33,39 @@ public class PlayerCondition
 
     /// <summary>
     /// 스텟 타입과 값을 딕셔너리로 관리하기 위해 초기화
-    /// Health와 Stamina는 무조건 존재
+    /// 반드시 사용하는 값일 경우 기본값 추가
     /// </summary>
     private void ConvertStatListToDict(List<StatEntry> stats)
     {
         StatDict = new();
 
-        foreach (StatEntry statEntry in stats)
+        foreach (StatEntry entry in stats)
         {
-            StatDict[statEntry.StatType] = statEntry.BaseValue;
+            if (entry.BaseValue < 0)
+            {
+                throw new StatNegativeValueException(entry.StatType, entry.BaseValue);
+            }
+
+            StatDict[entry.StatType] = entry.BaseValue;
         }
 
-        if (!StatDict.ContainsKey(StatType.Health))
-        {
-            StatDict[StatType.Health] = Define.DefaultHealth;
-        }
+        // 기본값 초기화
+        CheckRequiredStat(StatType.Health);
+        CheckRequiredStat(StatType.Stamina);
+        CheckRequiredStat(StatType.Attack);
+        CheckRequiredStat(StatType.Defense);
+    }
 
-        if (!StatDict.ContainsKey(StatType.Stamina))
+    /// <summary>
+    /// 필수 스탯 값이 데이터에 존재하는지 확인
+    /// </summary>
+    /// <param name="type"></param>
+    /// <exception cref="StatMissingKeyException"></exception>
+    private void CheckRequiredStat(StatType type)
+    {
+        if (!StatDict.ContainsKey(type))
         {
-            StatDict[StatType.Stamina] = Define.DefaultStamina;
+            throw new StatMissingKeyException(type);
         }
     }
 
