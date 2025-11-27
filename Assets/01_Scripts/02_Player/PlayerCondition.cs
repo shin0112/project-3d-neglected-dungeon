@@ -136,12 +136,12 @@ public class PlayerCondition
 
     #region 장비 계산 
     /// <summary>
-    /// 장비 장착 시 호출
+    /// [public] 장비 장착 시 호출
     /// 장비 아이템에서 변경하는 StatType의 value만큼을 적용
     /// </summary>
     /// <param name="type"></param>
     /// <param name="value"></param>
-    private void OnEquipmentChanged(StatType type, float value)
+    public void OnEquipmentChanged(StatType type, float value)
     {
         _statDict[type].UpdateEquipmentValue(value);
     }

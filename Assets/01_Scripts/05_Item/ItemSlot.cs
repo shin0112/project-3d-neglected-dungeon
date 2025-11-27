@@ -45,11 +45,6 @@ public abstract class ItemSlot : MonoBehaviour
 
     protected void Awake()
     {
-        if (this.data != null)
-        {
-            SetItemClass();
-            SetIcon();
-        }
     }
     #endregion
 

@@ -13,6 +13,7 @@ public partial class Managers : MonoBehaviour
     // Managers
     public DungeonManager Dungeon { get; } = new();
     public ObjectPoolManager ObjectPool { get; } = new();
+    public InventoryManager Inventory { get; } = new();
 
     // Player
     [field: SerializeField] public Player Player { get; private set; }
@@ -45,6 +46,9 @@ public partial class Managers : MonoBehaviour
 
     private void Start()
     {
+        EquipmentController equipment = FindObjectOfType<EquipmentController>();
+        this.Inventory.Initialize(Player.Condition, equipment);
+
         Test();
     }
     #endregion
