@@ -22,13 +22,13 @@ MonoBehaviour:
   <AttackData>k__BackingField:
     <AttackInfoDatas>k__BackingField:
     - <AttackName>k__BackingField: Attack
-      <AttackRadius>k__BackingField: 2.5
+      <AttackRadius>k__BackingField: 5
       <AttackAngle>k__BackingField: 120
       IsAreaAttack: 1
       <ComboStateIndex>k__BackingField: 1
       <ComboTransitionTime>k__BackingField: 0.8
       <ForceTransitionTime>k__BackingField: 0.1
       <Force>k__BackingField: 1
-      Damage: 5
+      DamageRatio: 1.2
       <Dealing_Start_TransitionTime>k__BackingField: 0
       <Dealing_End_TransitionTime>k__BackingField: 0

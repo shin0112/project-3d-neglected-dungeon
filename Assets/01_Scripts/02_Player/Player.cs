@@ -112,7 +112,7 @@ public class Player : MonoBehaviour
             {
                 if (Targeting.CheckTargetInAttackRange(attackable))
                 {
-                    attackable.TakeDamage(Condition[StatType.Attack].Value * attackInfoData.Damage);
+                    attackable.TakeDamage(Condition[StatType.Attack].TotalValue * attackInfoData.DamageRatio);
                 }
             }
         }

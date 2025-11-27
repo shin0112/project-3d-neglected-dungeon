@@ -189,7 +189,7 @@ public class Stat
     public float EquipmentValue { get; private set; }
     public float BuffValue { get; private set; }
 
-    public float MaxValue => BaseValue + EquipmentValue + BuffValue;
+    public float TotalValue => BaseValue + EquipmentValue + BuffValue;
     public float Value { get; private set; }
 
     private StatType _type;
@@ -211,7 +211,7 @@ public class Stat
     public void SyncView()
     {
         OnValueChanged?.Invoke(Value);
-        OnMaxValueChanged?.Invoke(MaxValue);
+        OnMaxValueChanged?.Invoke(TotalValue);
     }
 
     /// <summary>
@@ -247,7 +247,7 @@ public class Stat
     /// <param name="amount"></param>
     public void Add(float amount)
     {
-        Value = Mathf.Min(Value + amount, MaxValue);
+        Value = Mathf.Min(Value + amount, TotalValue);
         OnValueChanged?.Invoke(Value);
     }
 
@@ -259,9 +259,9 @@ public class Stat
     {
         EquipmentValue = value;
 
-        Value = Mathf.Min(Value, MaxValue);
+        Value = Mathf.Min(Value, TotalValue);
 
         OnValueChanged?.Invoke(Value);
-        OnMaxValueChanged?.Invoke(MaxValue);
+        OnMaxValueChanged?.Invoke(TotalValue);
     }
 }
