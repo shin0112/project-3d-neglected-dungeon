@@ -16,6 +16,8 @@ public class PlayerCondition
     public float CurrentStamina => StatDict[StatType.Stamina];
 
     // 이벤트
+    public event Action<int> OnLevelChanged;
+    public event Action<float> OnExpChanged;
     public event Action<float> OnStaminaChanged;
     #endregion
 
@@ -56,6 +58,8 @@ public class PlayerCondition
     /// </summary>
     public void OnDestroy()
     {
+        OnLevelChanged = null;
+        OnExpChanged = null;
         OnStaminaChanged = null;
     }
     #endregion
