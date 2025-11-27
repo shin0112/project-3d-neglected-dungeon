@@ -29,11 +29,6 @@ public class EquipmentController : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        Initialize();
-    }
-
     /// <summary>
     /// [public] 기존에 장비가 있으면 해당 장비 착용하기
     /// </summary>
