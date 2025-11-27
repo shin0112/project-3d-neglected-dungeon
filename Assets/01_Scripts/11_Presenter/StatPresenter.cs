@@ -14,7 +14,7 @@ public class StatPresenter
         _view = view;
 
         PlayerCondition condition = Managers.Instance.Player.Condition;
-        condition.OnStaminaChanged += OnStaminaChanged;
+        condition[StatType.Stamina].OnValueChanged += OnStaminaChanged;
 
         condition.InitStatView();
     }

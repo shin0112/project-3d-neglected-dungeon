@@ -11,9 +11,9 @@ public class ProfilePresenter
 
         PlayerCondition condition = Managers.Instance.Player.Condition;
 
-        condition.OnTotalAttackChanged += OnTotalAttackChanged;
-        condition.OnTotalDefenseChanged += OnTotalDefenseChanged;
-        condition.OnTotalHealthChanged += OnTotalHealthChanged;
+        condition[StatType.Attack].OnMaxValueChanged += OnTotalAttackChanged;
+        condition[StatType.Defense].OnMaxValueChanged += OnTotalDefenseChanged;
+        condition[StatType.Health].OnMaxValueChanged += OnTotalHealthChanged;
 
         condition.InitProfileView();
         UpdateNameText(condition.Name);

@@ -72,25 +72,10 @@ public enum EquipmentType
     Armor,
 }
 
-// 장비 아이템 착용 시 적용 스텟
-public enum EquipmentStats
-{
-    Attack,
-    SkillAttack,
-    Health
-}
-
 // 소비 아이템 타입
 public enum ConsumableType
 {
     Portion,
     Buff,
-}
-
-// 소비 아이템 사용 시 적용 스텟
-public enum ConsumableStats
-{
-    Health,
-    Stamina,
 }
 #endregion

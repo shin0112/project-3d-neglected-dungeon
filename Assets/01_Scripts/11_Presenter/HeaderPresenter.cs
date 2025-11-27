@@ -14,12 +14,19 @@ public class HeaderPresenter
         _view = view;
 
         // 이벤트 구독
-        PlayerCondition condition = Managers.Instance.Player.Condition;
+        Player player = Managers.Instance.Player;
+        PlayerCondition condition = player.Condition;
+        PlayerWallet wallet = player.Wallet;
 
         condition.OnLevelChanged += OnLevelChanged;
         condition.OnExpChanged += OnExpChanged;
 
+        wallet[WalletType.DungeonKey].OnValueChanged += OnKeyCountChaged;
+        wallet[WalletType.Gold].OnValueChanged += OnGoldChanged;
+        wallet[WalletType.Gem].OnValueChanged += OnGemChanged;
+
         condition.InitHeaderView();
+        wallet.InitHeaderView();
     }
 
     private void OnLevelChanged(int value)

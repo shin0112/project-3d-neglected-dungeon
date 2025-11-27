@@ -38,10 +38,11 @@ public class Player : MonoBehaviour
         GetComponents();
 
         // Condition
-        // 스텟 데이터 변환 시 예외 처리
+        // 스텟 데이터 사용해 초기화하는 경우 예외 처리
         try
         {
             Condition = new PlayerCondition(Stat);
+            Targeting = new TargetingController(this);
         }
         catch (StatDataException ex)
         {
@@ -61,7 +62,6 @@ public class Player : MonoBehaviour
             Logger.Log("CharacterController is null");
         }
         MovementController = new(this, controller);
-        Targeting = new(this);
     }
 
     private void GetComponents()
