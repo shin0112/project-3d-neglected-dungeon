@@ -29,13 +29,31 @@ public class EquipmentController : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void OnEnable()
+    {
+        Initialize();
+    }
+
+    /// <summary>
+    /// [public] 기존에 장비가 있으면 해당 장비 착용하기
+    /// </summary>
+    public void Initialize()
     {
         foreach (EquipmentSlot slot in _equipmentSlots.Values)
         {
             if (slot.Data != null)
             {
-                Equip(slot.Type, slot.Data);
+                slot.Equip(slot.Data);
+
+                foreach (var equipment in slot.Data.Equipments)
+                {
+                    _equipmentValues[equipment.Stat] += equipment.Value;
+                }
+
+                foreach (var keyValue in _equipmentValues)
+                {
+                    OnEquipmentSlotChanged?.Invoke(keyValue.Key, keyValue.Value);
+                }
             }
         }
     }
@@ -56,6 +74,13 @@ public class EquipmentController : MonoBehaviour
     public void Equip(EquipmentType type, ItemData data)
     {
         ItemData prev = _equipmentSlots[type].Data;
+
+        if (prev == data)
+        {
+            Logger.Log("동일한 아이템");
+            return;
+        }
+
         if (prev != null)
         {
             foreach (EquipmentItemData equipment in prev.Equipments)    // 이전 장비 값 제거
@@ -64,7 +89,7 @@ public class EquipmentController : MonoBehaviour
             }
         }
 
-        _equipmentSlots[type].Equipment(data);
+        _equipmentSlots[type].Equip(data);
 
         foreach (EquipmentItemData equipment in data.Equipments)        // 현재 장비 값 추가
         {

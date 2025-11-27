@@ -14,6 +14,7 @@ public partial class Managers
             _equipment = equipment;
 
             _equipment.OnEquipmentSlotChanged += _condition.OnEquipmentChanged;
+            _equipment.Initialize();
         }
         #endregion
 

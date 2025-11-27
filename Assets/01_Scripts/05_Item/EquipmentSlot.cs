@@ -11,7 +11,7 @@ public class EquipmentSlot : ItemSlot
     #endregion
 
     #region [public] 아이템 장착
-    public void Equipment(ItemData data)
+    public void Equip(ItemData data)
     {
         SetSlot(data, data.EquipmentLevel.ToString());
     }

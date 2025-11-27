@@ -224,6 +224,10 @@ public class Stat
     public void UpdateEquipmentValue(float value)
     {
         EquipmentValue = value;
+
+        Value = Mathf.Min(Value, MaxValue);
+
+        OnValueChanged?.Invoke(Value);
         OnMaxValueChanged?.Invoke(MaxValue);
     }
 }
