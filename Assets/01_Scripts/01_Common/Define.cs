@@ -12,5 +12,11 @@ public static class Define
 
     // 던전 맵
     public static LayerMask FloorLayer = 1 << 6;
+
+    public static int MaxKeyCount = 5;
+    #endregion
+
+    #region 스킬
+    public static int MaxDisplaySkills = 3;
     #endregion
 }
