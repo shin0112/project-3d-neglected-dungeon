@@ -31,13 +31,21 @@ public class MapGenerator
     /// <returns></returns>
     public GameObject Generate(Transform root, StageData stage)
     {
-        // 시뮬레이션
+        int count = stage.RoomCount;
+        _roomInfos = new RoomInfo[count];
+
         bool success = false;
         int attempts = 30;
 
         while (!success && attempts-- > 0)
         {
-            success = TrySimulateRooms(stage);
+            for (int i = 0; i < count; i++)
+            {
+                int random = Random.Range(0, stage.MapPrefabs.Length);
+                _roomInfos[i] = CreateRoomInfo(stage.MapPrefabs[random], random);
+            }
+
+            success = TrySimulateRooms(stage);  // 시뮬레이션
         }
 
         if (!success)
@@ -77,14 +85,8 @@ public class MapGenerator
     /// <returns></returns>
     private bool TrySimulateRooms(StageData stage)
     {
-        int count = stage.RoomCount;
-        _roomInfos = new RoomInfo[count];
-
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < stage.RoomCount; i++)
         {
-            int random = Random.Range(0, stage.MapPrefabs.Length);
-            _roomInfos[i] = CreateRoomInfo(stage.MapPrefabs[random], random);
-
             if (i == 0)
             {
                 PlaceFirstRoom(ref _roomInfos[i]);
@@ -160,6 +162,7 @@ public class MapGenerator
 
         while (attempts-- > 0)
         {
+            // 1) (index - 1) 번째 방에서 연결 가능한 문 탐색
             List<int> availableDoors = new();
             for (int i = 0; i < prev.DoorConnected.Length; i++)
             {
@@ -169,38 +172,54 @@ public class MapGenerator
                 }
             }
 
-            if (availableDoors.Count == 0)
-            {
-                return false;
-            }
+            if (availableDoors.Count == 0) { return false; }
 
-            int doorIndex = availableDoors[Random.Range(0, availableDoors.Count)];
+            int prevDoorIndex = availableDoors[Random.Range(0, availableDoors.Count)];
 
-            Vector3 doorPos = DoorWorldPos(prev, doorIndex);
-            Vector3 doorDir = DoorWorldFoward(prev, doorIndex);
+            Vector3 prevDoorWPos = DoorWorldPos(prev, prevDoorIndex);       // 이전 방 문 위치 (World)
+            Vector3 prevDoorWDir = DoorWorldFoward(prev, prevDoorIndex);    // 이전 방 문 방향 (World)
 
+            // 2) 다음 방에서 사용할 문 선택
+            int nextDoorIndex = Random.Range(0, next.DoorLocalPositions.Length);
+            Vector3 nextDoorLDir = next.DoorLocalForwards[nextDoorIndex];   // 다음 방 문 방향 (Local)
+
+
+            // 3) 두 문이 마주보도록 회전 계산
+            Vector3 targetDir = -prevDoorWDir;                              // 타겟 방향 -> 이전 문 방향 반대
+
+            // - 목표 좌표와 로컬 좌표를 비교해서 회전해야 하는 각도 구하기
+            float targetY = Mathf.Atan2(targetDir.x, targetDir.z) * Mathf.Rad2Deg;
+            float localY = Mathf.Atan2(nextDoorLDir.x, nextDoorLDir.z) * Mathf.Rad2Deg;
+            float rotY = targetY - localY;
+            float snappedRotY = Mathf.Round(rotY / 90f) * 90f;              // 90도 단위로 회전하기 위한 스냅
+
+            Quaternion roomRot = Quaternion.Euler(0, snappedRotY, 0);       // 방 회전 목표 각도
+
+            // 4) 다음 방의 문 World 좌표 계산
             float corridorLength = Random.Range(12f, 30f);
-            Vector3 corridorEnd = doorPos + doorDir * corridorLength;
+            Vector3 nextDoorWPos =
+                prevDoorWPos + prevDoorWDir * corridorLength;               // 다음 방 문 위치 (World)
 
-            foreach (float rotation in _rotatioins)
+            Vector3 nextDoorLPos = next.DoorLocalPositions[nextDoorIndex];  // 다음 방 문 위치 (Local)
+            Vector3 roomPos = nextDoorWPos - (roomRot * nextDoorLPos);
+            // - 통로 좌표의 y 위치(-2f) -> 밀리지 않게 room y 좌표 고정
+            roomPos.y = 0f;
+
+            // 5) 겹치지 않을 경우 사용
+            if (!IsOverlap(roomPos, roomRot, next.LocalBounds, index))
             {
-                Quaternion roomRot = Quaternion.Euler(0, rotation, 0);
-                Vector3 roomPos = corridorEnd;
-                roomPos.y = 0f;
+                next.Position = roomPos;
+                next.RotationY = snappedRotY;
+                next.ChosenDoor = nextDoorIndex;
 
-                if (!IsOverlap(roomPos, roomRot, next.LocalBounds, index))
-                {
-                    next.Position = roomPos;
-                    next.RotationY = rotation;
-                    next.ChosenDoor = 0;
+                prev.DoorConnected[prevDoorIndex] = true;
+                next.DoorConnected[nextDoorIndex] = true;
 
-                    prev.DoorConnected[doorIndex] = true;
+                // struct update
+                _roomInfos[index - 1] = prev;
+                _roomInfos[index] = next;
 
-                    _roomInfos[index - 1] = prev;
-                    _roomInfos[index] = next;
-
-                    return true;
-                }
+                return true;
             }
         }
 
@@ -342,6 +361,12 @@ public class MapGenerator
             Quaternion.Euler(0, info.RotationY, 0) * info.DoorLocalPositions[index];
     }
 
+    /// <summary>
+    /// Room의 index 번째 문이 바라보는 좌표 구하기
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="index"></param>
+    /// <returns></returns>
     private Vector3 DoorWorldFoward(RoomInfo info, int index)
     {
         return Quaternion.Euler(0, info.RotationY, 0) * info.DoorLocalForwards[index];
