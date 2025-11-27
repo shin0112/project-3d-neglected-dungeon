@@ -13,6 +13,12 @@ public class ProfilePresenter
         condition.OnTotalHealthChanged += OnTotalHealthChanged;
 
         condition.InitProfileView();
+        UpdateNameText(condition.Name);
+    }
+
+    public void UpdateNameText(string name)
+    {
+        _view.UpdateNameText(name);
     }
 
     public void OnTotalAttackChanged(float value)

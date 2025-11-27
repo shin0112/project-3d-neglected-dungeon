@@ -32,7 +32,7 @@ public class ProfileView : UIView, IProfileView
 
     public void UpdateNameText(string name)
     {
-        throw new System.NotImplementedException();
+        _nameText.text = name;
     }
 
     #region 프로필 스텟 텍스트 관리

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aac12f2a05895474da5e0a0a319e539f, type: 3}
   m_Name: PlayerStat
   m_EditorClassIdentifier: 
-  <PlayerName>k__BackingField: Player
+  <PlayerName>k__BackingField: "\uD50C\uB808\uC774\uC5B4"
   <Stats>k__BackingField:
   - <StatType>k__BackingField: 0
     <BaseValue>k__BackingField: 100

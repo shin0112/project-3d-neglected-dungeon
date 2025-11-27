@@ -8,6 +8,8 @@ using System.Collections.Generic;
 public class PlayerCondition
 {
     #region 필드
+    public string Name { get; private set; }
+
     // 레벨
     public int Level { get; private set; }
     public float CurrentExp { get; private set; }
@@ -35,6 +37,8 @@ public class PlayerCondition
     #region 초기화
     public PlayerCondition(PlayerStatData data)
     {
+        Name = data.PlayerName;
+
         ConvertStatListToDict(data.Stats);
 
         // todo: 데이터 연동
