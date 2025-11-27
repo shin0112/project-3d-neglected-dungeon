@@ -11,6 +11,7 @@ public static class Define
     public static float RespawnDelay = 10f;
 
     // 던전 맵
+    public static float TileSize = 1f;
     public static LayerMask FloorLayer = 1 << 6;
 
     public static int MaxKeyCount = 5;

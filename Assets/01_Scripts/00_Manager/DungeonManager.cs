@@ -86,7 +86,7 @@ public partial class Managers
         {
             _curStageIndex++;
 
-            if (_curStageIndex >= _dungeonData.stages.Count)
+            if (_curStageIndex >= _dungeonData.stages.Length)
             {
                 DungeonClear();
                 return;
