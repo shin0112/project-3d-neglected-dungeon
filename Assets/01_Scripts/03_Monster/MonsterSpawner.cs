@@ -52,7 +52,7 @@ public class MonsterSpawner
             .MonsterData;
 
         // todo: 스폰 포인트 만들어서 지정
-        Vector3 position = Vector3.zero;
+        Vector3 position = Vector3.right * -10f;
 
         GameObject obj = Managers.Instance.ObjectPool.GetObject(data, data.Prefab, position, Quaternion.identity);
 

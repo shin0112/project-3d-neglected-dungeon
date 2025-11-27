@@ -42,6 +42,22 @@ public partial class Managers : MonoBehaviour
         // Managers
         this.Dungeon.Initialize(Corridors);
     }
+
+    private void Start()
+    {
+        Test();
+    }
+    #endregion
+
+    #region Test
+    [field: SerializeField] public DungeonData DungeonData { get; private set; }
+
+    private void Test()
+    {
+        if (DungeonData != null)
+        {
+            Dungeon.StartDungeon(DungeonData);
+        }
     }
     #endregion
 }

@@ -16,7 +16,7 @@ public class StatDataException : Exception
 }
 
 /// <summary>
-/// 딕셔너리 변환 시 필수 키가 누락되었을 경우 사용
+/// 딕셔너리 변환 시 필수 키가 누락되었을 경우
 /// </summary>
 public class StatMissingKeyException : StatDataException
 {

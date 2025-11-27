@@ -81,6 +81,8 @@ public class Player : MonoBehaviour
         {
             MovementController.Move(Targeting.CurTarget);
         }
+
+        Condition.TryUseStamina(1f * Time.deltaTime);
     }
 
     private void FixedUpdate()

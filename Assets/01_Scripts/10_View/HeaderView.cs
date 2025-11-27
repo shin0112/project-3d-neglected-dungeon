@@ -41,7 +41,7 @@ public class HeaderView : UIView, IHeaderView
         _levelProgress.fillAmount = progress;
     }
 
-    #region 텍스트 갱신
+    #region 헤더 텍스트 관리
     public void UpdateLevelText(int level)
     {
         _levelText.text = level.ToString();
