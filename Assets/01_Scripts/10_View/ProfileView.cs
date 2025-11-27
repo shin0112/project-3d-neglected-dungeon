@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class ProfileView : UIView, IProfileView
 {
+    private ProfilePresenter _presenter;
+
     [Header("이름")]
     [SerializeField] private TextMeshProUGUI _nameText;
 
@@ -13,23 +15,40 @@ public class ProfileView : UIView, IProfileView
 
     // todo: 장비창
 
-    public void UpdateAttackPowerText(int atk)
+    protected override void Reset()
     {
-        throw new System.NotImplementedException();
+        base.Reset();
+
+        _nameText = transform.FindChild<TextMeshProUGUI>("Text - Name");
+        _attakPowerText = transform.FindChild<TextMeshProUGUI>("Text - Attak Power");
+        _defensePowerText = transform.FindChild<TextMeshProUGUI>("Text - Defense Power");
+        _maxHealthText = transform.FindChild<TextMeshProUGUI>("Text - Heath");
     }
 
-    public void UpdateDefensePowerText(int def)
+    private void Start()
     {
-        throw new System.NotImplementedException();
-    }
-
-    public void UpdateMaxHealthText(int health)
-    {
-        throw new System.NotImplementedException();
+        _presenter = new(this);
     }
 
     public void UpdateNameText(string name)
     {
         throw new System.NotImplementedException();
     }
+
+    #region 프로필 스텟 텍스트 관리
+    public void UpdateAttackPowerText(int atk)
+    {
+        _attakPowerText.text = atk.ToString();
+    }
+
+    public void UpdateDefensePowerText(int def)
+    {
+        _defensePowerText.text = def.ToString();
+    }
+
+    public void UpdateMaxHealthText(int health)
+    {
+        throw new System.NotImplementedException();
+    }
+    #endregion
 }
