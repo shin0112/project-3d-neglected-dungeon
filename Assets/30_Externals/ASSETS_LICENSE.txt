@@ -44,6 +44,11 @@ Original font files are not modified or redistributed.
   License: CC BY 3.0
   Source: https://game-icons.net/1x1/lorc/armor-vest.html
 
+- Checked Shield icon
+  Author: Lorc
+  License: CC BY 3.0
+  Source: https://game-icons.net/1x1/lorc/checked-shield.html
+
 - Spartan helmet icon
   Author: Delapouite
   License: CC BY 3.0
