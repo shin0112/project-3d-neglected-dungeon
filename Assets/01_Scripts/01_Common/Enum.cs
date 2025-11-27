@@ -3,6 +3,10 @@ public enum StatType
 {
     Health,
     Stamina,
+
+    Attack,
+    Defense,
+
     AttackDistance,
     DetectDistance,
 }
