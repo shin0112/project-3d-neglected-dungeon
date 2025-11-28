@@ -6,10 +6,17 @@
 - 플레이어, 몬스터, UI, 던전 생성 로직을 모듈 단위로 구성해 확장성과 유지보수성을 확보했습니다.
 - MVP(View/Presenter) 구조와 ScriptableObject 데이터를 통해 콘텐츠 추가 시 코드 변경을 최소화합니다.
 
+### 주요 기술
+
+- **엔진**: Unity 2022.3.62f2 (LTS)
+- **아키텍처**: MVP 패턴, 계층형 모듈 구조
+- **핵심 기능**: 절차적 던전 생성, 상태 머신 기반 AI, 오브젝트 풀링, NavMesh 기반 경로 탐색
+
 ---
 
 ## 목차
 
+- [프로젝트 개요](#프로젝트-개요)
 - [시스템 구성 요약](#시스템-구성-요약)
   - [아키텍처 개요](#아키텍처-개요)
   - [의존성 흐름](#의존성-흐름)
@@ -17,7 +24,7 @@
 - [핵심 플레이 흐름](#핵심-플레이-흐름)
 - [스크린샷](#스크린샷)
 - [스크립트 카탈로그](#스크립트-카탈로그)
-- [기여 & 라이선스](#기여--라이선스)
+- [License](#license)
 
 ## 시스템 구성 요약
 
@@ -56,6 +63,10 @@
 
 - **Common**: `StateMachine`(범용 상태머신), `IAttackable`/`IPoolable`(인터페이스), `NavigationController`(AI 이동)
 - **Utils**: `Logger`(커스텀 로깅), `Extensions`(확장 메서드), `CustomException`(예외 처리)
+
+### 의존성 흐름
+
+<!-- 의존성 흐름 다이어그램 이미지 추가 예정 -->
 
 ### 파일 구조
 
@@ -407,6 +418,37 @@ Assets/
   </tbody>
 </table>
 
+#### State
+
+> 몬스터 상태 관리를 위한 Scripts
+
+<table style="width: 720px; border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th style="width: 200px; border: 1px solid #ccc; padding: 6px;">Name</th>
+      <th style="width: 520px; border: 1px solid #ccc; padding: 6px;">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 6px;">
+        <a href="./Assets/01_Scripts/03_Monster/State/MonsterBaseState.cs">MonsterBaseState.cs</a>
+      </td>
+      <td style="border: 1px solid #ccc; padding: 6px;">
+        몬스터 상태 공통 로직 베이스
+      </td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 6px;">
+        <a href="./Assets/01_Scripts/03_Monster/State/MonsterIdleState.cs">MonsterIdleState.cs</a>
+      </td>
+      <td style="border: 1px solid #ccc; padding: 6px;">
+        몬스터 Idle 애니메이션 상태
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 ## Dungeon
 
 > 던전 자동 생성을 위한 Scripts
@@ -658,6 +700,22 @@ Assets/
     </tr>
     <tr>
       <td style="border: 1px solid #ccc; padding: 6px;">
+        <a href="./Assets/10_ScriptableObjects/00_Scripts/ItemData.cs">ItemData.cs</a>
+      </td>
+      <td style="border: 1px solid #ccc; padding: 6px;">
+        아이템 기본 정보 (장비/소모품 타입, 아이콘, 스탯 등)
+      </td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 6px;">
+        <a href="./Assets/10_ScriptableObjects/00_Scripts/CorridorSetData.cs">CorridorSetData.cs</a>
+      </td>
+      <td style="border: 1px solid #ccc; padding: 6px;">
+        던전 방 간 연결 통로 프리팹 세트
+      </td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 6px;">
         <a href="./Assets/10_ScriptableObjects/00_Scripts/PlayerStateData.cs">PlayerStateData.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
@@ -725,4 +783,4 @@ Assets/
 ## License
 
 일부 리소스는 외부 라이선스를 포함합니다.
-자세한 내용은 [30_Externals/LICENSE_Assets.txt](./Assets/30_Externals/ASSETS_LICENSE.txt)를 참고하세요.
+자세한 내용은 [ASSETS_LICENSE.txt](./Assets/30_Externals/ASSETS_LICENSE.txt)를 참고하세요.
