@@ -1,6 +1,110 @@
 # project-3d-neglected-dungeon
 
-## Scripts
+## 프로젝트 개요
+
+- 그리드 기반 절차 생성 던전과 실시간 전투를 결합한 3D 로그라이트 액션 게임입니다.
+- 플레이어, 몬스터, UI, 던전 생성 로직을 모듈 단위로 구성해 확장성과 유지보수성을 확보했습니다.
+- MVP(View/Presenter) 구조와 ScriptableObject 데이터를 통해 콘텐츠 추가 시 코드 변경을 최소화합니다.
+
+---
+
+## 목차
+
+- [시스템 구성 요약](#시스템-구성-요약)
+  - [아키텍처 개요](#아키텍처-개요)
+  - [의존성 흐름](#의존성-흐름)
+  - [파일 구조](#파일-구조)
+- [핵심 플레이 흐름](#핵심-플레이-흐름)
+- [스크린샷](#스크린샷)
+- [스크립트 카탈로그](#스크립트-카탈로그)
+- [기여 & 라이선스](#기여--라이선스)
+
+## 시스템 구성 요약
+
+### 아키텍처 개요
+
+프로젝트는 **계층형 모듈 구조**와 **MVP 패턴**을 결합하여 확장성과 유지보수성을 확보했습니다.
+
+#### 1. Managers 계층 (런타임 진입점)
+
+- **`Managers`**: 싱글톤 진입점으로 모든 매니저를 초기화하고 전역 접근을 제공합니다.
+  - `DungeonManager`: 던전 생성, 스테이지 진행, 몬스터 스폰 관리
+  - `ObjectPoolManager`: 오브젝트 풀링으로 메모리 효율성 확보
+  - `InventoryManager`: 장비/인벤토리 상태 및 이벤트 관리
+- **특징**: `partial` 클래스와 `internal` 생성자로 `Managers`에서만 인스턴스화 가능하도록 캡슐화
+
+#### 2. Gameplay Core 계층
+
+- **Player**: `PlayerController`(이동/회전), `PlayerStateMachine`(상태 전환), `TargetController`(타겟팅), `PlayerWallet`(재화)
+- **Monster**: `Monster` 베이스 클래스와 `MonsterStateMachine`으로 AI 행동 제어, `MonsterSpawner`로 웨이브 관리
+- **Dungeon**: `MapGenerator`(그리드 기반 절차 생성), `Room`/`RoomConnectors`(방 연결), `Dungeon`(던전 엔티티)
+- **Item**: `ItemSlot`/`EquipmentSlot`(UI 슬롯), `EquipmentController`(장비 교체 로직)
+
+#### 3. UI/UX 계층 (MVP 패턴)
+
+- **View**: UI 컴포넌트만 담당 (`CurDungeonView`, `HeaderView`, `StatView`, `ProfileView` 등)
+- **Presenter**: View와 데이터 모델을 연결, 이벤트 중계 및 상태 동기화 (`*Presenter` 클래스들)
+- **분리 원칙**: View는 UI 표시만, Presenter는 비즈니스 로직 처리
+
+#### 4. Data 계층 (ScriptableObject)
+
+- **구조**: `10_ScriptableObjects/00_Scripts/`에 SO 클래스 정의, `01_Data/`에 인스턴스 에셋
+- **종류**: `DungeonData`, `MonsterData`, `PlayerStatData`, `ItemData` 등
+- **장점**: 디자이너가 Unity 에디터에서 데이터 수정 가능, 코드 재컴파일 불필요
+
+#### 5. Common/Utils 계층
+
+- **Common**: `StateMachine`(범용 상태머신), `IAttackable`/`IPoolable`(인터페이스), `NavigationController`(AI 이동)
+- **Utils**: `Logger`(커스텀 로깅), `Extensions`(확장 메서드), `CustomException`(예외 처리)
+
+### 파일 구조
+
+```
+Assets/
+├── 00_Scenes/                    # 씬 파일
+│   └── MainScene/
+│
+├── 01_Scripts/                   # 스크립트 소스 (자세한 내용은 [스크립트 카탈로그](#스크립트-카탈로그) 참고)
+│   ├── 00_Manager/               # 매니저 계층
+│   ├── 01_Common/                # 공통 유틸리티
+│   ├── 02_Player/                # 플레이어 로직 (+ State/)
+│   ├── 03_Monster/               # 몬스터 로직 (+ State/)
+│   ├── 04_Dungeon/               # 던전 생성
+│   ├── 05_Item/                  # 아이템/장비
+│   ├── 10_View/                  # MVP - View
+│   ├── 11_Presenter/             # MVP - Presenter
+│   └── 99_Utils/                 # 유틸리티
+│
+├── 02_Prefabs/                   # 프리팹
+│   ├── 00_Core/                  # 핵심 오브젝트 (Managers, Player)
+│   ├── 01_Dungeon/               # 던전 관련 (Room, Corridor, Monster)
+│   └── 10_UI/                    # UI 프리팹
+│
+├── 03_Artworks/                  # 아트워크 (UI 아이콘, 스크린샷)
+│
+├── 04_Animations/                # 애니메이션 컨트롤러
+│
+├── 10_ScriptableObjects/         # 데이터 계층
+│   ├── 00_Scripts/               # SO 클래스 정의
+│   └── 01_Data/                  # SO 인스턴스 에셋
+│
+└── 30_Externals/                 # 외부 에셋 (폰트, 패키지, 3D 모델 등)
+```
+
+## 핵심 플레이 흐름
+
+1. `DungeonManager`가 `MapGenerator`/`RoomConnectors`를 호출해 그리드 기반 던전을 구성하고, `MonsterSpawner`를 통해 웨이브를 준비합니다.
+2. 플레이어 입력은 `PlayerController` → `PlayerStateMachine` → `PlayerAnimationData` 순서로 전달되며, 목표 탐색은 `TargetController`에서 수행합니다.
+3. 몬스터는 `MonsterStateMachine`과 `NavigationController`를 통해 패스파인딩/공격을 수행하고, `IAttackable` 인터페이스로 전투 이벤트가 연결됩니다.
+4. 전투/보상 결과는 `PlayerWallet`, `EquipmentController`, `StatPresenter` 등 UI와 Presenter에 반영되어 즉시 표시됩니다.
+
+## 스크린샷
+
+| 던전 보상 UI 예시                                     |
+| ----------------------------------------------------- |
+| ![Reward Title](./Assets/03_Artworks/RewardTitle.png) |
+
+## 스크립트 카탈로그
 
 ### Manager
 
@@ -21,7 +125,7 @@
         <a href="./Assets/01_Scripts/00_Manager/Managers.cs">Managers.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        모든 매니저를 관리하는 클래스
+        개별 매니저를 초기화·보유하는 최상위 진입점
       </td>
     </tr>
     <tr>
@@ -29,7 +133,15 @@
         <a href="./Assets/01_Scripts/00_Manager/DungeonManager.cs">DungeonManager.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        던전 정보 및 흐름을 관리하는 매니저
+        던전 진행 상태, 웨이브, 난이도 흐름 제어
+      </td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 6px;">
+        <a href="./Assets/01_Scripts/00_Manager/InventoryManager.cs">InventoryManager.cs</a>
+      </td>
+      <td style="border: 1px solid #ccc; padding: 6px;">
+        장비/소모품 보유 상태 및 변경 이벤트 관리
       </td>
     </tr>
     <tr>
@@ -37,7 +149,7 @@
         <a href="./Assets/01_Scripts/00_Manager/ObjectPoolManager.cs">ObjectPoolManager.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        오브젝트 풀을 관리하는 매니저
+        풀링 리소스 예약·재사용·해제를 담당
       </td>
     </tr>
   </tbody>
@@ -60,7 +172,7 @@
         <a href="./Assets/01_Scripts/01_Common/Define.cs">Define.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        상수 관리 파일
+        전역 상수와 공용 설정을 정리
       </td>
     </tr>
     <tr>
@@ -68,7 +180,7 @@
         <a href="./Assets/01_Scripts/01_Common/Enum.cs">Enum.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        열거형 관리 파일
+        게임에서 사용하는 열거형 묶음
       </td>
     </tr>
     <tr>
@@ -76,7 +188,7 @@
         <a href="./Assets/01_Scripts/01_Common/IAttackable.cs">IAttackable.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        데미지 입을 수 있는 객체를 묶기 위한 인터페이스
+        피격/체력 처리 인터페이스
       </td>
     </tr>
     <tr>
@@ -84,7 +196,7 @@
         <a href="./Assets/01_Scripts/01_Common/IPoolable.cs">IPoolable.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        오브젝트 풀에 담길 객체를 위한 인터페이스
+        오브젝트 풀 입출고 규약
       </td>
     </tr>
     <tr>
@@ -92,7 +204,7 @@
         <a href="./Assets/01_Scripts/01_Common/NavigationController.cs">NavigationController.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        AI Nav 컨트롤
+        AI NavMesh 이동 컨트롤러
       </td>
     </tr>
     <tr>
@@ -100,7 +212,7 @@
         <a href="./Assets/01_Scripts/01_Common/StateMachine.cs">StateMachine.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        상태 머신을 적용한 클래스
+        범용 상태 머신 프레임워크
       </td>
     </tr>
   </tbody>
@@ -123,7 +235,7 @@
         <a href="./Assets/01_Scripts/02_Player/Player.cs">Player.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        플레이어 데이터를 컨트롤하기 위한 일종의 컨테이너
+        플레이어 전역 상태를 보관하는 컨테이너
       </td>
     </tr>
     <tr>
@@ -131,7 +243,7 @@
         <a href="./Assets/01_Scripts/02_Player/PlayerAnimationData.cs">PlayerAnimationData.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        플레이어 애니메이션에 적용할 데이터
+        플레이어 애니메이터 파라미터와 Hash를 관리
       </td>
     </tr>
     <tr>
@@ -147,7 +259,7 @@
         <a href="./Assets/01_Scripts/02_Player/PlayerCondition.cs">PlayerCondition.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        플레이어 상태를 관리하기 위한 컨테이너
+        체력·기력 등 플레이어 컨디션 관리
       </td>
     </tr>
     <tr>
@@ -155,7 +267,7 @@
         <a href="./Assets/01_Scripts/02_Player/PlayerController.cs">PlayerController.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        CharacterController를 사용해 플레이어의 이동 및 회전을 관리하는 클래스
+        CharacterController 기반 이동/회전 처리
       </td>
     </tr>
     <tr>
@@ -163,7 +275,7 @@
         <a href="./Assets/01_Scripts/02_Player/PlayerStateMachine.cs">PlayerStateMachine.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        플레이어 움직임 상태 관리 정보를 저장하는 컨테이너 스크립트
+        이동/전투 상태 전환과 데이터 저장
       </td>
     </tr>
     <tr>
@@ -171,7 +283,7 @@
         <a href="./Assets/01_Scripts/02_Player/PlayerWallet.cs">PlayerWallet.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        플레이어 움직임 상태 관리 정보를 저장하는 컨테이너 스크립트
+        골드·재화 보유량 추적 및 이벤트 발행
       </td>
     </tr>
     <tr>
@@ -179,7 +291,7 @@
         <a href="./Assets/01_Scripts/02_Player/TargetController.cs">TargetController.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        플레이어가 공격할 타겟을 스캔 및 계산해 지정하는 클래스
+        플레이어가 공격할 타깃 스캔과 타겟 설정 관리
       </td>
     </tr>
   </tbody>
@@ -202,40 +314,39 @@
         <a href="./Assets/01_Scripts/02_Player/State/PlayerBaseState.cs">PlayerBaseState.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        플레이어 애니메이션 상태 기본 스크립트
+        플레이어 상태 공통 로직 베이스
       </td>
     </tr>
     <tr>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        <a href="./Assets/01_Scripts/02_Player/State/PlayerGroundState.cs">- PlayerGroundState.cs</a>
+        <a href="./Assets/01_Scripts/02_Player/State/PlayerGroundState.cs">PlayerGroundState.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        플레이어 애니메이션 Ground SubStateMachine 관리(PlayerBaseState 상속)
-      </td>
-    </tr>
-    <tr>
-    <tr>
-      <td style="border: 1px solid #ccc; padding: 6px;">
-        <a href="./Assets/01_Scripts/02_Player/State/PlayerIdleState.cs">-- PlayerIdleState.cs</a>
-      </td>
-      <td style="border: 1px solid #ccc; padding: 6px;">
-        플레이어 Idle 애니메이션 상태 (PlayerGroundState 상속)
+        지상 서브 상태머신 제어 (Base 자식 | Idle/Chase 부모)
       </td>
     </tr>
     <tr>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        <a href="./Assets/01_Scripts/02_Player/State/PlayerChaseState.cs">-- PlayerChaseState.cs</a>
+        <a href="./Assets/01_Scripts/02_Player/State/PlayerIdleState.cs">PlayerIdleState.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        플레이어 Move(추적) 애니메이션 상태 (PlayerGroundState 상속)
+        Idle 애니메이션 및 입력 대기 처리
       </td>
     </tr>
     <tr>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        <a href="./Assets/01_Scripts/02_Player/State/PlayerAttackState.cs">- PlayerAttackState.cs</a>
+        <a href="./Assets/01_Scripts/02_Player/State/PlayerChaseState.cs">PlayerChaseState.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        플레이어 애니메이션 Attack SubStateMachine 관리 및 Attack 애니메이션 상태 (PlayerBaseState 상속)
+        추적/이동 애니메이션 상태
+      </td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 6px;">
+        <a href="./Assets/01_Scripts/02_Player/State/PlayerAttackState.cs">PlayerAttackState.cs</a>
+      </td>
+      <td style="border: 1px solid #ccc; padding: 6px;">
+        공격 서브 상태머신과 애니메이션 관리
       </td>
     </tr>
   </tbody>
@@ -258,7 +369,7 @@
         <a href="./Assets/01_Scripts/03_Monster/Monster.cs">Monster.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        몬스터 베이스 클래스
+        몬스터 기본 스탯·행동 공통 베이스
       </td>
     </tr>
     <tr>
@@ -266,7 +377,7 @@
         <a href="./Assets/01_Scripts/03_Monster/MonsterAnimationData.cs">MonsterAnimationData.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        몬스터 애니메이션 컨트롤 시 필요한 Parameter 및 Hash 관리
+        몬스터 애니메이터 파라미터/Hash 관리
       </td>
     </tr>
     <tr>
@@ -274,7 +385,7 @@
         <a href="./Assets/01_Scripts/03_Monster/MonsterSpawner.cs">MonsterSpawner.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        몬스터 풀을 관리하는 스포너
+        몬스터 풀 / 던전 맵 내부 스폰 관리
       </td>
     </tr>
     <tr>
@@ -282,7 +393,7 @@
         <a href="./Assets/01_Scripts/03_Monster/MonsterStateMachine.cs">MonsterStateMachine.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        몬스터 애니메이션 상태 머신
+        몬스터 애니메이션 상태머신
       </td>
     </tr>
     <tr>
@@ -313,7 +424,7 @@
         <a href="./Assets/01_Scripts/04_Dungeon/MapGenerator.cs">MapGenerator.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        Grid 기반 절차적 던전 생성기
+        그리드 기반 절차적 던전 생성기
       </td>
     </tr>
     <tr>
@@ -321,7 +432,23 @@
         <a href="./Assets/01_Scripts/04_Dungeon/RoomConnectors.cs">RoomConnectors.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        Room 간 연결을 위한 door position 저장 클래스
+        방 간 도어 좌표·연결 정보
+      </td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 6px;">
+        <a href="./Assets/01_Scripts/04_Dungeon/Dungeon.cs">Dungeon.cs</a>
+      </td>
+      <td style="border: 1px solid #ccc; padding: 6px;">
+        던전 엔티티 데이터/상태 관리
+      </td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 6px;">
+        <a href="./Assets/01_Scripts/04_Dungeon/Room.cs">Room.cs</a>
+      </td>
+      <td style="border: 1px solid #ccc; padding: 6px;">
+        개별 룸 구조 및 전개 로직
       </td>
     </tr>
   </tbody>
@@ -344,7 +471,7 @@
         <a href="./Assets/01_Scripts/05_Item/ItemSlot.cs">ItemSlot.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        아이템 공용 UI 요소를 관리하는 아이템 슬롯 추상 클래스
+        공용 아이템 슬롯 UI 추상 클래스
       </td>
     </tr>
     <tr>
@@ -352,7 +479,7 @@
         <a href="./Assets/01_Scripts/05_Item/EquipmentSlot.cs">EquipmentSlot.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        장비 타입 정보를 보관하며 장비 슬롯 전용 클릭 로직을 구현하는 클래스 (ItemSlot 상속)
+        장비 타입별 슬롯 처리 (ItemSlot 상속)
       </td>
     </tr>
     <tr>
@@ -360,7 +487,7 @@
         <a href="./Assets/01_Scripts/05_Item/EquipmentController.cs">EquipmentController.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        EquipmentSlot을 관리하는 장비 슬롯 컨트롤러
+        장비 슬롯 그룹 관리 및 장비 교체 로직
       </td>
     </tr>
   </tbody>
@@ -383,7 +510,7 @@
         <a href="./Assets/01_Scripts/10_View/CurDungeonView.cs">CurDungeonView.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        현재 던전 상태 정보 View
+        현재 던전 진행 정보 표시
       </td>
     </tr>
     <tr>
@@ -391,7 +518,7 @@
         <a href="./Assets/01_Scripts/10_View/DungeonButtonView.cs">DungeonButtonView.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        던전 선택(버튼) 창 View
+        던전 선택 UI
       </td>
     </tr>
     <tr>
@@ -399,7 +526,7 @@
         <a href="./Assets/01_Scripts/10_View/EquipmentItemView.cs">EquipmentItemView.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        장비 아이템 장착 View
+        장비 장착 UI
       </td>
     </tr>
     <tr>
@@ -407,7 +534,7 @@
         <a href="./Assets/01_Scripts/10_View/HeaderView.cs">HeaderView.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        재화 정보를 담고 있는 헤더 View
+        상단 재화/자원 표시
       </td>
     </tr>
     <tr>
@@ -415,7 +542,7 @@
         <a href="./Assets/01_Scripts/10_View/ProfileView.cs">ProfileView.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        프로필 View
+        프로필 UI
       </td>
     </tr>
     <tr>
@@ -423,7 +550,7 @@
         <a href="./Assets/01_Scripts/10_View/StatView.cs">StatView.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        현재 스탯 View
+        현재 스탯 표시
       </td>
     </tr>
     <tr>
@@ -431,7 +558,7 @@
         <a href="./Assets/01_Scripts/10_View/ViewInterface.cs">ViewInterface.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        view 용 interface 
+        공통 View 인터페이스
       </td>
     </tr>
   </tbody>
@@ -598,4 +725,4 @@
 ## License
 
 일부 리소스는 외부 라이선스를 포함합니다.
-자세한 내용은 [30_Externals/LICENSE_Assets.txt](Assets\30_Externals\ASSETS_LICENSE.txt)를 참고하세요.
+자세한 내용은 [30_Externals/LICENSE_Assets.txt](./Assets/30_Externals/ASSETS_LICENSE.txt)를 참고하세요.
