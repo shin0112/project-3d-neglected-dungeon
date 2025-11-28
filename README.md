@@ -34,35 +34,40 @@
 
 #### 1. Managers 계층 (런타임 진입점)
 
-- **`Managers`**: 싱글톤 진입점으로 모든 매니저를 초기화하고 전역 접근을 제공합니다.
-  - `DungeonManager`: 던전 생성, 스테이지 진행, 몬스터 스폰 관리
-  - `ObjectPoolManager`: 오브젝트 풀링으로 메모리 효율성 확보
-  - `InventoryManager`: 장비/인벤토리 상태 및 이벤트 관리
-- **특징**: `partial` 클래스와 `internal` 생성자로 `Managers`에서만 인스턴스화 가능하도록 캡슐화
+- **Managers**: 싱글톤 진입점으로 모든 매니저를 초기화하고 전역 접근을 제공
+  - DungeonManager: 던전 생성, 스테이지 진행, 몬스터 스폰 관리
+  - ObjectPoolManager: 오브젝트 풀링으로 메모리 효율성 확보
+  - InventoryManager: 장비/인벤토리 상태 및 이벤트 관리
+- **특징**: partial 클래스와 internal 생성자로 Managers에서만 인스턴스화 가능하도록 캡슐화
 
 #### 2. Gameplay Core 계층
 
-- **Player**: `PlayerController`(이동/회전), `PlayerStateMachine`(상태 전환), `TargetController`(타겟팅), `PlayerWallet`(재화)
-- **Monster**: `Monster` 베이스 클래스와 `MonsterStateMachine`으로 AI 행동 제어, `MonsterSpawner`로 웨이브 관리
-- **Dungeon**: `MapGenerator`(그리드 기반 절차 생성), `Room`/`RoomConnectors`(방 연결), `Dungeon`(던전 엔티티)
-- **Item**: `ItemSlot`/`EquipmentSlot`(UI 슬롯), `EquipmentController`(장비 교체 로직)
+- **Player**: 이동 및 회전 처리, 상태 전환 관리, 타겟팅 시스템, 재화 관리
+- **Monster**: 베이스 클래스와 상태 머신으로 AI 행동 제어, 스포너로 웨이브 관리
+- **Dungeon**: 그리드 기반 절차적 던전 생성, 방 연결 및 던전 엔티티 관리
+- **Item**: 아이템 슬롯 UI, 장비 교체 로직
 
 #### 3. UI/UX 계층 (MVP 패턴)
 
-- **View**: UI 컴포넌트만 담당 (`CurDungeonView`, `HeaderView`, `StatView`, `ProfileView` 등)
-- **Presenter**: View와 데이터 모델을 연결, 이벤트 중계 및 상태 동기화 (`*Presenter` 클래스들)
-- **분리 원칙**: View는 UI 표시만, Presenter는 비즈니스 로직 처리
+- **View**: UI 컴포넌트만 담당 (던전 정보, 헤더, 스탯, 프로필 등)
+  - 인터페이스를 통해 Presenter와 통신
+  - Unity MonoBehaviour를 상속받아 Unity 에디터에서 설정 가능
+- **Presenter**: View와 데이터 모델을 연결, 이벤트 중계 및 상태 동기화
+  - View 초기화 시점에 생성되어 이벤트 구독 및 초기화 수행
+  - Model 계층의 이벤트를 구독하여 View 업데이트
+- **Model**: Gameplay Core 계층의 데이터 클래스들이 Model 역할 수행
+  - 플레이어 상태, 재화, 던전 정보 등
+- **분리 원칙**: View는 UI 표시만, Presenter는 비즈니스 로직 처리, Model은 데이터와 상태 관리
 
 #### 4. Data 계층 (ScriptableObject)
 
-- **구조**: `10_ScriptableObjects/00_Scripts/`에 SO 클래스 정의, `01_Data/`에 인스턴스 에셋
-- **종류**: `DungeonData`, `MonsterData`, `PlayerStatData`, `ItemData` 등
-- **장점**: 디자이너가 Unity 에디터에서 데이터 수정 가능, 코드 재컴파일 불필요
+- **구조**: Scripts 폴더에 SO 클래스 정의, Data 폴더에 인스턴스 에셋
+- **종류**: 던전, 몬스터, 플레이어 스탯, 아이템 데이터 등
 
 #### 5. Common/Utils 계층
 
-- **Common**: `StateMachine`(범용 상태머신), `IAttackable`/`IPoolable`(인터페이스), `NavigationController`(AI 이동)
-- **Utils**: `Logger`(커스텀 로깅), `Extensions`(확장 메서드), `CustomException`(예외 처리)
+- **Common**: 범용 상태 머신, 공격/풀링 인터페이스, AI 이동 컨트롤러
+- **Utils**: 커스텀 로깅, 확장 메서드, 예외 처리
 
 ### 의존성 흐름
 
@@ -111,9 +116,9 @@ Assets/
 
 ## 스크린샷
 
-| 던전 보상 UI 예시                                     |
-| ----------------------------------------------------- |
-| ![Reward Title](./Assets/03_Artworks/RewardTitle.png) |
+| 던전 보상 UI 예시 |
+| ----------------- |
+|                   |
 
 ## 스크립트 카탈로그
 
@@ -752,7 +757,7 @@ Assets/
       <th style="width: 520px; border: 1px solid #ccc; padding: 6px;">Description</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody></tbody>
     <tr>
       <td style="border: 1px solid #ccc; padding: 6px;">
         <a href="./Assets/01_Scripts/99_Utils/CustomException.cs">CustomException.cs</a>
@@ -763,10 +768,11 @@ Assets/
     </tr>
     <tr>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        <a href="./Assets/01_Scripts/99_Utils/Extensions.cs">Extensions.cs</a>
+        <a href="./Assets/01_Scripts/99_Utils/Extenstions.cs">Extenstions.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        C# 확장 클래스 모음
+        C# 확장 클래스 모음<br/>
+        <small>※ 파일명 오타: Extenstions (실제 파일명 유지)</small>
       </td>
     </tr>
     <tr>
