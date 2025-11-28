@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 /// <summary>
-/// 플레이어 보유 통화(재산) 관리
+/// 플레이어 보유 통화(재산) 정보를 관리하는 컨테이너 
 /// </summary>
 [System.Serializable]
 public class PlayerWallet

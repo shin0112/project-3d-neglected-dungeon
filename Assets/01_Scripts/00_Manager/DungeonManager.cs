@@ -65,7 +65,7 @@ public partial class Managers
         /// <param name="dungeon"></param>
         public void StartDungeon(DungeonData dungeon)
         {
-            ResetDungeon();
+            //ResetDungeon();
 
             _dungeonData = dungeon;
             _curStageIndex = 0;
