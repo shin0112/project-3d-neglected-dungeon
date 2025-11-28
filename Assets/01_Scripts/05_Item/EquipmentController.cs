@@ -27,12 +27,14 @@ public class EquipmentController : MonoBehaviour
         {
             _equipmentValues[type] = 0f;
         }
+
+        EquipDefault();
     }
 
     /// <summary>
-    /// [public] 기존에 장비가 있으면 해당 장비 착용하기
+    /// 기존에 장비가 있으면 해당 장비 착용하기
     /// </summary>
-    public void Initialize()
+    private void EquipDefault()
     {
         foreach (EquipmentSlot slot in _equipmentSlots.Values)
         {
@@ -56,6 +58,28 @@ public class EquipmentController : MonoBehaviour
     private void OnDestroy()
     {
         OnEquipmentSlotChanged = null;
+    }
+    #endregion
+
+    #region [public] 초기화 - View 용
+    public void InitProfileView()
+    {
+        foreach (var value in _equipmentSlots.Values)
+        {
+            EquipmentItemData[] equipments = value.Data.Equipments;
+            foreach (var equipment in equipments)
+            {
+                OnEquipmentSlotChanged?.Invoke(equipment.Stat, equipment.Value);
+            }
+        }
+    }
+
+    public void InitEquipmentItemView()
+    {
+        foreach (var Value in _equipmentSlots.Values)
+        {
+            Value.InitEquipmentItemView();
+        }
     }
     #endregion
 

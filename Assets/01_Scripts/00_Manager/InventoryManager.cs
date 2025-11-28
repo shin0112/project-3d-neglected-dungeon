@@ -13,11 +13,13 @@ public partial class Managers
         {
             _condition = condition;
             _equipment = equipment;
-
-            _equipment.OnEquipmentSlotChanged += _condition.OnEquipmentChanged;
-            _equipment.Initialize();
         }
         #endregion
+
+        public void InitEquipView()
+        {
+            _equipment.OnEquipmentSlotChanged += _condition.OnEquipmentChanged;
+        }
 
         public void Equip(EquipmentType type, ItemData data)
         {

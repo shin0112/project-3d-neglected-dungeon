@@ -7,6 +7,13 @@ public class EquipmentSlot : ItemSlot
 
     public event Action<ItemData> OnClickEquipmentSlot;
 
+    #region [public] 초기화 - View 용
+    public void InitEquipmentItemView()
+    {
+        OnClickEquipmentSlot?.Invoke(data);
+    }
+    #endregion
+
     #region 버튼
     protected override void OnClickButton()
     {

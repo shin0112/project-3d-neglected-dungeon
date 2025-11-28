@@ -11,6 +11,8 @@ public class EquipmentItemPresenter
         // todo: 추후 슬롯 확장 시 전부 반영
         equipments[EquipmentType.Weapon].OnClickEquipmentSlot += OnClickEquipmentSlot;
         equipments[EquipmentType.Armor].OnClickEquipmentSlot += OnClickEquipmentSlot;
+
+        equipments.InitEquipmentItemView();
     }
 
     public void OnClickEquipmentSlot(ItemData data)

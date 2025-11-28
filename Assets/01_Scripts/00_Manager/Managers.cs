@@ -40,15 +40,16 @@ public partial class Managers : MonoBehaviour
     {
         Player = FindObjectOfType<Player>(true);
 
-        // Managers
+        // Dungeon Manager
         this.Dungeon.Initialize(Corridors);
+
+        // Inventory Manager
+        EquipmentController equipment = FindObjectOfType<EquipmentController>(true);
+        this.Inventory.Initialize(Player.Condition, equipment);
     }
 
     private void Start()
     {
-        EquipmentController equipment = FindObjectOfType<EquipmentController>(true);
-        this.Inventory.Initialize(Player.Condition, equipment);
-
         Test();
     }
 
