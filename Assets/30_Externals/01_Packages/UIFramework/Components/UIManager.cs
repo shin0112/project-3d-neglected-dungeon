@@ -14,6 +14,9 @@ public class UIManager : MonoBehaviour
     [Header("Auto Show Initial On Start")]
     [SerializeField] private bool showInitialOnStart = true;
 
+    [Header("Init Stack (처음 쌓을 UIViews)")]
+    [SerializeField] private List<UIView> _initViews = new();
+
     private readonly Stack<UIView> viewStack = new();
 
     private void Start()
@@ -29,6 +32,7 @@ public class UIManager : MonoBehaviour
             }
 
             ResetAndPush(root);
+            _initViews.ForEach((view) => { ShowPopup(view); });
         }
     }
 
@@ -165,6 +169,7 @@ public class UIManager : MonoBehaviour
             }
             root.Show();
         }
+        _initViews.ForEach((view) => { Push(view); });
     }
 
     /// <summary>

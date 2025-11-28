@@ -308,7 +308,7 @@ public class UIView : MonoBehaviour
     private UITransitionProfile FindOrCreateDefaultProfile()
     {
         // 1) 프로젝트 내에서 "Default_UITransitionProfile" 탐색
-        string[] guids = UnityEditor.AssetDatabase.FindAssets("Default_UITransitionProfile t:UITransitionProfile");
+        string[] guids = UnityEditor.AssetDatabase.FindAssets("NoEnter t:NoEnter");
         if (guids != null && guids.Length > 0)
         {
             string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guids[0]);
@@ -336,7 +336,7 @@ public class UIView : MonoBehaviour
         var asset = ScriptableObject.CreateInstance<UITransitionProfile>();
         asset.ResetToDefaults();
 
-        string uniquePath = UnityEditor.AssetDatabase.GenerateUniqueAssetPath($"{folderB}/Default_UITransitionProfile.asset");
+        string uniquePath = UnityEditor.AssetDatabase.GenerateUniqueAssetPath($"{folderB}/NoEnter.asset");
         UnityEditor.AssetDatabase.CreateAsset(asset, uniquePath);
         UnityEditor.AssetDatabase.SaveAssets();
         UnityEditor.AssetDatabase.Refresh();

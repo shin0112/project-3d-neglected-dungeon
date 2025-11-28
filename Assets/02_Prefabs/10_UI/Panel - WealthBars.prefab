@@ -1640,7 +1640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overrideTransition: 0
-  profile: {fileID: 11400000, guid: 744fd363d80d28f4fa99620d93ff8f84, type: 2}
+  profile: {fileID: 11400000, guid: 75aca937dc65eea41a3efdfecd686155, type: 2}
   entryAnim: 1
   entryDir: 1
   entrySpeed: 2

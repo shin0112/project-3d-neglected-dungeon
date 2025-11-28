@@ -166,8 +166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ffc1e726b528694293515ad782611b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overrideTransition: 1
-  profile: {fileID: 11400000, guid: 744fd363d80d28f4fa99620d93ff8f84, type: 2}
+  overrideTransition: 0
+  profile: {fileID: 11400000, guid: 75aca937dc65eea41a3efdfecd686155, type: 2}
   entryAnim: 3
   entryDir: 4
   entrySpeed: 10
@@ -817,9 +817,9 @@ RectTransform:
   - {fileID: 1904749509685805151}
   m_Father: {fileID: 2818282009933453267}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 2950, y: -200}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1413186533327546611
@@ -1093,7 +1093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overrideTransition: 0
-  profile: {fileID: 11400000, guid: 744fd363d80d28f4fa99620d93ff8f84, type: 2}
+  profile: {fileID: 11400000, guid: 75aca937dc65eea41a3efdfecd686155, type: 2}
   entryAnim: 1
   entryDir: 1
   entrySpeed: 2
@@ -1379,7 +1379,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 2779, y: 0}
+  m_AnchoredPosition: {x: 2778.9995, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &8133747512532792833
@@ -1444,8 +1444,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ffc1e726b528694293515ad782611b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overrideTransition: 1
-  profile: {fileID: 11400000, guid: 744fd363d80d28f4fa99620d93ff8f84, type: 2}
+  overrideTransition: 0
+  profile: {fileID: 11400000, guid: 75aca937dc65eea41a3efdfecd686155, type: 2}
   entryAnim: 1
   entryDir: 3
   entrySpeed: 10
@@ -1503,9 +1503,9 @@ RectTransform:
   - {fileID: 4678603136647979153}
   m_Father: {fileID: 2818282009933453267}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1350, y: -200}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2691346199631637597
@@ -1857,7 +1857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overrideTransition: 0
-  profile: {fileID: 11400000, guid: 744fd363d80d28f4fa99620d93ff8f84, type: 2}
+  profile: {fileID: 11400000, guid: 75aca937dc65eea41a3efdfecd686155, type: 2}
   entryAnim: 1
   entryDir: 1
   entrySpeed: 2
@@ -1918,9 +1918,9 @@ RectTransform:
   - {fileID: 2891201583867507659}
   m_Father: {fileID: 2818282009933453267}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 2150, y: -200}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3013536274690166875
@@ -2708,8 +2708,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiRoot: {fileID: 8302339262635821843}
-  initialView: {fileID: 0}
+  initialView: {fileID: 1084764587709890052}
   showInitialOnStart: 1
+  _initViews:
+  - {fileID: 633116350502259792}
+  - {fileID: 6551206863148090153}
+  - {fileID: 1568922361096282442}
 --- !u!1 &2057391179034531481
 GameObject:
   m_ObjectHideFlags: 0
@@ -3565,13 +3569,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5534005598495524801}
-        m_TargetAssemblyTypeName: UIView, Assembly-CSharp
-        m_MethodName: Show
+      - m_Target: {fileID: 3619947839414272342}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: Pop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3619947839414272342}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: Push
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 5534005598495524801}
+          m_ObjectArgumentAssemblyTypeName: UIView, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3694,18 +3710,102 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3444956007750281934}
-        m_TargetAssemblyTypeName: UIView, Assembly-CSharp
-        m_MethodName: Show
-        m_Mode: 1
+      - m_Target: {fileID: 3619947839414272342}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: ShowPopup
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 3444956007750281934}
+          m_ObjectArgumentAssemblyTypeName: UIView, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &2683357282000067411
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1147379653835897462}
+  - component: {fileID: 8947142333533606910}
+  - component: {fileID: 5241262433667826522}
+  m_Layer: 0
+  m_Name: Root
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1147379653835897462
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683357282000067411}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 807862501258396804}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &8947142333533606910
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683357282000067411}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &5241262433667826522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683357282000067411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ffc1e726b528694293515ad782611b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overrideTransition: 0
+  profile: {fileID: 11400000, guid: 744fd363d80d28f4fa99620d93ff8f84, type: 2}
+  entryAnim: 1
+  entryDir: 1
+  entrySpeed: 2
+  exitAnim: 1
+  exitDir: 0
+  exitSpeed: 2
+  lifecycle: 1
+  onPreShow:
+    m_PersistentCalls:
+      m_Calls: []
+  onPostShow:
+    m_PersistentCalls:
+      m_Calls: []
+  onPreHide:
+    m_PersistentCalls:
+      m_Calls: []
+  onPostHide:
+    m_PersistentCalls:
+      m_Calls: []
+  rectTransform: {fileID: 1147379653835897462}
+  canvasGroup: {fileID: 8947142333533606910}
 --- !u!1 &2832154703761212139
 GameObject:
   m_ObjectHideFlags: 0
@@ -4158,6 +4258,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1147379653835897462}
   - {fileID: 2679426653796848592}
   - {fileID: 4327323640593376037}
   m_Father: {fileID: 7239672711907037457}
@@ -4242,9 +4343,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d510fec6b631b9f46969a2f91198aced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiRoot: {fileID: 2679426653796848592}
-  initialView: {fileID: 0}
+  uiRoot: {fileID: 1147379653835897462}
+  initialView: {fileID: 5241262433667826522}
   showInitialOnStart: 1
+  _initViews:
+  - {fileID: 6356740512688807402}
 --- !u!1 &3263886161909790788
 GameObject:
   m_ObjectHideFlags: 0
@@ -4281,9 +4384,9 @@ RectTransform:
   - {fileID: 4978136588796673353}
   m_Father: {fileID: 2818282009933453267}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 550, y: -200}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8987197585852385117
@@ -4765,6 +4868,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 3619947839414272342}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: ShowPopup
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 3444956007750281934}
+          m_ObjectArgumentAssemblyTypeName: UIView, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 3444956007750281934}
         m_TargetAssemblyTypeName: UIView, Assembly-CSharp
         m_MethodName: Show
@@ -5110,33 +5225,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5378964272746635499}
-        m_TargetAssemblyTypeName: UIView, Assembly-CSharp
-        m_MethodName: Hide
-        m_Mode: 1
+      - m_Target: {fileID: 3619947839414272342}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: PopTo
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1568922361096282442}
+          m_ObjectArgumentAssemblyTypeName: UIView, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5534005598495524801}
-        m_TargetAssemblyTypeName: UIView, Assembly-CSharp
-        m_MethodName: ForceHide
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 7371452078258672148}
-        m_TargetAssemblyTypeName: UIView, Assembly-CSharp
-        m_MethodName: Hide
+      - m_Target: {fileID: 6944310772192816747}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: Pop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6369,25 +6472,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5378964272746635499}
-        m_TargetAssemblyTypeName: UIView, Assembly-CSharp
-        m_MethodName: Show
-        m_Mode: 1
+      - m_Target: {fileID: 3619947839414272342}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: ShowPopup
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 5378964272746635499}
+          m_ObjectArgumentAssemblyTypeName: UIView, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7371452078258672148}
-        m_TargetAssemblyTypeName: UIView, Assembly-CSharp
-        m_MethodName: Show
-        m_Mode: 1
+      - m_Target: {fileID: 6944310772192816747}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: ShowPopup
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 7371452078258672148}
+          m_ObjectArgumentAssemblyTypeName: UIView, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -7176,7 +7279,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4358163861368896340}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3619947839414272342}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: Pop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3619947839414272342}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: Push
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 5378964272746635499}
+          m_ObjectArgumentAssemblyTypeName: UIView, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6683153366991603852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7231,7 +7358,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0.00030517578, y: 0}
-  m_SizeDelta: {x: 3500, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &5562987547133971500
 MonoBehaviour:
@@ -7452,7 +7579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overrideTransition: 0
-  profile: {fileID: 11400000, guid: 744fd363d80d28f4fa99620d93ff8f84, type: 2}
+  profile: {fileID: 11400000, guid: 75aca937dc65eea41a3efdfecd686155, type: 2}
   entryAnim: 1
   entryDir: 1
   entrySpeed: 2
@@ -7984,8 +8111,8 @@ MonoBehaviour:
   onPostHide:
     m_PersistentCalls:
       m_Calls: []
-  rectTransform: {fileID: 0}
-  canvasGroup: {fileID: 0}
+  rectTransform: {fileID: 8302339262635821843}
+  canvasGroup: {fileID: 6659964826478644521}
 --- !u!1 &8134522998960102317
 GameObject:
   m_ObjectHideFlags: 0
@@ -8106,9 +8233,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3444956007750281934}
-        m_TargetAssemblyTypeName: UIView, Assembly-CSharp
-        m_MethodName: Hide
+      - m_Target: {fileID: 3619947839414272342}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: ClosePopup
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8883,8 +9010,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f952d38e5d7d434da15e2e30ae169cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overrideTransition: 1
-  profile: {fileID: 11400000, guid: 744fd363d80d28f4fa99620d93ff8f84, type: 2}
+  overrideTransition: 0
+  profile: {fileID: 11400000, guid: 75aca937dc65eea41a3efdfecd686155, type: 2}
   entryAnim: 1
   entryDir: 4
   entrySpeed: 10
@@ -9412,3 +9539,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 773986007448941058, guid: 69e3ee94395302941a9bd07212b4a83d, type: 3}
   m_PrefabInstance: {fileID: 3428079842172314066}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6356740512688807402 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8621386831763422264, guid: 69e3ee94395302941a9bd07212b4a83d, type: 3}
+  m_PrefabInstance: {fileID: 3428079842172314066}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 048d348ec8e578e43b47fbe9368231e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
