@@ -26,15 +26,18 @@ public class CurDungeonView : UIView, ICurDungeonView
         _battleBossButton.onClick.AddListener(OnClickBattleBossButton);
     }
 
-    private void OnEnable()
-    {
-        UpdateProgress(0f);
-        _battleBossButton.gameObject.SetActive(false);
-    }
-
     private void OnDestroy()
     {
         _battleBossButton.onClick.RemoveAllListeners();
+    }
+
+    /// <summary>
+    /// [public] 던전을 새로 입장할 때 진행 상황과 보스 소환 정보 초기화
+    /// </summary>
+    public void ResetDungeon()
+    {
+        UpdateProgress(0f);
+        _battleBossButton.gameObject.SetActive(false);
     }
 
     public void UpdateCurDungeonText(string name)
