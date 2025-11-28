@@ -763,7 +763,7 @@ Assets/
     </tr>
     <tr>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        <a href="./Assets/01_Scripts/99_Utils/Extenstions.cs">Extenstions.cs</a>
+        <a href="./Assets/01_Scripts/99_Utils/Extensions.cs">Extensions.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
         C# 확장 클래스 모음
