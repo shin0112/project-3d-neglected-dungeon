@@ -137,6 +137,9 @@ public partial class Managers
                 Spawner.OnDestroy();
                 Spawner = new MonsterSpawner(_dungeonRoot);
             }
+
+            // 플레이어 위치 이동
+            Managers.Instance.Player.transform.position = Vector3.zero;
         }
 
         /// <summary>
