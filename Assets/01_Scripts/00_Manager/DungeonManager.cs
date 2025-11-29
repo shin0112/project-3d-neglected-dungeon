@@ -4,6 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// 던전 정보 및 흐름을 관리하는 매니저
+/// 던전 진행 상태, 웨이브, 난이도 흐름 제어
 /// </summary>
 public partial class Managers
 {
@@ -13,10 +14,10 @@ public partial class Managers
         internal DungeonManager() { }
 
         // Data
-        private DungeonData _dungeonData;
+        private DungeonData _curDungeonData;
         private int _curStageIndex = 0;
 
-        // Pool 관리
+        // 던전 내부 스포너(Pool) 관리
         public MonsterSpawner Spawner { get; private set; }
 
         // Dungeon 생성
@@ -40,6 +41,10 @@ public partial class Managers
             _mapGenerator = new(corridors);
         }
 
+        /// <summary>
+        /// 받은 게임 오브젝트에 NavMeshSurface 컴포넌트를 추가하고 설정 초기화
+        /// </summary>
+        /// <param name="dungeonObj"></param>
         private void SetNavMeshSurface(GameObject dungeonObj)
         {
             _surface = dungeonObj.AddComponent<NavMeshSurface>();
@@ -67,11 +72,11 @@ public partial class Managers
         {
             //ResetDungeon();
 
-            _dungeonData = dungeon;
+            _curDungeonData = dungeon;
             _curStageIndex = 0;
             StartStage(_curStageIndex);
 
-            OnDungeonNameFixed?.Invoke(_dungeonData.dungeonName);
+            OnDungeonNameFixed?.Invoke(_curDungeonData.dungeonName);
         }
         #endregion
 
@@ -82,7 +87,7 @@ public partial class Managers
         /// <param name="stageIndex"></param>
         private void StartStage(int stageIndex)
         {
-            StageData stage = _dungeonData.stages[stageIndex];
+            StageData stage = _curDungeonData.stages[stageIndex];
 
             // 1) 맵 자동 생성
             _mapGenerator.Generate(_dungeonRoot, stage);
@@ -99,7 +104,7 @@ public partial class Managers
         {
             _curStageIndex++;
 
-            if (_curStageIndex >= _dungeonData.stages.Length)
+            if (_curStageIndex >= _curDungeonData.stages.Length)
             {
                 DungeonClear();
                 return;
@@ -114,7 +119,7 @@ public partial class Managers
         }
 
         /// <summary>
-        /// 던전 정보 리셋하기
+        /// 던전 정보 리셋하기 (수정 필요)
         /// </summary>
         private void ResetDungeon()
         {

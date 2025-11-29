@@ -18,11 +18,11 @@ public static class Define
     #endregion
 
     #region 캐릭터 정보
-    // 스텟
-    public static float DefaultHealth = 100f;
-    public static float DefaultStamina = 100f;
-    public static float DefaultAttackPower = 5f;
-    public static float DefaultDefensePower = 5f;
+    //// 스텟
+    //public static float DefaultHealth = 100f;
+    //public static float DefaultStamina = 100f;
+    //public static float DefaultAttackPower = 5f;
+    //public static float DefaultDefensePower = 5f;
 
     public static float MaxStamina = 100f;
 

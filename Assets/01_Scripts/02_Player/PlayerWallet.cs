@@ -8,7 +8,6 @@ using System.Collections.Generic;
 public class PlayerWallet
 {
     #region 필드
-    // 던전
     private readonly Dictionary<WalletType, Wallet> _wallets;
     public Wallet this[WalletType type] => _wallets[type];      // 인덱서 문법 사용
     #endregion
@@ -16,6 +15,7 @@ public class PlayerWallet
     #region 초기화 & 파괴
     public PlayerWallet()
     {
+        // todo: 플레이어 초기화 시 저장된 값 불러오기
         _wallets = new()
         {
             { WalletType.DungeonKey, new(5, WalletType.DungeonKey) },
@@ -25,7 +25,7 @@ public class PlayerWallet
     }
 
     /// <summary>
-    /// Player가 파괴될 때 사용
+    /// [public] Player가 파괴될 때 사용
     /// </summary>
     public void OnDestroy()
     {

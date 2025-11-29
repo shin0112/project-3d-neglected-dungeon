@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 플레이어 상태를 관리하기 위한 컨테이너
+/// 플레이어 상태 관리
 /// </summary>
 [System.Serializable]
 public class PlayerCondition
@@ -20,8 +20,8 @@ public class PlayerCondition
     private Dictionary<StatType, Stat> _statDict;
     public Stat this[StatType type] => _statDict[type];
 
-    public float CurrentHealth => _statDict[StatType.Health].Value;
-    public float CurrentStamina => _statDict[StatType.Stamina].Value;
+    public float CurrentHealth => _statDict[StatType.Health].CurValue;
+    public float CurrentStamina => _statDict[StatType.Stamina].CurValue;
 
     // 이벤트
     public event Action<int> OnLevelChanged;
@@ -29,6 +29,11 @@ public class PlayerCondition
     #endregion
 
     #region 초기화 & 파괴
+    /// <summary>
+    /// [생성자] 플레이어 스텟 데이터를 받아 초기화
+    /// todo: 추후 json 데이터로 관리 & 플레이어 기본 데이터 주소로 불러오기
+    /// </summary>
+    /// <param name="data"></param>
     public PlayerCondition(PlayerStatData data)
     {
         Name = data.PlayerName;
@@ -43,7 +48,6 @@ public class PlayerCondition
 
     /// <summary>
     /// 스텟 타입과 값을 딕셔너리로 관리하기 위해 초기화
-    /// 반드시 사용하는 값일 경우 기본값 추가
     /// </summary>
     /// <param name="stats"></param>
     /// <exception cref="StatNegativeValueException"></exception>
@@ -61,7 +65,7 @@ public class PlayerCondition
             _statDict[entry.StatType] = new Stat(entry.BaseValue, entry.StatType);
         }
 
-        // 기본값 초기화
+        // 필수 스텟 확인
         CheckRequiredStat(StatType.Health);
         CheckRequiredStat(StatType.Stamina);
         CheckRequiredStat(StatType.Attack);
@@ -82,7 +86,7 @@ public class PlayerCondition
     }
 
     /// <summary>
-    /// Player가 파괴될 때 수행
+    /// [public] Player가 파괴될 때 수행
     /// </summary>
     public void OnDestroy()
     {
@@ -135,6 +139,10 @@ public class PlayerCondition
     /// <returns></returns>
     public bool TryUse(StatType type, float amount) => _statDict[type].TryUse(amount);
 
+    /// <summary>
+    /// [public] 경험치 회득
+    /// </summary>
+    /// <param name="exp"></param>
     public void AddExp(int exp)
     {
         CurrentExp += exp;
@@ -189,19 +197,19 @@ public class Stat
     public float EquipmentValue { get; private set; }
     public float BuffValue { get; private set; }
 
-    public float TotalValue => BaseValue + EquipmentValue + BuffValue;
-    public float Value { get; private set; }
+    public float CurValue { get; private set; }
+    public float MaxValue => BaseValue + EquipmentValue + BuffValue;
 
     private StatType _type;
 
     // 이벤트
-    public event Action<float> OnValueChanged;
+    public event Action<float> OnCurValueChanged;
     public event Action<float> OnMaxValueChanged;
 
     public Stat(float value, StatType type)
     {
         BaseValue = value;
-        Value = value;
+        CurValue = value;
         _type = type;
     }
 
@@ -210,8 +218,8 @@ public class Stat
     /// </summary>
     public void SyncView()
     {
-        OnValueChanged?.Invoke(Value);
-        OnMaxValueChanged?.Invoke(TotalValue);
+        OnCurValueChanged?.Invoke(CurValue);
+        OnMaxValueChanged?.Invoke(MaxValue);
     }
 
     /// <summary>
@@ -219,7 +227,7 @@ public class Stat
     /// </summary>
     public void OnDestroy()
     {
-        OnValueChanged = null;
+        OnCurValueChanged = null;
         OnMaxValueChanged = null;
     }
 
@@ -230,14 +238,14 @@ public class Stat
     /// <returns></returns>
     public bool TryUse(float amount)
     {
-        if (Value < amount)
+        if (CurValue < amount)
         {
             Logger.Log($"{_type} 부족");
             return false;
         }
 
-        Value -= amount;
-        OnValueChanged?.Invoke(Value);
+        CurValue -= amount;
+        OnCurValueChanged?.Invoke(CurValue);
         return true;
     }
 
@@ -247,21 +255,21 @@ public class Stat
     /// <param name="amount"></param>
     public void Add(float amount)
     {
-        Value = Mathf.Min(Value + amount, TotalValue);
-        OnValueChanged?.Invoke(Value);
+        CurValue = Mathf.Min(CurValue + amount, MaxValue);
+        OnCurValueChanged?.Invoke(CurValue);
     }
 
     /// <summary>
-    /// 장비 아이템 값 갱신
+    /// [public] 장비 아이템 착용으로 변경된 스텟 값 적용
     /// </summary>
     /// <param name="value"></param>
     public void UpdateEquipmentValue(float value)
     {
         EquipmentValue = value;
 
-        Value = Mathf.Min(Value, TotalValue);
+        CurValue = Mathf.Min(CurValue, MaxValue);
 
-        OnValueChanged?.Invoke(Value);
-        OnMaxValueChanged?.Invoke(TotalValue);
+        OnCurValueChanged?.Invoke(CurValue);
+        OnMaxValueChanged?.Invoke(MaxValue);
     }
 }

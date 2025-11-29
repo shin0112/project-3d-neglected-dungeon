@@ -60,6 +60,7 @@ public class MonsterSpawner
 
     public void OnDestroy()
     {
+        // todo: 몬스터 스포너 새로 만들어질 때마다 던전 정보 보여주는 이벤트 구독 시점 확인
         OnCurDungeonProgress = null;
 
         CoroutineRunner.instance.StopAllCoroutines();
@@ -95,6 +96,9 @@ public class MonsterSpawner
     /// </summary>
     public void SpawnBoss()
     {
+        if (_bossSpawned) return;
+        _bossSpawned = false;
+
         Vector3 position = GetRandomPosition();
         GameObject bossPrefab = _stageData.BossData.Prefab;
 
@@ -122,13 +126,6 @@ public class MonsterSpawner
         monster.ReturnToPool();
 
         if (_bossSpawned) return;
-
-        // todo: 버튼 클릭으로 보스 스폰하게 지정 -> 플레이어 앞에 보스 생성
-        if (_killCount >= Define.KillCountForMidBossSpawn)
-        {
-            SpawnBoss();
-            _bossSpawned = true;
-        }
     }
 
     /// <summary>
@@ -158,6 +155,10 @@ public class MonsterSpawner
         player.Condition.AddExp(monster.Data.DropReward.Exp);
     }
 
+    /// <summary>
+    /// 몬스터 스폰 위치 랜덤으로 가지고 오기
+    /// </summary>
+    /// <returns></returns>
     private Vector3 GetRandomPosition()
     {
         Room room = _rooms.Random();

@@ -3,9 +3,11 @@ using UnityEngine;
 
 /// <summary>
 /// 오브젝트 풀 매니저
+/// 풀링 리소스 예약·재사용·해제를 담당
 /// </summary>
 public partial class Managers
 {
+    // todo: 풀 리셋하는 메서드 필요
     public class ObjectPoolManager
     {
         internal ObjectPoolManager() { }

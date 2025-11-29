@@ -17,7 +17,7 @@ public class TargetingController
     public TargetingController(Player player)
     {
         this._player = player;
-        float detectDistance = _player.Condition[StatType.DetectDistance].Value;
+        float detectDistance = _player.Condition[StatType.DetectDistance].CurValue;
         _squreDetectDistance = detectDistance * detectDistance;
     }
 
@@ -111,7 +111,16 @@ public class TargetingController
         ScanTarget = closest;
     }
 
-    bool IsInFanArea(Transform attacker, Transform target, float radius, float angle)
+    /// <summary>
+    /// 공격 행위 & 대상의 위치와 각도 & 범위를 받아서 공격 범위에 있는지 확인
+    /// todo: 몬스터 구현 시 몬스터도 사용할 수 있게 리팩토링
+    /// </summary>
+    /// <param name="attacker"></param>
+    /// <param name="target"></param>
+    /// <param name="radius"></param>
+    /// <param name="angle"></param>
+    /// <returns></returns>
+    private bool IsInFanArea(Transform attacker, Transform target, float radius, float angle)
     {
         // 1) 거리 체크
         Vector3 toTarget = target.position - attacker.position;

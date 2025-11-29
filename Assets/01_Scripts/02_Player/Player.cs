@@ -68,6 +68,7 @@ public class Player : MonoBehaviour
     {
         if (Animator == null) Animator = GetComponent<Animator>();
 
+        // 하위 오브젝트에 애니메이션 이벤트 전달
         PlayerAnimationEventRelay relay = GetComponentInChildren<PlayerAnimationEventRelay>();
         relay.Player = this;
     }
@@ -83,8 +84,6 @@ public class Player : MonoBehaviour
         {
             MovementController.Move(Targeting.CurTarget);
         }
-
-        //Condition.TryUseStamina(1f * Time.deltaTime);
     }
 
     private void FixedUpdate()
@@ -112,7 +111,7 @@ public class Player : MonoBehaviour
             {
                 if (Targeting.CheckTargetInAttackRange(attackable))
                 {
-                    attackable.TakeDamage(Condition[StatType.Attack].TotalValue * attackInfoData.DamageRatio);
+                    attackable.TakeDamage(Condition[StatType.Attack].MaxValue * attackInfoData.DamageRatio);
                 }
             }
         }
