@@ -2,6 +2,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 현재 던전 진행 정보 표시
+/// </summary>
 public class CurDungeonView : UIView, ICurDungeonView
 {
     CurDungeonPresenter _presenter;

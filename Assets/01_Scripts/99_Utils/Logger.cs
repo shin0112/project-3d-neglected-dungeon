@@ -1,6 +1,9 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
+/// <summary>
+/// 유니티 에디터 전용 커스텀 로거
+/// </summary>
 public static class Logger
 {
 #if UNITY_EDITOR

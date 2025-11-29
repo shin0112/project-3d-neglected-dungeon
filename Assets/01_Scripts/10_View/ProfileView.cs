@@ -1,6 +1,9 @@
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// 플레이어 정보 (이름, 전체 스텟) 표시
+/// </summary>
 public class ProfileView : UIView, IProfileView
 {
     private ProfilePresenter _presenter;

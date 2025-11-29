@@ -23,6 +23,7 @@ public static class TransformExtension
 }
 #endregion
 
+#region Array
 public static class ArrayExtension
 {
     public static T Random<T>(this T[] array)
@@ -43,7 +44,9 @@ public static class ArrayExtension
         return array;
     }
 }
+#endregion
 
+#region ArrayList
 public static class ListExtension
 {
     public static T Random<T>(this List<T> list)
@@ -53,3 +56,4 @@ public static class ListExtension
         return list[UnityEngine.Random.Range(0, list.Count)];
     }
 }
+#endregion

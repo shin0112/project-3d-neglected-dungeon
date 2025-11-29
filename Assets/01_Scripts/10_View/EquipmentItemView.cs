@@ -2,6 +2,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 장비 아이템 정보 표시, 강화
+/// </summary>
 public class EquipmentItemView : UIView, IEquipmentItemView
 {
     EquipmentItemPresenter _presenter;

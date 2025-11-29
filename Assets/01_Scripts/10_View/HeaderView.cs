@@ -2,6 +2,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 상단 재화 / 자원 정보 표시 UI
+/// </summary>
 public class HeaderView : UIView, IHeaderView
 {
     private HeaderPresenter _presenter;

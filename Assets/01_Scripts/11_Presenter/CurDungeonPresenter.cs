@@ -1,3 +1,6 @@
+/// <summary>
+/// 현재 던전 정보(던전 기본 정보, 진행 상황 등)를 연결하는 Presenter
+/// </summary>
 public class CurDungeonPresenter
 {
     ICurDungeonView _view;

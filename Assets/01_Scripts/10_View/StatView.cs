@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 던전 진행 시 보이는 현재 스텟(스테미나, 체력 등) 정보 View
+/// todo: 현재 체력 정보 추가
+/// </summary>
 public class StatView : UIView, IStatView
 {
     [Header("스테미나")]

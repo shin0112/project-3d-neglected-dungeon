@@ -1,3 +1,6 @@
+/// <summary>
+/// 공통 View 인터페이스 컨테이너
+/// </summary>
 public interface IStatView
 {
     public void UpdateStaminaProgress(float stamina);

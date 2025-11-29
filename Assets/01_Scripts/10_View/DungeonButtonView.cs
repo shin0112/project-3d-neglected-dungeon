@@ -2,6 +2,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 던전 선택 버튼
+/// todo: 컨테이너 하나로 관리해서 던전 버튼 리스트로 관리하게 리팩토링
+/// </summary>
 public class DungeonButtonView : UIView
 {
     [Header("던전 정보")]

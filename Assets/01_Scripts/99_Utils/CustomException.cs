@@ -1,5 +1,9 @@
 using System;
 
+/// <summary>
+/// 커스텀 에러 모음
+/// </summary>
+
 #region 스텟
 /// <summary>
 /// 스탯 관련 기본 예외

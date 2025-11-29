@@ -2,12 +2,18 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 장비 장착을 관리하는 슬롯 컨테이너
+/// </summary>
 public class EquipmentController : MonoBehaviour
 {
+    // 장비 슬롯
     private readonly Dictionary<EquipmentType, EquipmentSlot> _equipmentSlots = new();
+    public EquipmentSlot this[EquipmentType type] => _equipmentSlots[type];
+
+    // 총 장비로 얻은 스텟 값
     private readonly Dictionary<StatType, float> _equipmentValues = new();
 
-    public EquipmentSlot this[EquipmentType type] => _equipmentSlots[type];
     public float this[StatType type] => _equipmentValues[type];
 
     // 이벤트

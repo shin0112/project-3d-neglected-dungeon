@@ -1,3 +1,6 @@
+/// <summary>
+/// 장비 슬롯에 대한 정보 연결하는 Presenter
+/// </summary>
 public class EquipmentItemPresenter
 {
     IEquipmentItemView _view;

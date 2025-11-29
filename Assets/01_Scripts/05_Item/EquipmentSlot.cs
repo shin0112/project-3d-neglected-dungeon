@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// 장비 타입 별 슬롯
+/// </summary>
 public class EquipmentSlot : ItemSlot
 {
     [field: SerializeField] public EquipmentType Type { get; private set; }
