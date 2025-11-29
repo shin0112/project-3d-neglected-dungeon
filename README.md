@@ -488,14 +488,6 @@ Assets/
     </tr>
     <tr>
       <td style="border: 1px solid #ccc; padding: 6px;">
-        <a href="./Assets/01_Scripts/04_Dungeon/Dungeon.cs">Dungeon.cs</a>
-      </td>
-      <td style="border: 1px solid #ccc; padding: 6px;">
-        던전 엔티티 데이터/상태 관리
-      </td>
-    </tr>
-    <tr>
-      <td style="border: 1px solid #ccc; padding: 6px;">
         <a href="./Assets/01_Scripts/04_Dungeon/Room.cs">Room.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
@@ -566,11 +558,19 @@ Assets/
     </tr>
     <tr>
       <td style="border: 1px solid #ccc; padding: 6px;">
+        <a href="./Assets/01_Scripts/10_View/DungeonBottonView.cs">DungeonBottonView.cs</a>
+      </td>
+      <td style="border: 1px solid #ccc; padding: 6px;">
+        던전 하단 스킬 및 인벤토리 입장 버튼 관리
+      </td>
+      <tr>
+      <td style="border: 1px solid #ccc; padding: 6px;">
         <a href="./Assets/01_Scripts/10_View/DungeonButtonView.cs">DungeonButtonView.cs</a>
       </td>
       <td style="border: 1px solid #ccc; padding: 6px;">
         던전 선택 UI
       </td>
+    </tr>
     </tr>
     <tr>
       <td style="border: 1px solid #ccc; padding: 6px;">
