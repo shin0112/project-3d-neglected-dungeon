@@ -1,26 +1,40 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class DungeonButtonView : UIView
 {
-    [Header("스킬")]
-    [SerializeField] private Button[] _skillButtons = new Button[Define.MaxDisplaySkills];
+    [Header("던전 정보")]
+    [SerializeField] private DungeonData _data;
+    [SerializeField] private TextMeshProUGUI _dungeonName;
 
-    [Header("버튼")]
-    [SerializeField] private Button _inventoryButton;
+    [SerializeField] private Button _button;
 
     protected override void Reset()
     {
         base.Reset();
 
-        _skillButtons[0] = transform.FindChild<Button>("Button - SkillSlot_0");
-        _skillButtons[1] = transform.FindChild<Button>("Button - SkillSlot_1");
-        _skillButtons[2] = transform.FindChild<Button>("Button - SkillSlot_2");
-
-        _inventoryButton = transform.FindChild<Button>("Button - Inventory");
+        _dungeonName = transform.FindChild<TextMeshProUGUI>("Text (TMP) - Name");
+        _button = GetComponent<Button>();
     }
 
-    // todo: 버튼과 스킬 정보 연동
+    private void Awake()
+    {
+        _dungeonName.text = _data.dungeonName;
+    }
 
-    // todo: 인벤토리 화면으로 이동
+    private void OnEnable()
+    {
+        _button.onClick.AddListener(OnClickButton);
+    }
+
+    private void OnDisable()
+    {
+        _button.onClick.RemoveAllListeners();
+    }
+
+    private void OnClickButton()
+    {
+        Managers.Instance.Dungeon.StartDungeon(_data);
+    }
 }
