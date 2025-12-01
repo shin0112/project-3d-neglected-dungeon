@@ -12,6 +12,8 @@
 - **아키텍처**: MVP 패턴, 계층형 모듈 구조
 - **핵심 기능**: 절차적 던전 생성, 상태 머신 기반 AI, 오브젝트 풀링, NavMesh 기반 경로 탐색
 
+### 관련 링크
+- [FigJam](https://www.figma.com/board/mMHpk36DBPxUWpUFkxF8Wh/3D-%EB%B0%A9%EC%B9%98%ED%98%95-%EA%B2%8C%EC%9E%84?node-id=0-1&p=f&t=plrx7iRnUBtuXBlY-0)
 ---
 
 ## 목차
